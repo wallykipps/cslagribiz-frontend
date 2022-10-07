@@ -1,8 +1,8 @@
 // const TOKEN = "666affd707ee528ec7010f9e8de1f2a96482980f";
 export default class ENTERPRISES_API {
     static loginUser(body){
-        return fetch(`http://127.0.0.1:8000/login/`, {
-        //return fetch(`http://46.101.111.245/login/`, {
+        // return fetch(`http://127.0.0.1:8000/login/`, {
+        return fetch(`http://46.101.111.245/login/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -67,8 +67,8 @@ export default class ENTERPRISES_API {
 
     
     static getStaff(token){
-        return fetch("http://127.0.0.1:8000/enterprises/staff/", {
-        //return fetch("http://46.101.111.245/enterprises/staff/", {
+        // return fetch("http://127.0.0.1:8000/enterprises/staff/", {
+        return fetch("http://46.101.111.245/enterprises/staff/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
