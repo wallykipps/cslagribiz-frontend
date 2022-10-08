@@ -2,7 +2,7 @@
 export default class ENTERPRISES_API {
     static loginUser(body){
         // return fetch(`http://127.0.0.1:8000/login/`, {
-        return fetch(`http://46.101.111.245/login/`, {
+        return fetch(`https://backend.cslagri.biz/login/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -13,8 +13,8 @@ export default class ENTERPRISES_API {
     }
 
     static registerUsers(body){
-      return fetch(`http://127.0.0.1:8000/enterprises/users/`, {
-      //return fetch(`http://46.101.111.245/enterprises/users/`, {
+      //return fetch(`http://127.0.0.1:8000/enterprises/users/`, {
+      return fetch(`https://backend.cslagri.biz/enterprises/users/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -25,8 +25,8 @@ export default class ENTERPRISES_API {
   }
 
     static getCompanies(token){
-        return fetch("http://127.0.0.1:8000/enterprises/companies/", {
-        //return fetch("http://46.101.111.245/enterprises/companies/", {
+        //return fetch("http://127.0.0.1:8000/enterprises/companies/", {
+        return fetch("https://backend.cslagri.biz/enterprises/companies/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -38,8 +38,8 @@ export default class ENTERPRISES_API {
 
 
     static getBusinessUnits(token){
-        return fetch("http://127.0.0.1:8000/enterprises/businessunits/", {
-        //return fetch("http://46.101.111.245/enterprises/businessunits/", {
+        //return fetch("http://127.0.0.1:8000/enterprises/businessunits/", {
+        return fetch("https://backend.cslagri.biz/enterprises/businessunits/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -52,8 +52,8 @@ export default class ENTERPRISES_API {
 
 
     static getEnterpriseTypes(token){
-        return fetch("http://127.0.0.1:8000/enterprises/enterprisetypes/", {
-       //return fetch("http://46.101.111.245/enterprises/enterprisetypes/", {
+        //return fetch("http://127.0.0.1:8000/enterprises/enterprisetypes/", {
+        return fetch("https://backend.cslagri.biz/enterprises/enterprisetypes/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export default class ENTERPRISES_API {
     
     static getStaff(token){
         // return fetch("http://127.0.0.1:8000/enterprises/staff/", {
-        return fetch("http://46.101.111.245/enterprises/staff/", {
+        return fetch("https://backend.cslagri.biz/enterprises/staff/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -80,8 +80,8 @@ export default class ENTERPRISES_API {
     }
 
     static createStaff(body, token){
-      return fetch(`http://127.0.0.1:8000/enterprises/staff/`, {
-      //return fetch(`http://46.101.111.245/enterprises/staff/`, {
+      //return fetch(`http://127.0.0.1:8000/enterprises/staff/`, {
+      return fetch(`https://backend.cslagri.biz/enterprises/staff/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,8 +94,8 @@ export default class ENTERPRISES_API {
 
 
     static updateStaff(staff_id, body, token){
-        return fetch(`http://127.0.0.1:8000/enterprises/staff/${staff_id}/`, {
-        //return fetch(`http://46.101.111.245/enterprises/staff/${staff_id}/`, {
+        //return fetch(`http://127.0.0.1:8000/enterprises/staff/${staff_id}/`, {
+        return fetch(`https://backend.cslagri.biz/enterprises/staff/${staff_id}/`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -107,8 +107,8 @@ export default class ENTERPRISES_API {
     }
 
     static removeStaff(staff_id, token){
-      return fetch(`http://127.0.0.1:8000/enterprises/staff/${staff_id}/`, {
-      //return fetch(`http://146.101.111.245/enterprises/staff/${staff_id}/`, {
+      //return fetch(`http://127.0.0.1:8000/enterprises/staff/${staff_id}/`, {
+      return fetch(`https://backend.cslagri.biz/enterprises/staff/${staff_id}/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -120,8 +120,8 @@ export default class ENTERPRISES_API {
 
 
   static getPaymentModes(token){
-    return fetch("http://127.0.0.1:8000/enterprises/payment_modes/", {
-    //return fetch("http://46.101.111.245/enterprises/payment_modes/", {
+    //return fetch("http://127.0.0.1:8000/enterprises/payment_modes/", {
+    return fetch("https://backend.cslagri.biz/enterprises/payment_modes/", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -133,8 +133,8 @@ export default class ENTERPRISES_API {
 }
 
 static getBanking(token){
-  return fetch("http://127.0.0.1:8000/enterprises/banking/", {
-  //return fetch("http://46.101.111.245/enterprises/banking/", {
+  //return fetch("http://127.0.0.1:8000/enterprises/banking/", {
+  return fetch("https://backend.cslagri.biz/enterprises/banking/", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
