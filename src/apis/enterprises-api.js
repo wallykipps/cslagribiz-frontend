@@ -15,6 +15,7 @@ export default class ENTERPRISES_API {
 
     static registerUsers(body){
       //return fetch(`http://127.0.0.1:8000/enterprises/users/`, {
+      //return fetch(`http://46.101.111.245/enterprises/users/`, {
       return fetch(`https://backend.cslagri.biz/enterprises/users/`, {
           method: 'POST',
           headers: {
