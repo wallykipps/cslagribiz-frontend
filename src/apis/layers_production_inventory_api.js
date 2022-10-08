@@ -1,6 +1,8 @@
+//http://127.0.0.1:8000
+//https://backend.cslagri.biz
 export default class LAYERS_PRODUCTION_API {
     static getBatches(token){
-        return fetch("http://127.0.0.1:8000/layers/batches/", {
+        return fetch("https://backend.cslagri.biz/layers/batches/", {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -10,7 +12,7 @@ export default class LAYERS_PRODUCTION_API {
     }
 
     static updateBatches(batch_id, body, token){
-      return fetch(`http://127.0.0.1:8000/layers/batches/${batch_id}/`, {
+      return fetch(`https://backend.cslagri.biz/layers/batches/${batch_id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -22,7 +24,7 @@ export default class LAYERS_PRODUCTION_API {
   }
 
   static addBatch( body, token ){
-    return fetch(`http://127.0.0.1:8000/layers/batches/`, {
+    return fetch(`https://backend.cslagri.biz/layers/batches/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ export default class LAYERS_PRODUCTION_API {
   }
 
   static removeBatch(batch_id, token){
-    return fetch(`http://127.0.0.1:8000/layers/batches/${batch_id}/`, {
+    return fetch(`https://backend.cslagri.biz/layers/batches/${batch_id}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +48,7 @@ export default class LAYERS_PRODUCTION_API {
 }
 
 static getStockMovement( token ){
-  return fetch(`http://127.0.0.1:8000/layers/stockmovement/`, {
+  return fetch(`https://backend.cslagri.biz/layers/stockmovement/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +61,7 @@ static getStockMovement( token ){
 
 
 static getBirdStock( token ){
-  return fetch(`http://127.0.0.1:8000/layers/birdsstock/`, {
+  return fetch(`https://backend.cslagri.biz/layers/birdsstock/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +73,7 @@ static getBirdStock( token ){
 }
 
 static addBirdsStock( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/birdsstock/`, {
+  return fetch(`https://backend.cslagri.biz/layers/birdsstock/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ static addBirdsStock( body, token ){
 }
 
 static updateBirdsStock(bird_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/birdsstock/${bird_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/birdsstock/${bird_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ static updateBirdsStock(bird_id, body, token){
 
 
 static removeBirdsStock(bird_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/birdsstock/${bird_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/birdsstock/${bird_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +111,7 @@ static removeBirdsStock(bird_id, token){
 
 
 static getEggProduction( token ){
-  return fetch(`http://127.0.0.1:8000/layers/production/`, {
+  return fetch(`https://backend.cslagri.biz/layers/production/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +123,7 @@ static getEggProduction( token ){
 }
 
 static addEggsProduction( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/production/`, {
+  return fetch(`https://backend.cslagri.biz/layers/production/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -135,7 +137,7 @@ static addEggsProduction( body, token ){
 
 
 static updateEggsProduction(eggs_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/production/${eggs_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/production/${eggs_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -147,7 +149,7 @@ static updateEggsProduction(eggs_id, body, token){
 }
 
 static removeEggsProduction(eggs_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/production/${eggs_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/production/${eggs_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +160,7 @@ static removeEggsProduction(eggs_id, token){
 }
 
 static getEggsInventory( token ){
-  return fetch(`http://127.0.0.1:8000/layers/eggsinventory/`, {
+  return fetch(`https://backend.cslagri.biz/layers/eggsinventory/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -170,7 +172,7 @@ static getEggsInventory( token ){
 }
 
 static addEggsInventory( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/eggsinventory/`, {
+  return fetch(`https://backend.cslagri.biz/layers/eggsinventory/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -184,7 +186,7 @@ static addEggsInventory( body, token ){
 
 
 static updateEggsInventory(eggs_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/eggsinventory/${eggs_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/eggsinventory/${eggs_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -196,7 +198,7 @@ static updateEggsInventory(eggs_id, body, token){
 }
 
 static removeEggsInventory(eggs_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/eggsinventory/${eggs_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/eggsinventory/${eggs_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -207,7 +209,7 @@ static removeEggsInventory(eggs_id, token){
 }
 
 static getFeedTypes( token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedtypes/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtypes/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -219,7 +221,7 @@ static getFeedTypes( token ){
 }
 
 static addFeedTypes( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedtypes/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtypes/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -233,7 +235,7 @@ static addFeedTypes( body, token ){
 
 
 static updateFeedTypes(feed_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedtypes/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtypes/${feed_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -245,7 +247,7 @@ static updateFeedTypes(feed_id, body, token){
 }
 
 static removeFeedTypes(feed_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedtypes/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtypes/${feed_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -256,7 +258,7 @@ static removeFeedTypes(feed_id, token){
 }
 
 static getFeedInventory( token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedinventory/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedinventory/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -268,7 +270,7 @@ static getFeedInventory( token ){
 }
 
 static addFeedInventory( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedinventory/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedinventory/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -282,7 +284,7 @@ static addFeedInventory( body, token ){
 
 
 static updateFeedInventory(feed_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedinventory/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedinventory/${feed_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -294,7 +296,7 @@ static updateFeedInventory(feed_id, body, token){
 }
 
 static removeFeedInventory(feed_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedinventory/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedinventory/${feed_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -306,7 +308,7 @@ static removeFeedInventory(feed_id, token){
 
 
 static getVaccinationProgram( token ){
-  return fetch(`http://127.0.0.1:8000/layers/vaccinationprogram/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccinationprogram/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -318,7 +320,7 @@ static getVaccinationProgram( token ){
 }
 
 static addVaccinationProgram( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/vaccinationprogram/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccinationprogram/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -332,7 +334,7 @@ static addVaccinationProgram( body, token ){
 
 
 static updateVaccinationProgram(vaccine_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/vaccinationprogram/${vaccine_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccinationprogram/${vaccine_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -344,7 +346,7 @@ static updateVaccinationProgram(vaccine_id, body, token){
 }
 
 static removeVaccinationProgram(vaccine_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/vaccinationprogram/${vaccine_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccinationprogram/${vaccine_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -356,7 +358,7 @@ static removeVaccinationProgram(vaccine_id, token){
 
 
 static getVaccination( token ){
-  return fetch(`http://127.0.0.1:8000/layers/vaccination/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccination/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -368,7 +370,7 @@ static getVaccination( token ){
 }
 
 static addVaccination( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/vaccination/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccination/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -382,7 +384,7 @@ static addVaccination( body, token ){
 
 
 static updateVaccination(vaccine_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/vaccination/${vaccine_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccination/${vaccine_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -394,7 +396,7 @@ static updateVaccination(vaccine_id, body, token){
 }
 
 static removeVaccination(vaccine_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/vaccination/${vaccine_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/vaccination/${vaccine_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -405,7 +407,7 @@ static removeVaccination(vaccine_id, token){
 }
 
 static getWeightTargets( token ){
-  return fetch(`http://127.0.0.1:8000/layers/weighttargets/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weighttargets/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -417,7 +419,7 @@ static getWeightTargets( token ){
 }
 
 static addWeightTargets( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/weighttargets/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weighttargets/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -431,7 +433,7 @@ static addWeightTargets( body, token ){
 
 
 static updateWeightTargets(weight_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/weighttargets/${weight_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weighttargets/${weight_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -443,7 +445,7 @@ static updateWeightTargets(weight_id, body, token){
 }
 
 static removeWeightTargets(weight_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/weighttargets/${weight_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weighttargets/${weight_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -455,7 +457,7 @@ static removeWeightTargets(weight_id, token){
 
 
 static getWeightMonitoring( token ){
-  return fetch(`http://127.0.0.1:8000/layers/weightmonitoring/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weightmonitoring/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -467,7 +469,7 @@ static getWeightMonitoring( token ){
 }
 
 static addWeightMonitoring( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/weightmonitoring/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weightmonitoring/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -481,7 +483,7 @@ static addWeightMonitoring( body, token ){
 
 
 static updateWeightMonitoring(weight_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/weightmonitoring/${weight_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weightmonitoring/${weight_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -493,7 +495,7 @@ static updateWeightMonitoring(weight_id, body, token){
 }
 
 static removeWeightMonitoring(weight_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/weightmonitoring/${weight_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/weightmonitoring/${weight_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -505,7 +507,7 @@ static removeWeightMonitoring(weight_id, token){
 
 
 static getFeedTargets( token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedtargets/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtargets/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -517,7 +519,7 @@ static getFeedTargets( token ){
 }
 
 static addFeedTargets( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/feedtargets/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtargets/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -531,7 +533,7 @@ static addFeedTargets( body, token ){
 
 
 static updateFeedTargets(feed_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedtargets/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtargets/${feed_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -543,7 +545,7 @@ static updateFeedTargets(feed_id, body, token){
 }
 
 static removeFeedTargets(feed_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/feedtargets/${feed_id}/`, {
+  return fetch(`https://backend.cslagri.biz/layers/feedtargets/${feed_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
