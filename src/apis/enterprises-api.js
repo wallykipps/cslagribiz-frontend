@@ -2,6 +2,7 @@
 export default class ENTERPRISES_API {
     static loginUser(body){
         // return fetch(`http://127.0.0.1:8000/login/`, {
+        //return fetch(`http://46.101.111.245/login/`, {
         return fetch(`https://backend.cslagri.biz/login/`, {
             method: 'POST',
             headers: {
