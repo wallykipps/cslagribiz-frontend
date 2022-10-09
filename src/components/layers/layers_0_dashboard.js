@@ -51,8 +51,9 @@ import CashflowCharts from './layers_24_cashflowchart'
     
     //birds
     const birds_ = props.birds && props.birds
-    let delivered_birds =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
-    // console.log(delivered_birds)
+    let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+    let delivered_birds = parseInt(delivered_birds_)
+    / console.log(delivered_birds)
 
     let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let birds_delivered_net = birds.reduce(add_birds_net, 0); // with initial value to avoid when the array is empty
@@ -105,7 +106,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     let sales_xlayers =  sales.filter(b => (b.product===3) ).map( x => ({...x}))
     let xlayers_birds= sales_xlayers.reduce(add_sales_xlayers, 0); // with initial value to avoid when the array is empty
     function add_sales_xlayers(accumulator, a) {
-        return accumulator + parseFloat(a.quantity);
+        return accumulator + parseInt(a.quantity);
     }
 
 
