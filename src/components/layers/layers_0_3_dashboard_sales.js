@@ -16,9 +16,9 @@ import { Tabs, Tab, Row, Col, Nav, Container } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import {
   useFetchBatches,
-  useFetchBirdStock,
-  useFetchStockMovement,
-  useFetchEggProduction,
+  // useFetchBirdStock,
+  // useFetchStockMovement,
+  // useFetchEggProduction,
   useFetchLayersProducts,
   useFetchLayersCustomers,
   useFetchLayersSales,
@@ -52,9 +52,9 @@ function LayersSalesDashboard(props) {
   const [banking, setBanking] = useState([]);
 
   const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
-  const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
-  const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
-  const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
+  // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
+  // const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
+  // const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
 
 
   const [dataLayersProducts, loadingLayersProducts, errorLayersProducts] = useFetchLayersProducts();
@@ -67,14 +67,14 @@ function LayersSalesDashboard(props) {
 
 
   const [batches, setBatches] = useState([]);
-  const [selectedBatch, setSelectedBatch] = useState([]);
+  // const [selectedBatch, setSelectedBatch] = useState([]);
 
-  const [stocktypes, setStockTypes] = useState([]);
-  const [birds, setBirds] = useState([]);
-  const [selectedStock, setSelectedStock] = useState([]);
+  // const [stocktypes, setStockTypes] = useState([]);
+  // const [birds, setBirds] = useState([]);
+  // const [selectedStock, setSelectedStock] = useState([]);
 
-  const [eggsproduction, setEggsProduction] = useState([]);
-  const [selectedEggsProduction, setSelectedEggsProduction] = useState([]);
+  // const [eggsproduction, setEggsProduction] = useState([]);
+  // const [selectedEggsProduction, setSelectedEggsProduction] = useState([]);
 
   const [expenses, setExpenses] = useState([]);
   const [creditexpenses, setCreditExpenses] = useState([]);
@@ -96,7 +96,7 @@ function LayersSalesDashboard(props) {
 
   //Authentication 
   useEffect(() => {
-    console.log(token);
+    // console.log(token);
     if (!token["mr-token"]) window.location.href = "/login";
   }, [token]);
 
@@ -130,17 +130,17 @@ function LayersSalesDashboard(props) {
     setBatches(dataBatches);
   }, [dataBatches]);
 
-  useEffect(() => {
-    setStockTypes(dataStockMovement);
-  }, [dataStockMovement]);
+  // useEffect(() => {
+  //   setStockTypes(dataStockMovement);
+  // }, [dataStockMovement]);
 
-  useEffect(() => {
-    setBirds(dataBirdStock);
-  }, [dataBirdStock]);
+  // useEffect(() => {
+  //   setBirds(dataBirdStock);
+  // }, [dataBirdStock]);
 
-  useEffect(() => {
-    setEggsProduction(dataEggProduction);
-  }, [dataEggProduction]);
+  // useEffect(() => {
+  //   setEggsProduction(dataEggProduction);
+  // }, [dataEggProduction]);
 
   useEffect(() => {
     setProducts(dataLayersProducts);
@@ -320,14 +320,12 @@ function LayersSalesDashboard(props) {
 
   const newCreditSale = (creditsale) => {
     const addedCreditSale = [...creditsales, creditsale];
-    console.log(creditsale)
     setCreditSales(addedCreditSale);
     createdCreditSale();
   };
 
 
   const selectCreditSale = (creditsale) => {
-    console.log(creditsale)
     setSelectedCreditSale(creditsale);
   };
 
@@ -367,13 +365,11 @@ function LayersSalesDashboard(props) {
 
   const newDeposit = (deposit) => {
     const addedDeposit = [...deposits, deposit];
-    console.log(deposit)
     setDeposits(addedDeposit);
     createdDeposit();
   };
 
   const selectDeposit = (deposit) => {
-    console.log(deposit)
     setSelectedDeposit(deposit);
   };
 
@@ -424,16 +420,13 @@ function LayersSalesDashboard(props) {
         <Container fluid>
           <div className="tabContainer">
             <Tabs
-              defaultActiveKey="sales-expenses-dashboard"
+              defaultActiveKey="layers-sales"
               id="sales-expenses-dashboard"
               className="mb-3"
             >
-              <Tab eventKey="sales-expenses-dashboard" title="Dashboard">
-                Sales Dashboard
-              </Tab>
 
               <Tab eventKey="layers-products" title="Products">
-                Products
+                {/* Products */}
                 <Products
                  products={products}
                  selectProduct={selectProduct}
@@ -449,7 +442,7 @@ function LayersSalesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-customers" title="Customers">
-                Customers
+                {/* Customers */}
                 <Customers
                   customers={customers}
                   selectCustomer={selectCustomer}
@@ -464,7 +457,7 @@ function LayersSalesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-sales" title="Sales">
-                Sales
+                {/* Sales */}
                 <Sales
                   staffTeam={staffTeam}
                   batches={batches}
@@ -485,7 +478,7 @@ function LayersSalesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-credit-sales" title="Credit Sales">
-                Credit Sales
+                {/* Credit Sales */}
                 <CreditSales
                   staffTeam={staffTeam}
                   batches={batches}
@@ -506,7 +499,7 @@ function LayersSalesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-bank-deposits" title="Deposits/Balances">
-                Deposits/Balances
+                {/* Deposits/Balances */}
                 <DepositsBalances
                   staffTeam={staffTeam}
                   batches={batches}

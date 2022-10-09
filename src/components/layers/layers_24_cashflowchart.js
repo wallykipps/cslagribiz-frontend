@@ -150,7 +150,6 @@ function CashflowCharts(props) {
   
   const grouped_mpesa_bank_deposits = grouped_mpesa_bank_deposits_.map(b=>({...b}));
 
-  console.log(grouped_mpesa_bank_deposits)
   
   
   //grouped sales & expenses - monthly
@@ -163,12 +162,8 @@ function CashflowCharts(props) {
   const grouped_sales_costs_0 = grouped_sales_costs_.map(b=>({...b, ...b.sales_check}))
   const grouped_sales_costs = grouped_sales_costs_0.map(b=>({...b, sales_total: b.sales_check===undefined?0:b.sales_total}))
 
-  // console.log(grouped_sales_costs)
-
-  //grouped sales, expenses & deposits
 
   const grouped_deposits_0 = grouped_deposits.concat(grouped_mpesa_bank_deposits)
-  console.log(grouped_deposits_0)
 
   const grouped_deposits_all_= [...grouped_deposits_0.reduce((r, o) => {
     const key = o.month;
@@ -184,7 +179,6 @@ function CashflowCharts(props) {
   
   const grouped_deposits_all = grouped_deposits_all_.map(b=>({...b}));
 
-  console.log(grouped_deposits_all)
 
    
   const grouped_cashflow_ = grouped_sales_costs.map(a => ({
@@ -260,18 +254,16 @@ function CashflowCharts(props) {
   let creditsales =  creditsales_ .filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
 
 
-  let credit_sales =  sales.filter(b => (b.paymentmode ==='Credit') ).map( x => ({...x}))
-  
+  let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
 
   let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
   function add_credit_sales_due(accumulator, a) {
-      return accumulator + a.total_sales;
+      return accumulator + parseFloat(a.total_sales);
   }
-
 
   let credit_sales_paid = creditsales.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
   function add_credit_sales(accumulator, a) {
-      return accumulator + parseInt(a.instalment_amount);
+      return accumulator + parseFloat(a.instalment_amount);
   }
 
   
@@ -282,7 +274,7 @@ function CashflowCharts(props) {
   // console.log(creditexpenses_)
   // console.log(creditexpenses)
 
-  let credit_expenses =  expenses.filter(b => (b.payment_mode ==='Credit') ).map( x => ({...x, total_cost: parseInt(x.quantity)*parseInt(x.unitprice)}))
+  let credit_expenses =  expenses.filter(b => (b.payment_mode ==='Credit') ).map( x => ({...x, total_cost: parseFloat(x.quantity)*parseFloat(x.unitprice)}))
 
   let credit_expenses_due = credit_expenses.reduce(add_credit_expenses_due, 0); // with initial value to avoid when the array is empty
   function add_credit_expenses_due(accumulator, a) {
@@ -311,7 +303,7 @@ function CashflowCharts(props) {
 
 
   const renderCustomizedLabel_Sales = ({ cx, cy, midAngle, innerRadius, outerRadius, sales_total, index }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+    const radius = innerRadius + (outerRadius - innerRadius) * -0.9;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
   
@@ -376,7 +368,7 @@ function CashflowCharts(props) {
       </Row>
 
       <Row>
-        <Col sm={12} md={12}  lg={4} className="justify-content-center text-center chartCol">
+        <Col sm={12} md={12}  lg={3} className="justify-content-center text-center chartCol">
           <p className="justify-content-center text-center mt-2">Sales per Type</p>
           <ResponsiveContainer width="100%" height={300} className="mb-2">
             <PieChart >
@@ -384,8 +376,8 @@ function CashflowCharts(props) {
                 data={grouped_sales_type}
                 cx="50%"
                 cy="50%"
-                innerRadius={60}
-                outerRadius={90}
+                innerRadius={70}
+                outerRadius={120}
                 paddingAngle={0}
                 dataKey="sales_total"
                 labelLine={false}
@@ -406,7 +398,7 @@ function CashflowCharts(props) {
           </ResponsiveContainer>
         </Col>
 
-        <Col sm={12} md={12}  lg={5} className="justify-content-center text-center chartCol">
+        <Col sm={12} md={12}  lg={6} className="justify-content-center text-center chartCol">
         <p className="justify-content-center text-center mt-2">Expenses per Type</p>
           <ResponsiveContainer width="100%" height={300} className="mb-2">
             <BarChart 

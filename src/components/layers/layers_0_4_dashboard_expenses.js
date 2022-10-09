@@ -63,7 +63,7 @@ function LayesExpensesDashboard(props) {
 
   //Authentication
   useEffect(() => {
-    console.log(token);
+    // console.log(token);
     if (!token["mr-token"]) window.location.href = "/login";
   }, [token]);
 
@@ -125,7 +125,6 @@ function LayesExpensesDashboard(props) {
 
   const newVendor = (vendor) => {
     const addedVendor = [...vendors, vendor];
-    console.log(addedVendor)
     setVendors(addedVendor);
     createdVendor();
   };
@@ -225,12 +224,10 @@ function LayesExpensesDashboard(props) {
 
 
   const selectExpense= (expense) => {
-    console.log(expense)
     setSelectedExpense(expense);
   };
 
   const updatedExpense = (expense) => {
-    console.log(expense)
     const revisedExpense= expenses.map((expense_) => {
       if (expense_.id === expense.id) {
         return expense;
@@ -270,7 +267,6 @@ function LayesExpensesDashboard(props) {
   };
 
   const selectCreditExpense= (creditexpense) => {
-    console.log(creditexpense)
     setSelectedCreditExpense(creditexpense);
   };
 
@@ -325,16 +321,13 @@ function LayesExpensesDashboard(props) {
         <Container fluid>
           <div className="tabContainer">
             <Tabs
-              defaultActiveKey="expenses-dashboard"
+              defaultActiveKey="layers-expenses"
               id="expenses-dashboard"
               className="mb-3"
             >
-              <Tab eventKey="expenses-dashboard" title="Dashboard">
-                Expenses Dashboard
-              </Tab>
 
               <Tab eventKey="layers-expenses-categories" title="Vendors">
-                Vendors
+                {/* Vendors */}
                 <Vendors
                   vendors = {vendors}
                   selectVendor={selectVendor}
@@ -348,7 +341,7 @@ function LayesExpensesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-vendors" title="Cost Categories">
-                Cost Categories
+                {/* Cost Categories */}
                 <CostCategories
                   costcategories={costcategories} 
                   selectCostCategory={selectCostCategory}
@@ -362,7 +355,7 @@ function LayesExpensesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-expenses" title="Expenses">
-                Expenses
+                {/* Expenses */}
                 <Expenses
                   staffTeam={staffTeam}
                   batches={batches}
@@ -384,7 +377,7 @@ function LayesExpensesDashboard(props) {
               </Tab>
 
               <Tab eventKey="layers-credit-expenses" title="Credit Expenses">
-                Credit Expenses
+                {/* Credit Expenses */}
                 <CreditExpenses
                   staffTeam={staffTeam}
                   batches={batches}

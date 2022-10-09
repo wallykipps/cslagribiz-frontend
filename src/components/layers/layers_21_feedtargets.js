@@ -62,8 +62,6 @@ function FeedTargets(props){
     const batch_default = batches_1[batches_0.length - 1]
 
     const birds_delivered=parseInt(batches.map(y=>y.delivered_birds))
-    console.log(batches)
-    console.log(birds_delivered)
 
 
 
@@ -73,7 +71,6 @@ function FeedTargets(props){
     const birds_stock_0 = props.birds && props.birds
     // let birds_stock_1= birds_stock_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let birds_stock_1=  birds_stock_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, 'birds_week': (Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week)===0? 1: Math.ceil((Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week))}))
-    console.log(birds_stock_0)
 
     const birds_stock = [...birds_stock_1.reduce((r, o) => {
         const key = o.birds_week;
@@ -87,13 +84,13 @@ function FeedTargets(props){
         return r.set(key, item);
       }, new Map).values()];
       
-      console.log(birds_stock);
+    //   console.log(birds_stock);
 
     
     const feedinventory_0 = props.feedinventory && props.feedinventory
     let feedinventory_1= feedinventory_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let feedinventory_2 = feedinventory_1.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y, "bags_delivered": parseInt(y.stock_in),'feeds_week': (Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week)===0?1: Math.ceil((Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week))}))
-    console.log(feedinventory_2)
+    // console.log(feedinventory_2)
 
     // let bags_delivered_acc = 0
     // let feedinventory_3 = feedinventory_2.map( x => ({...x,"total_bags_delivered": bags_delivered_acc +=parseInt(x.bags_delivered)}))
@@ -115,7 +112,6 @@ function FeedTargets(props){
         return r.set(key, item);
       }, new Map).values()];
       
-      console.log(feedinventory);
 
     
 
@@ -125,18 +121,18 @@ function FeedTargets(props){
 
     }));
 
-    console.log(feeds_consumption_0)
+    // console.log(feeds_consumption_0)
 
     const feeds_consumption_1 = feeds_consumption_0.map(a=>({...a, ...a.birds_check}))
     const feeds_consumption = feeds_consumption_1.map(a=>({...a, birds_actual: a.birds_check===undefined?birds_delivered:a.birds_actual}))
-    console.log(feeds_consumption_1)
-    console.log(feeds_consumption)
+    // console.log(feeds_consumption_1)
+    // console.log(feeds_consumption)
     
     
     
     const feedtargets_0 = props.feedtargets && props.feedtargets
     let feedtargets =  feedtargets_0.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y}))
-    console.log(feedtargets)
+    // console.log(feedtargets)
     
     let birds_stock_length = birds_stock.length
     let feedinventory_length = feedinventory.length
@@ -156,7 +152,6 @@ function FeedTargets(props){
         // last_weekly:feedtargets[feedtargets_length-1]
 
     }));
-    console.log(feeds_status_0)
 
 
     const feeds_status_1 = feeds_status_0.map(a=>({...a,
@@ -164,7 +159,7 @@ function FeedTargets(props){
         ...a.weekly_feed_targets,
         feed_targets_length_check:a.feeds_week<=[feedtargets_length]?true:false
     }))
-    console.log(feeds_status_1)
+    // console.log(feeds_status_1)
 
     const feeds_status = feeds_status_1.filter(a=>a.week_===true).map(b=>({
         ...b,
@@ -172,7 +167,6 @@ function FeedTargets(props){
     
     }))
 
-    // console.log(feeds_status)
 
 
 
@@ -191,10 +185,6 @@ function FeedTargets(props){
     const createFeedTarget= (e) =>{
         handleSubmit (e);
         if(feed_type !== undefined && week !== undefined &&  weeks !== undefined && weekly_feed_per_bird !== undefined){
-            console.log(feed_type)
-            console.log(week)
-            console.log(weeks)
-            console.log(weekly_feed_per_bird)
             if(feed_type !== '' && week !=='' && weeks !== '' && weekly_feed_per_bird !==''){
                 LAYERS_PRODUCTION_API.addFeedTargets({feed_type, week, weeks, weekly_feed_per_bird}, token['mr-token'])
                 // .then(resp => console.log(resp))

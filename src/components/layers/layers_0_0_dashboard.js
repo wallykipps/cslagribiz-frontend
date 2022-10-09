@@ -50,17 +50,17 @@ function LayersDashboard(props){
 
     const [token, setToken, deleteToken]= useCookies(['mr-token']);
 
-    const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
-    const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
-    const [dataStaff, loadingStaff, errorStaff] = useFetchStaff();
+    // const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
+    // const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
+    // const [dataStaff, loadingStaff, errorStaff] = useFetchStaff();
 
-    const [businessunits, setBusinessUnit] = useState([]);
-    const [enterprisetypes, setEnterpriseType] = useState([]);
-    const [staffTeam, setStaffTeam] = useState([]);
+    // const [businessunits, setBusinessUnit] = useState([]);
+    // const [enterprisetypes, setEnterpriseType] = useState([]);
+    // const [staffTeam, setStaffTeam] = useState([]);
 
     
     const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
-    const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
+    // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
     const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
     const [dataVaccinationProgram, loadingVaccinationProgram, errorVaccinationProgram] = useFetchVaccinationProgram();
     const [dataVaccination, loadingVaccination, errorVaccination] = useFetchVaccination();
@@ -83,11 +83,11 @@ function LayersDashboard(props){
 
     
     const [batches, setBatches] = useState([]);
-    const [selectedBatch, setSelectedBatch]=useState([]);
+    // const [selectedBatch, setSelectedBatch]=useState([]);
 
-    const [stocktypes, setStockTypes] = useState([]);
+    // const [stocktypes, setStockTypes] = useState([]);
     const [birds, setBirds] = useState([]);
-    const [selectedStock, setSelectedStock]=useState([]);
+    // const [selectedStock, setSelectedStock]=useState([]);
     
     const [vaccineprogram, setVaccineProgram] = useState([]);
     const [vaccines, setVaccines] = useState([]);
@@ -96,10 +96,10 @@ function LayersDashboard(props){
     const [weights, setWeights] = useState([]);
 
     const [eggsproduction, setEggsProduction]=useState([]);
-    const [selectedEggsProduction, setSelectedEggsProduction]=useState([]);
+    // const [selectedEggsProduction, setSelectedEggsProduction]=useState([]);
 
     const [eggsinventory, setEggsInventory]=useState([]);
-    const [selectedEggsRecord, setSelectedEggsRecord]=useState([]);
+    // const [selectedEggsRecord, setSelectedEggsRecord]=useState([]);
     const [sales, setSales] = useState([]);
     const [expenses, setExpenses] = useState([]);
     const [creditsales, setCreditSales] = useState([]);
@@ -111,42 +111,42 @@ function LayersDashboard(props){
 
     const [costcategories, setCostCategories] = useState([]);
     const [feedtypes, setFeedTypes]=useState([]);
-    const [selectedFeedType, setSelectedFeedType]=useState([]);
+    // const [selectedFeedType, setSelectedFeedType]=useState([]);
     const [feedinventory, setFeedInventory]=useState([]);
-    const [selectedFeedRecord, setSelectedFeedRecord]=useState([]);
+    // const [selectedFeedRecord, setSelectedFeedRecord]=useState([]);
     const [feedtargets, setFeedTargets]=useState([]);
-    const [selectedFeedTarget, setSelectedFeedTarget]=useState([]);
+    // const [selectedFeedTarget, setSelectedFeedTarget]=useState([]);
 
     
 
     //Authentication
     useEffect(()=>{
-        console.log(token);
+        // console.log(token);
         if(!token['mr-token']) window.location.href ='/login';
       },[token])
 
       //Enterprise App
 
-      useEffect(() => {
-        setBusinessUnit(dataBunits);
-      },[dataBunits])
+      // useEffect(() => {
+      //   setBusinessUnit(dataBunits);
+      // },[dataBunits])
     
-      useEffect(() => {
-        setEnterpriseType(dataEtypes);
-      },[dataEtypes])
+      // useEffect(() => {
+      //   setEnterpriseType(dataEtypes);
+      // },[dataEtypes])
     
-      useEffect(() => {
-        setStaffTeam(dataStaff);
-      },[dataStaff])
+      // useEffect(() => {
+      //   setStaffTeam(dataStaff);
+      // },[dataStaff])
 
     //Get data
     useEffect(() => {
         setBatches(dataBatches);
       },[dataBatches])
 
-    useEffect(() => {
-        setStockTypes(dataStockMovement);
-      },[dataStockMovement])
+    // useEffect(() => {
+    //     setStockTypes(dataStockMovement);
+    //   },[dataStockMovement])
 
     useEffect(() => {
         setBirds(dataBirdStock);

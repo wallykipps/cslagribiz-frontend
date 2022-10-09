@@ -53,7 +53,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     const birds_ = props.birds && props.birds
     let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
     let delivered_birds = parseInt(delivered_birds_)
-    console.log(delivered_birds)
+    // console.log(delivered_birds)
 
     let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let birds_delivered_net = birds.reduce(add_birds_net, 0); // with initial value to avoid when the array is empty
@@ -146,7 +146,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     //cash deposits
     const bankdeposits_ = props.deposits && props.deposits
     let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    console.log(bankdeposits_)
+    // console.log(bankdeposits_)
 
     let deposits_total= bankdeposits.reduce(add_deposits, 0); // with initial value to avoid when the array is empty
     function add_deposits(accumulator, a) {
@@ -311,7 +311,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                                     
                                     <Col xs={12} sm={12} md={6} lg={3}>
                                         <Card.Text>
-                                            Losses: {(delivered_birds+(birds_delivered_net)-xlayers_birds).toLocaleString()} Birds ({((delivered_birds+birds_delivered_net-xlayers_birds)/(delivered_birds)*100).toFixed(1) +"%"})
+                                            Losses: {(-birds_delivered_net).toLocaleString()} Birds ({((-birds_delivered_net)/(delivered_birds)*100).toFixed(1) +"%"})
                                         </Card.Text>
                                     </Col>
                                     </Row>

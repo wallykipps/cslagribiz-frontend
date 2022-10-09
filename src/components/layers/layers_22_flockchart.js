@@ -53,8 +53,8 @@ function FlockCharts(props) {
   
 
   const birds_pie_chart =[
-    {stock_type:'Stock', birds: parseInt(birds_actual)},
-    {stock_type:'Losses', birds: parseInt(birds_delivered)-birds_actual-xlayers_sales},
+    {stock_type:'Stock', birds: parseInt(birds_delivered)+birds_actual-xlayers_sales },
+    {stock_type:'Losses', birds: -parseInt(birds_actual) },
     {stock_type:'X-Layers', birds: xlayers_sales}
   
   ]
@@ -134,7 +134,7 @@ const COLORS = ['#a3cfbb', '#9ec5fe','#f1aeb5'];
 const RADIAN = Math.PI / 180;
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, birds, index }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -179,7 +179,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, bir
                 data={birds_pie_chart}
                 cx="50%"
                 cy="50%"
-                innerRadius={80}
+                innerRadius={70}
                 outerRadius={120}
                 paddingAngle={0}
                 dataKey="birds"

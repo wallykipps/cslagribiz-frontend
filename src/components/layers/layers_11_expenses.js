@@ -115,9 +115,7 @@ function Expenses(props){
         handleSubmit (e);
 
         if(purchase_date !== undefined && batch !== undefined && cost_category !== undefined && vendor !== undefined && expense_details !== undefined && quantity !== undefined && unitprice !== undefined && payment_type !== undefined && paymentsource !== undefined && staff !== undefined){
-            console.log(unit)
             if(purchase_date !=='' && batch !== '' && cost_category !== '' && vendor !== '' && expense_details !== ''  && quantity !== '' && unitprice !== '' && payment_type !== '' && paymentsource !== '' && staff !== ''){
-                console.log(unit)
                 LAYERS_SALES_EXPENSES_API.addLayersExpenses({purchase_date, batch,cost_category, vendor,expense_details ,unit, quantity, unitprice, payment_type, paymentsource, staff}, token['mr-token'])
                 // .then(resp => console.log(resp))
                 .then(resp => props.newExpense(resp))
@@ -130,9 +128,7 @@ function Expenses(props){
     const updateExpense = expense =>{
         handleSubmit (expense);
         if(purchase_date !== undefined && batch !== undefined && cost_category !== undefined && vendor !== undefined && expense_details !== undefined  && quantity !== undefined && unitprice !== undefined && payment_type !== undefined && paymentsource !== undefined && staff !== undefined){
-            console.log(unit)
             if(purchase_date !=='' && batch !== '' && cost_category !== '' && vendor !== '' && expense_details !== '' && quantity !== '' && unitprice !== '' && payment_type !== '' && paymentsource !== '' && staff !== ''){
-                console.log(unit)
                 LAYERS_SALES_EXPENSES_API.updateLayersExpenses(expense_.id,{purchase_date, batch,cost_category, vendor,expense_details ,unit, quantity, unitprice, payment_type, paymentsource, staff}, token['mr-token'])
                 // .then(resp => console.log(resp))
                 .then(resp => props.updatedExpense(resp))

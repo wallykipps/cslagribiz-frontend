@@ -155,8 +155,8 @@ function FeedInventory(props){
     let bags_consumed_acc = 0
     let feedinventory_5 = feedinventory_4.map( x => ({...x,"total_bags_delivered": bags_delivered_acc +=parseInt(x.bags_delivered),"total_bags_consumed": bags_consumed_acc +=parseInt(x.bags_consumed)}))
     let feedinventory = feedinventory_5.map( x => ({...x,"delivery_balance":bags_purchased_total-x.total_bags_delivered}))
-    console.log(feedinventory);
-    console.log(expenses_2)
+    // console.log(feedinventory);
+    // console.log(expenses_2)
 
 
     const bags_delivered_total = feedinventory.reduce(add_bags_delivered, 0); // with initial value to avoid when the array is empty
@@ -177,10 +177,10 @@ function FeedInventory(props){
         return r.set(key, item);
       }, new Map).values()];
       
-      console.log(feedinventory_grouped_);
+    //   console.log(feedinventory_grouped_);
 
     const feedinventory_grouped = feedinventory_grouped_.map(b=>({feed_type: b.feed_type, total_bags_consumed:b.total_bags_consumed}))
-    console.log(feedinventory_grouped);
+    // console.log(feedinventory_grouped);
 
 
     const expenses_4= expenses_2.map(a=>({
@@ -190,7 +190,7 @@ function FeedInventory(props){
 
     const expenses_5 = expenses_4.map(b=>({...b, ...b.feedinventory_check}))
     const expenses_6 = expenses_5.filter(a=>a.bags_purchased-a.total_bags_consumed!=0).map(b=>({...b, feed_batch_balance:b.feedinventory_check===undefined?b.bags_purchased:b.bags_purchased-b.total_bags_consumed}))
-    console.log(expenses_6)
+    // console.log(expenses_6)
 
     //handle submit
     const [validated, setValidated] = useState(false);

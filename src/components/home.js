@@ -66,10 +66,6 @@ import Chart from './chart'
             </Col>
 
         </Row>
-        <Row>
-            <h3>Chart</h3>
-            <Chart/>
-        </Row>
 
      
   

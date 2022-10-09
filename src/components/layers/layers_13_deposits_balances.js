@@ -25,7 +25,6 @@ function DepositsBalances(props){
     }
 
     const deposit_ = props.deposit;
-    console.log(deposit_)
 
     const [deposit_date, setDepositDate]=useState();
     const [batch, setBatch]=useState();
@@ -49,10 +48,8 @@ function DepositsBalances(props){
 
     const [batch_, setBatch_]=useState('');
     const [bank_type, setBankType]=useState();
-    console.log(bank_type)
     const banktype_ = (bank_type===undefined||bank_type==='')?'Cash':bank_type.split("-");
     let banktype = banktype_[0];
-    // console.log(banktype)
     
     const bank_type_default='Cash-Petty Cash-01'
 
@@ -84,7 +81,6 @@ function DepositsBalances(props){
     //Sum total of deposits
     let deposits_0 = deposits_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_))).map( f => ({...f, deposit_amount_chk:f.debit_ac_details===bank_type?true:false,deposit_amount:f.debit_ac_details===bank_type?f.deposit_amount:-f.deposit_amount,sales:0, costs:0,  debit_ac_:f.debit_ac_details,credit_ac_:f.credit_ac_details, id_:'cash_deposits'}))
     let deposits=deposits_0.filter(a => (bank_type===undefined||bank_type==='')? a.debit_ac===bank_type_default : a.debit_ac===parseInt(bank_type)).map( b => ({...b}))
-console.log(deposits_0)
   
     //Sales
     let sales_0= sales_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_)) ).map( f => ({...f}))
@@ -110,7 +106,7 @@ console.log(deposits_0)
         id_:'sales'
 
     }))
-    console.log(cash_sales_0)
+    // console.log(cash_sales_0)
 
 
     //Credit Sales
@@ -200,7 +196,7 @@ console.log(deposits_0)
     let deposits_cumsum_0 = deposits_net.map( y => ({...y,net_sales:net_sale_acc+=y.sales-y.costs,"deposits_total": deposits_acc+=parseFloat(y.deposit_amount) }))
     // let deposits_cumsum_1 = deposits_cumsum_0.map( y => ({...y, expected_balance: (y.net_sales-y.deposits_total)}))
     let deposits_cumsum = deposits_cumsum_0.map( (y,key) => ({...y, deposit_id:parseInt([key+1]), variance: (y.deposits_total-y.cash_balance)}))
-    console.log(deposits_cumsum)
+    // console.log(deposits_cumsum)
 
     //Sum total of cash and mpesa sales
     const deposit_total = deposits_cumsum.reduce(add_deposit, 0); // with initial value to avoid when the array is empty

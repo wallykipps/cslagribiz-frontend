@@ -52,7 +52,7 @@ function Sales(props){
     const [customer_, setCustomer_] = useState()
     const [paymentstatus, setPaymentStatus] = useState()
 
-    console.log(parseInt(paymentstatus))
+    // console.log(parseInt(paymentstatus))
 
 
 
@@ -85,7 +85,7 @@ function Sales(props){
     let sales_filtered_3 = sales_filtered_2.filter(c => (customer_===undefined||customer_==='')? c : c.customer_name === customer_).map( w => ({...w}))
     let sales = sales_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === parseInt(paymentstatus)).map( z => ({...z}))
     let cash_sales = sales.filter(d => d.payment_mode !=2).map( z => ({...z}))
-    console.log(sales)
+    // console.log(sales)
 
 
     const sales_total = sales.reduce(add_sales, 0); // with initial value to avoid when the array is empty

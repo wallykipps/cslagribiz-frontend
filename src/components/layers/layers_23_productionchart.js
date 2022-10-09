@@ -441,8 +441,8 @@ function ProductionCharts(props) {
                 data={egg_losses_pie_chart}
                 cx="50%"
                 cy="50%"
-                innerRadius={80}
-                outerRadius={130}
+                innerRadius={70}
+                outerRadius={120}
                 paddingAngle={0}
                 dataKey="eggs_lost"
                 labelLine={false}

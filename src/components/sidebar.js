@@ -15,7 +15,7 @@ function SideBar({sidebar}){
         <div className={sidebar?'side-bar toggle':'side-bar'}>
             {/* <Navbar collapseOnSelect expand="lg"  variant="dark" fixed="top"> */}
             <div className={sidebar?'sidebar-wrapper toggle':'sidebar-wrapper'}>
-                <Accordion defaultActiveKey="0">
+                <Accordion defaultActiveKey="1">
                     <Accordion.Item eventKey="0">
                         <Accordion.Header className='sidebar-accordion'>
                             <MUIcons.Home className='sidebar-accordion-icon'/>
@@ -31,13 +31,6 @@ function SideBar({sidebar}){
                                     </Nav.Link>
                                 </LinkContainer>
 
-                                <LinkContainer to="/">
-                                    <Nav.Link className='sidebar-item'>
-                                        {/* <Dashboard className='sidebar-icon'/> */}
-                                        <MUIcons.Dashboard className='sidebar-icon'/>
-                                        <span className={sidebar?'sidebar-text toggle':'sidebar-text'}>Dashboard</span>
-                                    </Nav.Link>
-                                </LinkContainer >
                             </Nav>
                         </Accordion.Body>
                     </Accordion.Item>
@@ -87,7 +80,7 @@ function SideBar({sidebar}){
                         </Nav>
                         </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="2">
+                    {/* <Accordion.Item eventKey="2">
                         <Accordion.Header>
                             <MUIcons.Storefront className='sidebar-accordion-icon'/>
                             <span className={sidebar?'sidebar-accordion-text toggle':'sidebar-accordion-text'}>Broilers</span>
@@ -123,8 +116,8 @@ function SideBar({sidebar}){
                                 </LinkContainer>
                             </Nav>
                         </Accordion.Body>
-                    </Accordion.Item>
-                    <Accordion.Item eventKey="3">
+                    </Accordion.Item> */}
+                    <Accordion.Item eventKey="2">
                         <Accordion.Header className='sidebar-accordion'>
                             <MUIcons.Business className='sidebar-accordion-icon'/>
                             <span className={sidebar?'sidebar-accordion-text toggle':'sidebar-accordion-text'}>Enterprise</span>

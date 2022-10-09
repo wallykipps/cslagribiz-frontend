@@ -197,7 +197,7 @@ function EggsInventory(props){
     // console.log(eggsinventory_3);
     let eggbalance_acc =0
     let eggsinventory_5 = eggsinventory_4.map(x=>({...x, "egg_balance":eggbalance_acc+=(x.net_production - x.total_quantity_sold- x.total_losses_crates)}))
-    let eggsinventory = eggsinventory_5.map(x=>({...x, "variance": (x.egg_balance- x.total_stock)}))
+    let eggsinventory = eggsinventory_5.map((x,key)=>({...x, id_:key+1, "variance": (x.egg_balance- x.total_stock)}))
     // console.log(eggsinventory);
 
     const resetTable = () => {
@@ -378,7 +378,7 @@ function EggsInventory(props){
                     <tbody>
                     {eggsinventory_paginated.map(record =>{
                         return (
-                            <tr key={record.id}>
+                            <tr key={record.id_}>
                                 <td>{record.inventory_date_1}</td>
                                 <td>{record.batch_number}</td>
                                 <td>{record.total_losses}</td>

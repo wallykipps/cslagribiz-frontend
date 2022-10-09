@@ -67,13 +67,11 @@ function Vendors(props){
 
 
     const createVendor = (e) =>{
-        console.log("Success")
-        
+      
         
         handleSubmit (e);
         if(vendor_date !== undefined && vendor !== undefined && phonenumber !== undefined && email!== undefined && location !== undefined){
             if(vendor !=='' && vendor !== '' && phonenumber !== ''){
-                console.log("Success 2")
                 LAYERS_SALES_EXPENSES_API.addLayersVendors({vendor_date, vendor, phonenumber, email, location}, token['mr-token'])
                 // .then(resp => console.log(resp))
                 .then(resp => props.newVendor(resp))

@@ -48,7 +48,7 @@ function EggProductionDashboard(props){
 
     
     const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
-    const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
+    // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
     const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
     const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
     const [dataEggsInventory, loadingEggsInventory, errorEggsInventory] = useFetchEggsInventory();
@@ -63,11 +63,11 @@ function EggProductionDashboard(props){
 
     
     const [batches, setBatches] = useState([]);
-    const [selectedBatch, setSelectedBatch]=useState([]);
+    // const [selectedBatch, setSelectedBatch]=useState([]);
 
-    const [stocktypes, setStockTypes] = useState([]);
+    // const [stocktypes, setStockTypes] = useState([]);
     const [birds, setBirds] = useState([]);
-    const [selectedStock, setSelectedStock]=useState([]);
+    // const [selectedStock, setSelectedStock]=useState([]);
 
     const [eggsproduction, setEggsProduction]=useState([]);
     const [selectedEggsProduction, setSelectedEggsProduction]=useState([]);
@@ -90,7 +90,7 @@ function EggProductionDashboard(props){
 
     //Authentication
     useEffect(()=>{
-        console.log(token);
+        // console.log(token);
         if(!token['mr-token']) window.location.href ='/login';
       },[token])
 
@@ -113,13 +113,13 @@ function EggProductionDashboard(props){
         setBatches(dataBatches);
       },[dataBatches])
 
-    useEffect(() => {
-        setStockTypes(dataStockMovement);
-      },[dataStockMovement])
+    // useEffect(() => {
+    //     setStockTypes(dataStockMovement);
+    //   },[dataStockMovement])
 
-    useEffect(() => {
-        setBirds(dataBirdStock);
-      },[dataBirdStock])
+    // useEffect(() => {
+    //     setBirds(dataBirdStock);
+    //   },[dataBirdStock])
 
     useEffect(() => {
         setEggsProduction(dataEggProduction);
@@ -255,7 +255,6 @@ function EggProductionDashboard(props){
     }
 
     const selectFeedType = feedtype=>{
-      console.log(feedtype)
       setSelectedFeedType(feedtype);
     }
 
@@ -299,7 +298,6 @@ function EggProductionDashboard(props){
   }
 
   const selectFeedInventory = record=>{
-    console.log(record)
     setSelectedFeedRecord(record);
   }
 
@@ -386,12 +384,8 @@ function EggProductionDashboard(props){
               <SideBar sidebar={sidebar} navbartoggler={navbartoggler}/>
               <Container fluid>
                 <div className="tabContainer"> 
-                <Tabs defaultActiveKey="production-dashboard" id="production-dashboard" className="mb-3">
-                  <Tab eventKey="production-dashboard" title="Dashboard">
-                  Production Dashboard
-                  </Tab>
+                <Tabs defaultActiveKey="eggs-production" id="production-dashboard" className="mb-3">
                   <Tab eventKey="eggs-production" title="Eggs Production">
-
                       <EggsProduction
                         staffTeam={staffTeam}
                         batches={batches}
@@ -410,7 +404,7 @@ function EggProductionDashboard(props){
                       
                   </Tab>
                   <Tab eventKey="eggs-inventory" title="Eggs Inventory">
-                    Eggs Inventory
+                    {/* Eggs Inventory */}
                       <EggsInventory
                         staffTeam={staffTeam}
                         batches={batches}

@@ -12,55 +12,51 @@ import Chart from './chart'
         </Row>
         <Row className='dashboardCard'>
         {/* <h3>Dashboard</h3> */}
-            <Col sm={12} md={6} lg={6} xl={3} className="cardCol">
+            <Col sm={12} md={6} lg={6} xl={6} className="cardCol">
             <Card border="primary" className='card'>
-                <Card.Header>Header</Card.Header>
+                <Card.Header></Card.Header>
                 <Card.Body>
-                <Card.Title>Primary Card Title</Card.Title>
+                <Card.Title>Our Products</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk
-                    of the card's content.
+                    Coming soon...
                 </Card.Text>
                 </Card.Body>
             </Card>
             </Col>
 
-            <Col sm={12} md={6} lg={6} xl={3} className="cardCol">
+            <Col sm={12} md={6} lg={6} xl={6} className="cardCol">
                 <Card border="secondary" className='card'>
-                    <Card.Header>Header</Card.Header>
+                    <Card.Header></Card.Header>
                     <Card.Body>
-                    <Card.Title>Secondary Card Title</Card.Title>
+                    <Card.Title>Agriprenuership 101</Card.Title>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
+                        Coming soon...
                     </Card.Text>
                     </Card.Body>
                 </Card>
                 
             </Col>
 
-            <Col sm={12} md={6} lg={6} xl={3} className="cardCol">
+            <Col sm={12} md={6} lg={6} xl={6} className="cardCol">
                 <Card border="success" className='card'>
-                    <Card.Header>Header</Card.Header>
+                    <Card.Header></Card.Header>
                     <Card.Body>
-                    <Card.Title>Success Card Title</Card.Title>
+                    <Card.Title>Layers Farming 101</Card.Title>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
+                        Coming soon
                     </Card.Text>
                     </Card.Body>
                 </Card>
                 
             </Col>
 
-            <Col sm={12} md={6} lg={6} xl={3} className="cardCol">
+            <Col sm={12} md={6} lg={6} xl={6} className="cardCol">
                 <Card border="danger" className='card'>
-                    <Card.Header>Header</Card.Header>
+                    <Card.Header></Card.Header>
                     <Card.Body>
-                    <Card.Title>Danger Card Title</Card.Title>
+                    <Card.Title>Broilers Farming 101</Card.Title>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk
-                        of the card's content.
+                        Coming soon...
                     </Card.Text>
                     </Card.Body>
                 </Card>
@@ -68,13 +64,13 @@ import Chart from './chart'
             </Col>
 
         </Row>
-        <Row className='dashboardTitle'>
+        {/* <Row className='dashboardTitle'>
         <h3 >Chart</h3>
 
-        </Row >
-        <Row className='dashboardCard'>
+        </Row > */}
+        {/* <Row className='dashboardCard'>
             <Chart/>
-        </Row>
+        </Row> */}
            
         </Container>
     </>

@@ -1,5 +1,6 @@
 //http://127.0.0.1:8000
 //https://backend.cslagri.biz
+
 export default class LAYERS_PRODUCTION_API {
     static getBatches(token){
         return fetch("https://backend.cslagri.biz/layers/batches/", {

@@ -85,7 +85,7 @@ function LayersFlockDashboard(props){
 
     //Authentication
     useEffect(()=>{
-        console.log(token);
+        // console.log(token);
         if(!token['mr-token']) window.location.href ='/login';
       },[token])
 
@@ -229,7 +229,7 @@ function LayersFlockDashboard(props){
 
 
       const selectWeightTarget = weighttarget =>{
-        console.log(weighttarget)
+        // console.log(weighttarget)
         setSelectedWeightTarget(weighttarget);
       }
 
@@ -268,14 +268,12 @@ function LayersFlockDashboard(props){
   
     const newWeight = weight => {
       const newWeight_ = [...weights, weight];
-      console.log(newWeight_)
       setWeights(newWeight_);
       createdWeight();
     }
 
 
     const selectWeight = weight =>{
-      console.log(weight)
       setSelectedWeight(weight);
     }
 
@@ -317,7 +315,6 @@ function LayersFlockDashboard(props){
 
 
     const selectVaccineProgram= program =>{
-      console.log(program)
       setSelectedVaccineProgram(program);
     }
 
@@ -358,7 +355,6 @@ function LayersFlockDashboard(props){
 
 
     const selectVaccine= vaccine =>{
-      console.log(vaccine)
       setSelectedVaccine(vaccine);
     }
 
@@ -405,10 +401,7 @@ function LayersFlockDashboard(props){
               <SideBar sidebar={sidebar} navbartoggler={navbartoggler}/>
               <Container fluid>
                 <div className="tabContainer"> 
-                <Tabs defaultActiveKey="dashboard" id="production" className="mb-3">
-                  <Tab eventKey="dashboard" title="Dashboard">
-                  Dashboard
-                  </Tab>
+                <Tabs defaultActiveKey="birdsstock" id="production" className="mb-3">
                   <Tab eventKey="batches" title="Batches">
                     <Batches
                         businessunits={businessunits} 
