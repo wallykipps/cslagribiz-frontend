@@ -297,7 +297,7 @@ import CashflowCharts from './layers_24_cashflowchart'
 
                                     <Col xs={12} sm={12} md={6} lg={3}>
                                         <Card.Text>
-                                            Actual: {(birds_delivered_net-xlayers_birds).toLocaleString()} Birds
+                                            Actual: {(delivered_birds+birds_delivered_net-xlayers_birds).toLocaleString()} Birds
                                         </Card.Text>
 
                                     </Col>
@@ -310,7 +310,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                                     
                                     <Col xs={12} sm={12} md={6} lg={3}>
                                         <Card.Text>
-                                            Losses: {(delivered_birds-(birds_delivered_net)).toLocaleString()} Birds ({((delivered_birds-birds_delivered_net)/(delivered_birds)*100).toFixed(1) +"%"})
+                                            Losses: {(delivered_birds+(birds_delivered_net)-xlayers_birds).toLocaleString()} Birds ({((delivered_birds+birds_delivered_net-xlayers_birds)/(delivered_birds)*100).toFixed(1) +"%"})
                                         </Card.Text>
                                     </Col>
                                     </Row>
