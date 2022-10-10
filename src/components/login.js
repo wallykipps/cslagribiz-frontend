@@ -18,7 +18,7 @@ function Login(){
 
     useEffect(()=>{
         // console.log(token);
-        if(token['mr-token']) window.location.href ='/enterprises';
+        if(token['mr-token']) window.location.href ='/';
     },[token])
 
     const loginUser = () =>{
@@ -51,7 +51,7 @@ function Login(){
     }
 
 
-    const isDisabled = username.length ===0 || password.length ===0;
+    const isDisabled = username.length ===0 || password.length ===0 ||isLoginView===false;
 
     return(
         <div>
@@ -82,7 +82,8 @@ function Login(){
                                 <p className="text-decoration-underline"
                                     onMouseEnter={(e)=>{e.target.style.color = "#28a745 "}}
                                     onMouseLeave={(e)=>{e.target.style.color = "#343a40"}}  
-                                    onClick={()=>setisLoginView(false)}>You dont have an account? Register here!</p>:
+                                    onClick={()=>setisLoginView(false)}>You dont have an account? Contact Admin to Register</p>
+                                    :
                                 <p className="text-decoration-underline" 
                                     onMouseEnter={(e)=>{e.target.style.color = "#28a745"}}
                                     onMouseLeave={(e)=>{e.target.style.color = "#343a40"}}  
@@ -93,7 +94,9 @@ function Login(){
 
                                 <Button variant="success" onClick={loginUser} disabled={isDisabled}>
                                     Log In
-                                </Button> :
+                                </Button> 
+                                
+                                :
 
                                 <Button variant="success" onClick={registerUser} disabled={isDisabled}>
                                     Register
