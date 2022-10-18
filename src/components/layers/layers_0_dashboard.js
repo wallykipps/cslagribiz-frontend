@@ -77,6 +77,14 @@ import CashflowCharts from './layers_24_cashflowchart'
         return accumulator + parseInt(a.gross);
     }
 
+    let laying_rate_cumsum= eggsproduction.reduce(add_eggs_rate, 0); // with initial value to avoid when the array is empty
+    function add_eggs_rate(accumulator, a) {
+        return accumulator + parseInt(a.gross_percentage);
+    }
+
+    let laying_rate = laying_rate_cumsum/eggsproduction.length
+
+
     let eggs_defects = eggsproduction.reduce(add_eggs_defects, 0); // with initial value to avoid when the array is empty
     function add_eggs_defects(accumulator, a) {
         return accumulator + parseInt(a.defects+a.broken);
@@ -355,7 +363,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
 
                         <Card.Text>
-                            <small className="text-muted">Laying rate: {((eggs_nett/30)/(eggs_gross/30)*100).toFixed(1) +"%"} {<br/>} Defects: {(((eggs_gross/30)-(eggs_nett/30))/(eggs_gross/30)*100).toFixed(1) +"%"}</small>
+                            <small className="text-muted">Laying rate: {laying_rate.toFixed(1) +"%"} {<br/>} Defects: {(((eggs_gross/30)-(eggs_nett/30))/(eggs_gross/30)*100).toFixed(1) +"%"}</small>
                         </Card.Text>
                     </Row>
                     </Card.Body>
