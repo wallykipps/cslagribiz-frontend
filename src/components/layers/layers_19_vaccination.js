@@ -193,7 +193,7 @@ function Vaccination(props){
                                 <th>Delivery Date</th>
                                 <th>Regimen</th>
                                 <th>Vaccination</th>
-                                <th>Expected Vaccination Date</th>
+                                <th>Expected Vaccination Day</th>
                                 <th>Expected Vaccination Date</th>
                                 <th>Vet/Agrovet</th>
                                 <th>Comments</th>
