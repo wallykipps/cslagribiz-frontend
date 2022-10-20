@@ -119,7 +119,7 @@ function BirdsStock(props){
     const birds_all=dayold_chicks.concat(birds_data,sales_xlayers)
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
-    let birds_stock = birds_stock_.sort((a, b) => new Date(a.stock_date_1) - new Date(b.stock_date_1))
+    let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
     // console.log(birds_stock)
   
 
