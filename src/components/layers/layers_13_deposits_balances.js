@@ -79,7 +79,16 @@ function DepositsBalances(props){
     const batch_default = batches_1[batches_0.length - 1]
 
     //Sum total of deposits
-    let deposits_0 = deposits_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_))).map( f => ({...f, deposit_amount_chk:f.debit_ac_details===bank_type?true:false,deposit_amount:f.debit_ac_details===bank_type?f.deposit_amount:-f.deposit_amount,sales:0, costs:0,  debit_ac_:f.debit_ac_details,credit_ac_:f.credit_ac_details, id_:'cash_deposits'}))
+    let deposits_0 = deposits_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_))).map( f => ({
+        ...f, 
+        deposit_amount_chk:f.debit_ac_details===bank_type?true:false,
+        deposit_amount:f.debit_ac_details===bank_type? f.deposit_amount: f.deposit_amount<0?f.deposit_amount:-f.deposit_amount,
+        sales:0, 
+        costs:0,  
+        debit_ac_:f.debit_ac_details,
+        credit_ac_:f.credit_ac_details, 
+        id_:'cash_deposits'
+    }))
     let deposits=deposits_0.filter(a => (bank_type===undefined||bank_type==='')? a.debit_ac===bank_type_default : a.debit_ac===parseInt(bank_type)).map( b => ({...b}))
   
     //Sales
