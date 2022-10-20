@@ -184,12 +184,12 @@ function Sales(props){
         <div>
             
             <Container fluid>
-            <Row>
-                    <Col sm={12} md={12} lg={7}>
+             <Row>
+                    <Col sm={12} md={12} lg={5}>
                     </Col>
 
 
-                    <Col sm={12} md={12} lg={5}>
+                    <Col sm={12} md={12} lg={7}>
                         <Badge pill bg="primary">
                         All Sales: {sales_total.toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </Badge>{' '}
