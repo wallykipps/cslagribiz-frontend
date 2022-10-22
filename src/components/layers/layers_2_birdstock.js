@@ -116,25 +116,25 @@ function BirdsStock(props){
     }))
     // console.log(sales_xlayers)
 
-     //Sort tables
-     const [sortTable, setsortTable]= useState(true)
-
-     const sortByDate= () => {
-      if (sortTable===true) {
-          setsortTable(false)
-  
-      }
-      else {
-          setsortTable(true) 
-  
-      }return
-      
-     }
-  
-  //console.log(sortTable)
-  
-
     const birds_all=dayold_chicks.concat(birds_data,sales_xlayers)
+
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+
+    const sortByDate= () => {
+    if (sortTable===true) {
+        setsortTable(false)
+
+    }
+    else {
+        setsortTable(true) 
+
+    }return
+    
+    }
+    
+    //console.log(sortTable)
+
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
     // let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
