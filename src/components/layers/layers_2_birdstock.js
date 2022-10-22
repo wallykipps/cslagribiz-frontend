@@ -116,27 +116,31 @@ function BirdsStock(props){
     }))
     // console.log(sales_xlayers)
 
+     //Sort tables
+     const [sortTable, setsortTable]= useState(true)
+
+     const sortByDate= () => {
+      if (sortTable===true) {
+          setsortTable(false)
+  
+      }
+      else {
+          setsortTable(true) 
+  
+      }return
+      
+     }
+  
+  //console.log(sortTable)
+  
+
     const birds_all=dayold_chicks.concat(birds_data,sales_xlayers)
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
-    let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
+    // let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
+    let birds_stock = birds_stock_.sort((a, b) => sortTable===true? new Date(b.stock_date_1) - new Date(a.stock_date_1):new Date(a.stock_date_1) - new Date(b.stock_date_1))
+
     // console.log(birds_stock)
-
-       //Sort tables
-   const [sortTable, setsortTable]= useState(false)
-
-   const sortByDate= () => {
-    if (sortTable===false) {
-        setsortTable(true)
-    }
-    else {
-        setsortTable(false) 
-    }return
-    
-   }
-
-   
-  
 
     
     //handle submit
@@ -295,7 +299,15 @@ function BirdsStock(props){
                     <Table className="table table-success table-striped table-hover table-sm table-borderless">
                     <thead>
                     <tr>
-                        <th onClick={ () => {sortByDate}}>Stock Date <MUIcons.Sort fontSize="small" /> {sortTable}</th>
+                       <th>Stock Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+
+                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
+                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Batch</th>
                         <th>Stock Type</th>
                         <th>Stock Description</th>

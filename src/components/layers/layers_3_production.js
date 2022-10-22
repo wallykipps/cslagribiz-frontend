@@ -61,10 +61,25 @@ function EggsProduction(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+     //Sort tables
+     const [sortTable, setsortTable]= useState(true)
 
+     const sortByDate= () => {
+      if (sortTable===true) {
+          setsortTable(false)
+  
+      }
+      else {
+          setsortTable(true) 
+  
+      }return
+      
+     }
+  
 
     let eggssproduction_= eggsproduction.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.prod_date>=start_date && a.prod_date<=end_date ).map(y=>({...y}))
-    let eggs_production= eggssproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggs_production_0= eggssproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggs_production = eggs_production_0.sort((a, b) => sortTable===true? new Date(b.prod_date_1) - new Date(a.prod_date_1):new Date(a.peod_date_1) - new Date(b.prod_date_1))
 
 
     const resetTable = () => {
@@ -227,7 +242,15 @@ function EggsProduction(props){
                     <Table  className="table table-success table-striped table-hover table-sm table-borderless" >
                     <thead>
                     <tr>
-                        <th>Production Date</th>
+                        <th>Production Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+
+                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
+                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Batch</th>
                         <th>Birds</th>
                         <th>Gross (Pcs)</th>

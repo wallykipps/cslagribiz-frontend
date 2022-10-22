@@ -151,10 +151,27 @@ function FeedInventory(props){
     let feedinventory_4 = mergeById(feedinventory_3,bags_purchased_cumsum)
     // console.log(feedinventory_4);
 
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+
+    const sortByDate= () => {
+    if (sortTable===true) {
+        setsortTable(false)
+
+    }
+    else {
+        setsortTable(true) 
+
+    }return
+    
+    }
+    
+
     let bags_delivered_acc = 0
     let bags_consumed_acc = 0
     let feedinventory_5 = feedinventory_4.map( x => ({...x,"total_bags_delivered": bags_delivered_acc +=parseInt(x.bags_delivered),"total_bags_consumed": bags_consumed_acc +=parseInt(x.bags_consumed)}))
-    let feedinventory = feedinventory_5.map( x => ({...x,"delivery_balance":bags_purchased_total-x.total_bags_delivered}))
+    let feedinventory_6 = feedinventory_5.map( x => ({...x,"delivery_balance":bags_purchased_total-x.total_bags_delivered}))
+    let feedinventory  = feedinventory_6.sort((a, b) => sortTable===true? new Date(b.stock_date_1) - new Date(a.stock_date_1):new Date(a.stock_date_1) - new Date(b.stock_date_1))
     // console.log(feedinventory);
     // console.log(expenses_2)
 
@@ -387,7 +404,15 @@ function FeedInventory(props){
                             <Table  className="table table-success table-striped table-hover table-sm table-borderless" >
                                 <thead>
                                     <tr>
-                                        <th>Stock Date</th>
+                                        <th>Stock Date
+                                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                                {sortTable===true?
+
+                                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
+                                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
+                                                }
+                                            </OverlayTrigger>
+                                        </th>
                                         <th>Batch</th>
                                         <th>Feed Type</th>
                                         <th>Brand</th>
