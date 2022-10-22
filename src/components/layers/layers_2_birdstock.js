@@ -121,6 +121,21 @@ function BirdsStock(props){
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
     let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
     // console.log(birds_stock)
+
+       //Sort tables
+   const [sortTable, setsortTable]= useState(false)
+
+   const sortByDate= () => {
+    if (sortTable===false) {
+        setsortTable(true)
+    }
+    else {
+        setsortTable(false) 
+    }return
+    
+   }
+
+   
   
 
     
@@ -192,6 +207,9 @@ function BirdsStock(props){
     // console.log(current_filtered_birds_data)
 
    const paginate =(pageNumber)=> setCurrentPage(pageNumber)
+
+
+
 
 
  
@@ -277,7 +295,7 @@ function BirdsStock(props){
                     <Table className="table table-success table-striped table-hover table-sm table-borderless">
                     <thead>
                     <tr>
-                        <th>Stock Date</th>
+                        <th>Stock Date <MUIcons.Sort fontSize="small" onClick={ () => {sortByDate}}/> {sortTable}</th>
                         <th>Batch</th>
                         <th>Stock Type</th>
                         <th>Stock Description</th>
