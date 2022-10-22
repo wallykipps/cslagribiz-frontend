@@ -197,6 +197,7 @@ function EggsInventory(props){
     // console.log(eggsinventory_3);
     
     //Sort tables
+    const [sortTable, setsortTable]= useState(true)
     const sortByDate= () => {
         if (sortTable===true) {
             setsortTable(false)
