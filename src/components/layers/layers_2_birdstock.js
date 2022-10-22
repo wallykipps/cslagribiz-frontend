@@ -295,7 +295,7 @@ function BirdsStock(props){
                     <Table className="table table-success table-striped table-hover table-sm table-borderless">
                     <thead>
                     <tr>
-                        <th>Stock Date <MUIcons.Sort fontSize="small" onClick={ () => {sortByDate}}/> {sortTable}</th>
+                        <th onClick={ () => {sortByDate}}>Stock Date <MUIcons.Sort fontSize="small" /> {sortTable}</th>
                         <th>Batch</th>
                         <th>Stock Type</th>
                         <th>Stock Description</th>
