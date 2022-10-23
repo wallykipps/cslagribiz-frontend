@@ -171,7 +171,7 @@ function FeedInventory(props){
     let bags_consumed_acc = 0
     let feedinventory_5 = feedinventory_4.map( x => ({...x,"total_bags_delivered": bags_delivered_acc +=parseInt(x.bags_delivered),"total_bags_consumed": bags_consumed_acc +=parseInt(x.bags_consumed)}))
     let feedinventory_6 = feedinventory_5.map( x => ({...x,"delivery_balance":bags_purchased_total-x.total_bags_delivered}))
-    let feedinventory  = feedinventory_6.sort((a, b) => sortTable===true? new Date(b.stock_date_1) - new Date(a.stock_date_1):new Date(a.stock_date_1) - new Date(b.stock_date_1))
+    let feedinventory  = feedinventory_6.sort((a, b) => sortTable===true? new Date(b.stock_date) - new Date(a.stock_date):new Date(a.stock_date) - new Date(b.stock_date))
     // console.log(feedinventory);
     // console.log(expenses_2)
 
@@ -407,9 +407,8 @@ function FeedInventory(props){
                                         <th>Stock Date
                                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                                 {sortTable===true?
-
-                                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
-                                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
+                                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
                                                 }
                                             </OverlayTrigger>
                                         </th>

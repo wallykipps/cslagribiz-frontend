@@ -200,11 +200,27 @@ function DepositsBalances(props){
     // deposit_amount:y.credit_ac_.split("-")[0]==='Bank'?-y.deposit_amount:y.deposit_amount
 
 
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+    const sortByDate= () => {
+        if (sortTable===true) {
+            setsortTable(false)
+    
+        }
+        else {
+            setsortTable(true) 
+    
+        }return
+        
+    }
+    
+
     let deposits_acc = 0
     let net_sale_acc=0
     let deposits_cumsum_0 = deposits_net.map( y => ({...y,net_sales:net_sale_acc+=y.sales-y.costs,"deposits_total": deposits_acc+=parseFloat(y.deposit_amount) }))
     // let deposits_cumsum_1 = deposits_cumsum_0.map( y => ({...y, expected_balance: (y.net_sales-y.deposits_total)}))
-    let deposits_cumsum = deposits_cumsum_0.map( (y,key) => ({...y, deposit_id:parseInt([key+1]), cash_balance:y.cash_balance===0||y.cash_balance===''||y.cash_balance==='undefined'?y.deposits_total:y.cash_balance, variance: (y.deposits_total-y.cash_balance)}))
+    let deposits_cumsum_ = deposits_cumsum_0.map( (y,key) => ({...y, deposit_id:parseInt([key+1]), cash_balance:y.cash_balance===0||y.cash_balance===''||y.cash_balance==='undefined'?y.deposits_total:y.cash_balance, variance: (y.deposits_total-y.cash_balance)}))
+    let deposits_cumsum = deposits_cumsum_.sort((a, b) => sortTable===true? new Date(b.deposit_date) - new Date(a.deposit_date):new Date(a.deposit_date) - new Date(b.deposit_date))
     // console.log(deposits_cumsum)
 
     //Sum total of cash and mpesa sales
@@ -377,7 +393,14 @@ function DepositsBalances(props){
                     <Table  className="table table-success table-striped table-hover table-sm table-borderless" >
                     <thead>
                     <tr>
-                        <th>Deposit  Date</th>
+                        <th> Deposit  Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Batch</th>
                         <th>Account From (Credit)</th>
                         <th>Account To (Debit)</th>

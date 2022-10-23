@@ -82,11 +82,28 @@ function Expenses(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+    const sortByDate= () => {
+        if (sortTable===true) {
+            setsortTable(false)
+
+        }
+        else {
+            setsortTable(true) 
+
+        }return
+        
+    }
+    
+
 
     let expenses_filtered_1= expenses_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.purchase_date>=start_date && a.purchase_date<=end_date ).map(y=>({...y}))
     let expenses_filtered_2= expenses_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let expenses_filtered_3 = expenses_filtered_2.filter(c => (vendor_===undefined||vendor_==='')? c : c.supplier === vendor_).map( w => ({...w}))
-    let expenses = expenses_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === paymentstatus).map( z => ({...z}))
+    let expenses_ = expenses_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === paymentstatus).map( z => ({...z}))
+    let expenses = expenses_.sort((a, b) => sortTable===true? new Date(b.purchase_date) - new Date(a.purchase_date):new Date(a.purchase_date) - new Date(b.purchase_date))
+
 
 
     const resetTable = () => {
@@ -288,7 +305,14 @@ function Expenses(props){
                     <thead>
                     <tr>
                         <th>Cost ID</th>
-                        <th>Purchase Date</th>
+                        <th> Purchase Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Batch</th>
                         <th>Vendor</th>
                         <th>Cost Category</th>

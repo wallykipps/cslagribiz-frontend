@@ -213,7 +213,7 @@ function EggsInventory(props){
     let eggbalance_acc =0
     let eggsinventory_5 = eggsinventory_4.map(x=>({...x, "egg_balance":eggbalance_acc+=(x.net_production - x.total_quantity_sold- x.total_losses_crates)}))
     let eggsinventory_6 = eggsinventory_5.map((x,key)=>({...x, id_:key+1, "variance": (x.egg_balance- x.total_stock)}))
-    let eggsinventory = eggsinventory_6.sort((a, b) => sortTable===true? new Date(b.inventory_date_1) - new Date(a.inventory_date_1):new Date(a.inventory_date_1) - new Date(b.inventory_date_1))
+    let eggsinventory = eggsinventory_6.sort((a, b) => sortTable===true? new Date(b.inventory_date) - new Date(a.inventory_date):new Date(a.inventory_date) - new Date(b.inventory_date))
     // console.log(eggsinventory);
 
     const resetTable = () => {
@@ -377,9 +377,8 @@ function EggsInventory(props){
                         <th>Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
-
-                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
-                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
                                 }
                             </OverlayTrigger>
                         </th>

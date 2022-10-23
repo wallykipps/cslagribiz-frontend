@@ -89,7 +89,7 @@ function BirdsStock(props){
     let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let day_old_chick_acc=0
     let dayold_chicks =  expenses.filter(b => (b.cost_category===4) ).map( (x,key) => ({...x,
-        chicks_id:parseInt([key+1]),stock_date_1:x.purchase_date_1,
+        chicks_id:parseInt([key+1]),stock_date: x.purchase_date,stock_date_1:x.purchase_date_1,
         batch: x.batch, batch_number:x.batch_number,
         stock_movement_type:x.cost_category,
         stock_type:x.expense_category,birds:parseInt(x.quantity), 
@@ -105,7 +105,7 @@ function BirdsStock(props){
     const sales_ = props.sales && props.sales
     let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let sales_xlayers =  sales.filter(b => (b.product===3) ).map( (x,key) => ({...x,
-        xlayers_id:parseInt([key+1]),stock_date_1:x.date_1,
+        xlayers_id:parseInt([key+1]),stock_date: x.date, stock_date_1:x.date_1,
         batch: x.batch, batch_number:x.batch_number,
         stock_movement_type:x.product,
         stock_type:x.product_,birds:-parseInt(x.quantity), 
@@ -138,7 +138,7 @@ function BirdsStock(props){
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
     // let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
-    let birds_stock = birds_stock_.sort((a, b) => sortTable===true? new Date(b.stock_date_1) - new Date(a.stock_date_1):new Date(a.stock_date_1) - new Date(b.stock_date_1))
+    let birds_stock = birds_stock_.sort((a, b) => sortTable===true? new Date(b.stock_date) - new Date(a.stock_date):new Date(a.stock_date) - new Date(b.stock_date))
 
     // console.log(birds_stock)
 
@@ -301,11 +301,10 @@ function BirdsStock(props){
                     <tr>
                        <th>Stock Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
-                                {sortTable===true?
-
-                                <MUIcons.ExpandLessSharp fontSize="small" onClick={sortByDate} />: 
-                                <MUIcons.ExpandMoreSharp fontSize="small" onClick={sortByDate} />
-                                }
+                            {sortTable===true?
+                            <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                            <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                            }
                             </OverlayTrigger>
                         </th>
                         <th>Batch</th>

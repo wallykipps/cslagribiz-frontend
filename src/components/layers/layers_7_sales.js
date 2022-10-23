@@ -76,14 +76,27 @@ function Sales(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
-
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+    const sortByDate= () => {
+        if (sortTable===true) {
+            setsortTable(false)
+    
+        }
+        else {
+            setsortTable(true) 
+    
+        }return
+        
+    }
     let sales_filtered_0 = sales_unfiltered.map(c => ({...c,"total_sales_1": c.quantity*c.unitprice}) )
     // console.log(sales_filtered_0)
 
     let sales_filtered_1= sales_filtered_0.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
     let sales_filtered_2= sales_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let sales_filtered_3 = sales_filtered_2.filter(c => (customer_===undefined||customer_==='')? c : c.customer_name === customer_).map( w => ({...w}))
-    let sales = sales_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === parseInt(paymentstatus)).map( z => ({...z}))
+    let sales_ = sales_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === parseInt(paymentstatus)).map( z => ({...z}))
+    let sales = sales_.sort((a, b) => sortTable===true? new Date(b.date) - new Date(a.date):new Date(a.date) - new Date(b.date))
     let cash_sales = sales.filter(d => d.payment_mode !=2).map( z => ({...z}))
     // console.log(sales)
 
@@ -313,7 +326,14 @@ function Sales(props){
                     <thead>
                     <tr>
                         <th>Sale ID</th>
-                        <th>Sale Date</th>
+                        <th> Sale Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Batch</th>
                         <th>Customer</th>
                         <th>Product</th>

@@ -97,10 +97,27 @@ function CreditSales(props){
     let credit_sales = credit_sales_1.filter(g => (sale===undefined||sale==='')? g  : (g.sale_id ===parseInt(sale)) ).map( h => ({...h}))
 
 
+    //Sort tables
+    const [sortTable, setsortTable]= useState(true)
+    const sortByDate= () => {
+        if (sortTable===true) {
+            setsortTable(false)
+    
+        }
+        else {
+            setsortTable(true) 
+    
+        }return
+        
+    }
+    
+
    //Running sum of credit sales and running balance
     let credit_sales_acc = 0;
     let credit_sales_cumsum = credit_sales.map( x => ({...x,"instalment_total": credit_sales_acc+=parseFloat(x.instalment_amount)}))
-    let credit_sales_cumsum_1 = credit_sales_cumsum.map( y => ({...y,"balance": credit_sales_total - y.instalment_total}))
+    let credit_sales_cumsum_0 = credit_sales_cumsum.map( y => ({...y,"balance": credit_sales_total - y.instalment_total}))
+    let credit_sales_cumsum_1 = credit_sales_cumsum_0.sort((a, b) => sortTable===true? new Date(b.instalment_date) - new Date(a.instalment_date):new Date(a.instalment_date) - new Date(b.instalment_date))
+    
     const credit_balance =  credit_sales_cumsum_1.slice(-1).map(x => x.balance)
     // console.log(credit_balance[0])
     let credit_sales_instalments = credit_sales_cumsum.slice(-1).map(x => x.instalment_total)
@@ -112,6 +129,9 @@ function CreditSales(props){
     let sales_3 = sales_1.map( h => ({...h, "credit_balance": parseFloat(h.quantity*h.unitprice)-credit_sales_instalments[0]}))
     let credit_sales_sum = credit_sales.map(d=>({...d, "instalment_total": parseFloat(d.instalment_amount)}))
 
+    
+    
+    
     //Group by and sum
     let credit_sales_sum_1 = credit_sales_sum.reduce((prev, next) =>{
         if (next.sale in prev) {
@@ -122,7 +142,8 @@ function CreditSales(props){
         return prev;
       }, {});
       
-    //join two arrays
+    
+      //join two arrays
     let credit_sales_sum_3 = Object.keys(credit_sales_sum_1 ).map(id => credit_sales_sum_1[id]);
     //   console.log(credit_sales_sum_3)
 
@@ -329,7 +350,14 @@ function CreditSales(props){
                         <th>Quantity</th>
                         <th>Total Sales</th>
                         <th>Original Payment Mode</th>
-                        <th>Instalment Date</th>
+                        <th> Instalment Date
+                            <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
+                                {sortTable===true?
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                }
+                            </OverlayTrigger>
+                        </th>
                         <th>Instalment Payment Mode</th>
                         <th>Instalment Amount</th>
                         <th>Instalment Total</th>

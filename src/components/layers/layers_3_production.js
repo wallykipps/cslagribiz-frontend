@@ -79,7 +79,7 @@ function EggsProduction(props){
 
     let eggssproduction_= eggsproduction.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.prod_date>=start_date && a.prod_date<=end_date ).map(y=>({...y}))
     let eggs_production_0= eggssproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let eggs_production = eggs_production_0.sort((a, b) => sortTable===true? new Date(b.prod_date_1) - new Date(a.prod_date_1):new Date(a.peod_date_1) - new Date(b.prod_date_1))
+    let eggs_production = eggs_production_0.sort((a, b) => sortTable===true? new Date(b.prod_date) - new Date(a.prod_date):new Date(a.peod_date) - new Date(b.prod_date))
 
 
     const resetTable = () => {
