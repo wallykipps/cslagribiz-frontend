@@ -489,7 +489,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
 
                         <Card.Text>
-                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
+                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
                         </Card.Text>
                     </Row>
                     </Card.Body>

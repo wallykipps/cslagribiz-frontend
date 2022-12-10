@@ -219,7 +219,8 @@ function DepositsBalances(props){
     let net_sale_acc=0
     let deposits_cumsum_0 = deposits_net.map( y => ({...y,net_sales:net_sale_acc+=y.sales-y.costs,"deposits_total": deposits_acc+=parseFloat(y.deposit_amount) }))
     // let deposits_cumsum_1 = deposits_cumsum_0.map( y => ({...y, expected_balance: (y.net_sales-y.deposits_total)}))
-    let deposits_cumsum_ = deposits_cumsum_0.map( (y,key) => ({...y, deposit_id:parseInt([key+1]), cash_balance:y.cash_balance===0||y.cash_balance===''||y.cash_balance==='undefined'?y.deposits_total:y.cash_balance, variance: (y.deposits_total-y.cash_balance)}))
+    let deposits_cumsum_1 = deposits_cumsum_0.map( (y,key) => ({...y, deposit_id:parseInt([key+1]), cash_balance:y.cash_balance===0||y.cash_balance===''||y.cash_balance==='undefined'? y.deposits_total:y.cash_balance}))
+    let deposits_cumsum_ = deposits_cumsum_1.map( (y,key) => ({...y, variance: (y.deposits_total-y.cash_balance)}))
     let deposits_cumsum = deposits_cumsum_.sort((a, b) => sortTable===true? new Date(b.deposit_date) - new Date(a.deposit_date):new Date(a.deposit_date) - new Date(b.deposit_date))
     // console.log(deposits_cumsum)
 
