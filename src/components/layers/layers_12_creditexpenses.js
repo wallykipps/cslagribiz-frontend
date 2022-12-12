@@ -213,15 +213,44 @@ function CreditExpenses(props){
     const handleShow = () => setShow(true);
 
     //Pagination
-   
-    const [currentPage, setCurrentPage]= useState(1)
     const [recordsPerPage, setRecordsPerPage]= useState(10)
+    const [currentPage, setCurrentPage]= useState(1) 
+    const [active, setActive] = useState(1)
 
     const indexLastRecord = currentPage * recordsPerPage 
     const indexFirstRecord = indexLastRecord - recordsPerPage
     const credit_expenses_paginated= credit_expenses_cumsum_1.slice(indexFirstRecord,indexLastRecord )
+    const pages=Math.ceil(credit_expenses_cumsum_1.length/recordsPerPage)
 
-    const paginate =(pageNumber)=> setCurrentPage(pageNumber)
+    const firstPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(1) 
+    }
+
+    const lastPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(pages) 
+    }
+
+    const activePage = () =>  setActive()
+
+    const nextPage = () => {
+        if(currentPage !== pages && pages!==0) 
+            setCurrentPage(currentPage + 1)
+            setActive(currentPage + 1)
+    }
+ 
+    const prevPage = () => {
+        if(currentPage > 1) 
+            setCurrentPage(currentPage - 1)
+            setActive(currentPage - 1)
+        if (pages===0)
+            setCurrentPage(0)
+    }
 
     
     return(
@@ -418,7 +447,14 @@ function CreditExpenses(props){
                     <Paginate 
                         recordsPerPage={recordsPerPage} 
                         totalRecords={credit_expenses_cumsum_1.length}
-                        paginate={paginate}
+                        nextPage={nextPage}
+                        prevPage={prevPage}
+                        activePage={activePage}
+                        active={active}
+                        totalPages={pages}
+                        currentPage={currentPage}
+                        firstPage={firstPage}
+                        lastPage={lastPage}
                     />
                     </Col>
                 </Row>

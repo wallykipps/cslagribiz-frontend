@@ -179,17 +179,47 @@ function Sales(props){
     const handleShow = () => setShow(true);
 
     //Pagination
-
-    const [currentPage, setCurrentPage]= useState(1)
     const [recordsPerPage, setRecordsPerPage]= useState(10)
+    const [currentPage, setCurrentPage]= useState(1)
+    const [active, setActive] = useState(1)
 
     const indexLastRecord = currentPage * recordsPerPage 
     const indexFirstRecord = indexLastRecord - recordsPerPage
     const sales_paginated= sales.slice(indexFirstRecord,indexLastRecord )
-    // console.log(current_filtered_birds_data)
+    const pages=Math.ceil(sales.length/recordsPerPage)
 
-    const paginate =(pageNumber)=> setCurrentPage(pageNumber)
+
+    const firstPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(1) 
+    }
+
+    const lastPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(pages) 
+    }
+
+
+    const activePage = (pageNumber) =>  setActive(pageNumber)
     
+ 
+    const nextPage = () => {
+     if(currentPage !== pages) 
+         setCurrentPage(currentPage + 1)
+         setActive(currentPage + 1)
+    }
+ 
+    
+ 
+    const prevPage = () => {
+         if(currentPage > 1) 
+             setCurrentPage(currentPage - 1)
+             setActive(currentPage - 1)
+    }
 
     
     return(
@@ -405,7 +435,14 @@ function Sales(props){
                     <Paginate 
                         recordsPerPage={recordsPerPage} 
                         totalRecords={sales.length}
-                        paginate={paginate}
+                        nextPage={nextPage}
+                        prevPage={prevPage}
+                        activePage={activePage}
+                        active={active}
+                        totalPages={pages}
+                        currentPage={currentPage}
+                        firstPage={firstPage}
+                        lastPage={lastPage}
                     />
                     </Col>
                 </Row>

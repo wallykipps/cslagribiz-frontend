@@ -319,13 +319,58 @@ function CashflowCharts(props) {
   //Pagination
   const [currentPage, setCurrentPage]= useState(1)
   const [recordsPerPage, setRecordsPerPage]= useState(15)
+  const [active, setActive] = useState(1)
 
   const indexLastRecord = currentPage * recordsPerPage 
   const indexFirstRecord = indexLastRecord - recordsPerPage
   const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord )
   const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
 
-  const paginate =(pageNumber)=> setCurrentPage(pageNumber)
+  const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
+  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
+
+  const firstPage = () => {
+      if (pages===0)
+          setCurrentPage(0)
+      else
+          setCurrentPage(1) 
+  }
+
+  const lastPage = () => {
+      if (pages===0)
+          setCurrentPage(0)
+      else
+          setCurrentPage(pages) 
+  }
+
+  const activePage = (pageNumber) =>  setActive(pageNumber)
+
+  const nextPage = () => {
+   if(currentPage !== pages) 
+       setCurrentPage(currentPage + 1)
+       setActive(currentPage + 1)
+  }
+
+  const prevPage = () => {
+    if(currentPage > 1) 
+        setCurrentPage(currentPage - 1)
+        setActive(currentPage - 1)
+  }
+
+
+  const firstPage_ = () => {
+    if (pages_===0)
+        setCurrentPage(0)
+    else
+        setCurrentPage(1) 
+  }
+
+const lastPage_ = () => {
+    if (pages_===0)
+        setCurrentPage(0)
+    else
+        setCurrentPage(pages) 
+  }
       
   
       
@@ -487,7 +532,7 @@ function CashflowCharts(props) {
                 </tr>
             </thead>
             <tbody>
-            {grouped_cashflow.map(a =>{
+            {grouped_cashflow_paginated.map(a =>{
                 return (
                     <tr key={a.id}>
                       <td>{a.index_}</td>
@@ -521,7 +566,14 @@ function CashflowCharts(props) {
             <Paginate 
                 recordsPerPage={recordsPerPage} 
                 totalRecords={grouped_cashflow.length}
-                paginate={paginate}
+                nextPage={nextPage}
+                prevPage={prevPage}
+                activePage={activePage}
+                active={active}
+                totalPages={pages}
+                currentPage={currentPage}
+                firstPage={firstPage}
+                lastPage={lastPage}
             />
             </Col>
         </Row>
@@ -540,7 +592,7 @@ function CashflowCharts(props) {
                 </tr>
             </thead>
             <tbody>
-            {grouped_expenses_type.map(a =>{
+            {grouped_expenses_type_paginated.map(a =>{
                 return (
                     <tr key={a.id}>
                       <td>{a.index}</td>
@@ -575,7 +627,14 @@ function CashflowCharts(props) {
                     <Paginate 
                         recordsPerPage={recordsPerPage} 
                         totalRecords={grouped_expenses_type.length}
-                        paginate={paginate}
+                        nextPage={nextPage}
+                        prevPage={prevPage}
+                        activePage={activePage}
+                        active={active}
+                        totalPages={pages_}
+                        currentPage={currentPage}
+                        firstPage={firstPage}
+                        lastPage={lastPage}
                     />
                     </Col>
                 </Row>
