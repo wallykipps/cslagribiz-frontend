@@ -7,13 +7,13 @@ import { Nav, ListGroup } from "react-bootstrap";
 import '../App.css'
 import { FirstPage } from '@mui/icons-material';
 
-function Paginate_1({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, nextPage, activePage, active, totalPages,currentPage}) {
-    const pageNumbers=[];
+function Paginate_1({recordsPerPage_, totalRecords_,firstPage_,lastPage_, prevPage_, nextPage_, activePage_, active_, totalPages_,currentPage_}) {
+    const pageNumbers_=[];
     // let active = 1;
 
     // for(let i=1; i<= Math.ceil(totalRecords/recordsPerPage); i++){
-    for(let i=1; i<= totalPages; i++){
-        pageNumbers.push(i)
+    for(let i=1; i<= totalPages_; i++){
+        pageNumbers_.push(i)
         // console.log(i)
         // pageNumbers.push(
         //     <Pagination.Item key={i} active={i === active}  onClick={()=> paginate(i)}>
@@ -23,8 +23,8 @@ function Paginate_1({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, 
     }
     // console.log(totalRecords)
     // console.log(totalPages)
-    console.log(currentPage)
-    console.log(totalPages)
+    // console.log(currentPage)
+    // console.log(totalPages)
 
 
 
@@ -51,11 +51,11 @@ function Paginate_1({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, 
     
     <Pagination>
       {/* <Pagination.First onClick={()=> {paginate(totalPages===0?0:1);activePage(totalPages-(totalPages-1))}}/> */}
-      <Pagination.First onClick={()=> firstPage()}/>
-      <Pagination.Prev onClick={()=> prevPage()} />
-      <Pagination.Item>{currentPage>totalPages?totalPages===0?0:1:currentPage} of {totalPages}</Pagination.Item>
-      <Pagination.Next onClick={()=> nextPage()}/>
-      <Pagination.Last onClick={()=> lastPage()} />
+      <Pagination.First onClick={()=> firstPage_()}/>
+      <Pagination.Prev onClick={()=> prevPage_()} />
+      <Pagination.Item>{currentPage_>totalPages_?totalPages_===0?0:1:currentPage_} of {totalPages_}</Pagination.Item>
+      <Pagination.Next onClick={()=> nextPage_()}/>
+      <Pagination.Last onClick={()=> lastPage_()} />
 
     </Pagination>
 

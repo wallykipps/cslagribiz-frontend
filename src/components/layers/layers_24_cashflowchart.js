@@ -318,17 +318,14 @@ function CashflowCharts(props) {
 
 
   //Pagination
-  const [currentPage, setCurrentPage]= useState(1)
   const [recordsPerPage, setRecordsPerPage]= useState(15)
+  const [currentPage, setCurrentPage]= useState(1)
   const [active, setActive] = useState(1)
 
   const indexLastRecord = currentPage * recordsPerPage 
   const indexFirstRecord = indexLastRecord - recordsPerPage
-  const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord )
-  const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
-
+  const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord)
   const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
-  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
 
   const firstPage = () => {
       if (pages===0)
@@ -353,25 +350,106 @@ function CashflowCharts(props) {
   }
 
   const prevPage = () => {
-    if(currentPage > 1) 
-        setCurrentPage(currentPage - 1)
-        setActive(currentPage - 1)
+       if(currentPage > 1) 
+           setCurrentPage(currentPage - 1)
+           setActive(currentPage - 1)
   }
 
+  //Pagination_1
+
+  const [recordsPerPage_, setRecordsPerPage_]= useState(15)
+  const [currentPage_, setCurrentPage_]= useState(1)
+  const [active_, setActive_] = useState(1)
+
+  const indexLastRecord_ = currentPage_ * recordsPerPage_
+  const indexFirstRecord_ = indexLastRecord_ - recordsPerPage_
+  const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
+  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
 
   const firstPage_ = () => {
-    if (pages_===0)
-        setCurrentPage(0)
-    else
-        setCurrentPage(1) 
+      if (pages_===0)
+          setCurrentPage(0)
+      else
+          setCurrentPage(1) 
   }
 
-const lastPage_ = () => {
-    if (pages_===0)
-        setCurrentPage(0)
-    else
-        setCurrentPage(pages) 
+  const lastPage_ = () => {
+      if (pages_===0)
+          setCurrentPage(0)
+      else
+          setCurrentPage(pages_) 
   }
+
+  const activePage_ = (pageNumber_) =>  setActive_(pageNumber_)
+
+  const nextPage_ = () => {
+   if(currentPage_ !== pages_) 
+       setCurrentPage_(currentPage_ + 1)
+       setActive_(currentPage_ + 1)
+  }
+
+  const prevPage_ = () => {
+       if(currentPage_ > 1) 
+           setCurrentPage_(currentPage_ - 1)
+           setActive_(currentPage_ - 1)
+  }
+
+
+
+//   const [currentPage, setCurrentPage]= useState(1)
+//   const [recordsPerPage, setRecordsPerPage]= useState(15)
+//   const [active, setActive] = useState(1)
+
+//   const indexLastRecord = currentPage * recordsPerPage 
+//   const indexFirstRecord = indexLastRecord - recordsPerPage
+//   const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord)
+//   const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
+
+//   const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
+//   const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
+
+//   const firstPage = () => {
+//       if (pages===0)
+//           setCurrentPage(0)
+//       else
+//           setCurrentPage(1) 
+//   }
+
+//   const lastPage = () => {
+//       if (pages===0)
+//           setCurrentPage(0)
+//       else
+//           setCurrentPage(pages) 
+//   }
+
+//   const activePage = (pageNumber) =>  setActive(pageNumber)
+
+//   const nextPage = () => {
+//    if(currentPage !== pages) 
+//        setCurrentPage(currentPage + 1)
+//        setActive(currentPage + 1)
+//   }
+
+//   const prevPage = () => {
+//     if(currentPage > 1) 
+//         setCurrentPage(currentPage - 1)
+//         setActive(currentPage - 1)
+//   }
+
+
+//   const firstPage_ = () => {
+//     if (pages_===0)
+//         setCurrentPage(0)
+//     else
+//         setCurrentPage(1) 
+//   }
+
+// const lastPage_ = () => {
+//     if (pages_===0)
+//         setCurrentPage(0)
+//     else
+//         setCurrentPage(pages) 
+//   }
       
   
       
@@ -626,16 +704,16 @@ const lastPage_ = () => {
 
                     <Col sm={10} md={10} lg={10} style={{fontSize:10}}>
                     <Paginate_1 
-                        recordsPerPage={recordsPerPage} 
-                        totalRecords={grouped_expenses_type.length}
-                        nextPage={nextPage}
-                        prevPage={prevPage}
-                        activePage={activePage}
-                        active={active}
-                        totalPages={pages_}
-                        currentPage={currentPage}
-                        firstPage={firstPage}
-                        lastPage={lastPage}
+                        recordsPerPage_={recordsPerPage_} 
+                        totalRecords_={grouped_expenses_type.length}
+                        nextPage_={nextPage_}
+                        prevPage_={prevPage_}
+                        activePage_={activePage_}
+                        active_={active_}
+                        totalPages_={pages_}
+                        currentPage_={currentPage_}
+                        firstPage_={firstPage_}
+                        lastPage_={lastPage_}
                     />
                     </Col>
                 </Row>
