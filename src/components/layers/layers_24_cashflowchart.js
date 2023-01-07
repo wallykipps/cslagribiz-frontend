@@ -363,7 +363,7 @@ function CashflowCharts(props) {
 
   const indexLastRecord_ = currentPage_ * recordsPerPage_
   const indexFirstRecord_ = indexLastRecord_ - recordsPerPage_
-  const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
+  const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord_,indexLastRecord_)
   const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
 
   const firstPage_ = () => {
@@ -691,7 +691,7 @@ function CashflowCharts(props) {
                             className="form-select form-select-sm"
                             aria-label=".form-select-sm example"
                             value={recordsPerPage || ''}
-                            onChange={evt => setRecordsPerPage(evt.target.value)}
+                            onChange={evt => setRecordsPerPage_(evt.target.value)}
                             style={{fontSize:12}}
                         >
                             <option value='15'>15</option>
