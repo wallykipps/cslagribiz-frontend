@@ -4,7 +4,8 @@ import '../../App.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Label, Legend, ResponsiveContainer, BarChart, Bar, Cell, ComposedChart, ReferenceLine, Scatter,PieChart,Pie, Area } from 'recharts';
 import {Card,Col,Row,Container, Alert,ListGroup, Badge, Table, Form, OverlayTrigger } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import Paginate from '../pagination'
+import Paginate from '../pagination';
+import Paginate_1 from '../pagination_1';
 import * as MUIcons from '@mui/icons-material';
 import {useCookies} from 'react-cookie';
 import { CSVLink, CSVDownload } from "react-csv";
@@ -624,7 +625,7 @@ const lastPage_ = () => {
                     </Col>
 
                     <Col sm={10} md={10} lg={10} style={{fontSize:10}}>
-                    <Paginate 
+                    <Paginate_1 
                         recordsPerPage={recordsPerPage} 
                         totalRecords={grouped_expenses_type.length}
                         nextPage={nextPage}
