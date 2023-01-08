@@ -23,8 +23,8 @@ function Paginate({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, ne
     }
     // console.log(totalRecords)
     // console.log(totalPages)
-    console.log(currentPage)
-    console.log(totalPages)
+    // console.log(currentPage)
+    // console.log(totalPages)
 
 
 

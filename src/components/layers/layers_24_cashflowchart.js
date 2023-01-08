@@ -318,7 +318,7 @@ function CashflowCharts(props) {
 
 
   //Pagination
-  const [recordsPerPage, setRecordsPerPage]= useState(10)
+  const [recordsPerPage, setRecordsPerPage]= useState(15)
   const [currentPage, setCurrentPage]= useState(1)
   const [active, setActive] = useState(1)
 
@@ -357,7 +357,7 @@ function CashflowCharts(props) {
 
   //Pagination_1
 
-  const [recordsPerPage_, setRecordsPerPage_]= useState(10)
+  const [recordsPerPage_, setRecordsPerPage_]= useState(15)
   const [currentPage_, setCurrentPage_]= useState(1)
   const [active_, setActive_] = useState(1)
 

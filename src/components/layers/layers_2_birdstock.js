@@ -116,7 +116,6 @@ function BirdsStock(props){
     }))
     // console.log(sales_xlayers)
 
-    const birds_all=dayold_chicks.concat(birds_data,sales_xlayers)
 
     //Sort tables
     const [sortTable, setsortTable]= useState(true)
@@ -134,6 +133,9 @@ function BirdsStock(props){
     }
     
     //console.log(sortTable)
+
+    const birds_all_=dayold_chicks.concat(birds_data,sales_xlayers)
+    let birds_all=  birds_all_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
 
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
