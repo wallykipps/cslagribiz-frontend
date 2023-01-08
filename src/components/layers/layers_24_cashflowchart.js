@@ -317,92 +317,94 @@ function CashflowCharts(props) {
 
 
 
-  //Pagination
-  const [recordsPerPage, setRecordsPerPage]= useState(15)
-  const [currentPage, setCurrentPage]= useState(1)
-  const [active, setActive] = useState(1)
+    //Pagination
+    const [recordsPerPage, setRecordsPerPage]= useState(15)
+    const [currentPage, setCurrentPage]= useState(1)
+    const [active, setActive] = useState(1)
+  
+    const indexLastRecord = currentPage * recordsPerPage 
+    const indexFirstRecord = indexLastRecord - recordsPerPage
+    const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord)
+    const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
+  
+    const firstPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(1) 
+    }
+  
+    const lastPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(pages) 
+    }
+  
+    const activePage = (pageNumber) =>  setActive(pageNumber)
+  
+    const nextPage = () => {
+     if(currentPage !== pages) 
+         setCurrentPage(currentPage + 1)
+         setActive(currentPage + 1)
+    }
+  
+    const prevPage = () => {
+         if(currentPage > 1) 
+             setCurrentPage(currentPage - 1)
+             setActive(currentPage - 1)
+    }
+  
+    //Pagination_1
+  
+    const [recordsPerPage_, setRecordsPerPage_]= useState(15)
+    const [currentPage_, setCurrentPage_]= useState(1)
+    const [active_, setActive_] = useState(1)
+  
+    const indexLastRecord_ = currentPage_ * recordsPerPage_
+    const indexFirstRecord_ = indexLastRecord_ - recordsPerPage_
+    const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord_,indexLastRecord_)
+    const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage_)
+  
+    const firstPage_ = () => {
+        if (pages_===0)
+            setCurrentPage_(0)
+        else
+            setCurrentPage_(1) 
+    }
+  
+    const lastPage_ = () => {
+        if (pages_===0)
+            setCurrentPage_(0)
+        else
+            setCurrentPage_(pages_) 
+    }
+  
+    const activePage_ = (pageNumber_) =>  setActive_(pageNumber_)
+  
+    const nextPage_ = () => {
+     if(currentPage_ !== pages_) 
+         setCurrentPage_(currentPage_ + 1)
+         setActive_(currentPage_ + 1)
+    }
+  
+    const prevPage_ = () => {
+         if(currentPage_ > 1) 
+             setCurrentPage_(currentPage_ - 1)
+             setActive_(currentPage_ - 1)
+    }
+  
 
-  const indexLastRecord = currentPage * recordsPerPage 
-  const indexFirstRecord = indexLastRecord - recordsPerPage
-  const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord)
-  const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
-
-  const firstPage = () => {
-      if (pages===0)
-          setCurrentPage(0)
-      else
-          setCurrentPage(1) 
-  }
-
-  const lastPage = () => {
-      if (pages===0)
-          setCurrentPage(0)
-      else
-          setCurrentPage(pages) 
-  }
-
-  const activePage = (pageNumber) =>  setActive(pageNumber)
-
-  const nextPage = () => {
-   if(currentPage !== pages) 
-       setCurrentPage(currentPage + 1)
-       setActive(currentPage + 1)
-  }
-
-  const prevPage = () => {
-       if(currentPage > 1) 
-           setCurrentPage(currentPage - 1)
-           setActive(currentPage - 1)
-  }
-
-  //Pagination_1
-
-  const [recordsPerPage_, setRecordsPerPage_]= useState(15)
-  const [currentPage_, setCurrentPage_]= useState(1)
-  const [active_, setActive_] = useState(1)
-
-  const indexLastRecord_ = currentPage_ * recordsPerPage_
-  const indexFirstRecord_ = indexLastRecord_ - recordsPerPage_
-  const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord_,indexLastRecord_)
-  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage_)
-
-  const firstPage_ = () => {
-      if (pages_===0)
-          setCurrentPage_(0)
-      else
-          setCurrentPage_(1) 
-  }
-
-  const lastPage_ = () => {
-      if (pages_===0)
-          setCurrentPage_(0)
-      else
-          setCurrentPage_(pages_) 
-  }
-
-  const activePage_ = (pageNumber_) =>  setActive_(pageNumber_)
-
-  const nextPage_ = () => {
-   if(currentPage_ !== pages_) 
-       setCurrentPage_(currentPage_ + 1)
-       setActive_(currentPage_ + 1)
-  }
-
-  const prevPage_ = () => {
-       if(currentPage_ > 1) 
-           setCurrentPage_(currentPage_ - 1)
-           setActive_(currentPage_ - 1)
-  }
 
 
-
+//   //Pagination
 //   const [currentPage, setCurrentPage]= useState(1)
 //   const [recordsPerPage, setRecordsPerPage]= useState(15)
 //   const [active, setActive] = useState(1)
 
 //   const indexLastRecord = currentPage * recordsPerPage 
 //   const indexFirstRecord = indexLastRecord - recordsPerPage
-//   const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord)
+//   const grouped_cashflow_paginated = grouped_cashflow.slice(indexFirstRecord,indexLastRecord )
 //   const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord,indexLastRecord )
 
 //   const pages=Math.ceil(grouped_cashflow.length/recordsPerPage)
@@ -442,14 +444,28 @@ function CashflowCharts(props) {
 //         setCurrentPage(0)
 //     else
 //         setCurrentPage(1) 
-//   }
+// }
 
 // const lastPage_ = () => {
 //     if (pages_===0)
 //         setCurrentPage(0)
 //     else
 //         setCurrentPage(pages) 
-//   }
+// }
+
+
+// const nextPage_ = () => {
+//  if(currentPage !== pages_) 
+//      setCurrentPage(currentPage + 1)
+//      setActive(currentPage + 1)
+// }
+
+// const prevPage_ = () => {
+//   if(currentPage > 1) 
+//       setCurrentPage(currentPage - 1)
+//       setActive(currentPage - 1)
+// }
+
       
   
       
@@ -653,7 +669,7 @@ function CashflowCharts(props) {
                 currentPage={currentPage}
                 firstPage={firstPage}
                 lastPage={lastPage}
-            />
+          />
             </Col>
         </Row>
 
@@ -712,6 +728,7 @@ function CashflowCharts(props) {
                         currentPage_={currentPage_}
                         firstPage_={firstPage_}
                         lastPage_={lastPage_}
+      
                     />
                     </Col>
                 </Row>
