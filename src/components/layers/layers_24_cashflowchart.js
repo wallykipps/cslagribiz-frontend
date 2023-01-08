@@ -318,7 +318,7 @@ function CashflowCharts(props) {
 
 
   //Pagination
-  const [recordsPerPage, setRecordsPerPage]= useState(15)
+  const [recordsPerPage, setRecordsPerPage]= useState(10)
   const [currentPage, setCurrentPage]= useState(1)
   const [active, setActive] = useState(1)
 
@@ -357,7 +357,7 @@ function CashflowCharts(props) {
 
   //Pagination_1
 
-  const [recordsPerPage_, setRecordsPerPage_]= useState(15)
+  const [recordsPerPage_, setRecordsPerPage_]= useState(10)
   const [currentPage_, setCurrentPage_]= useState(1)
   const [active_, setActive_] = useState(1)
 
@@ -690,14 +690,12 @@ function CashflowCharts(props) {
                         <Form.Select 
                             className="form-select form-select-sm"
                             aria-label=".form-select-sm example"
-                            value={recordsPerPage || ''}
+                            value={recordsPerPage_ || ''}
                             onChange={evt => setRecordsPerPage_(evt.target.value)}
                             style={{fontSize:12}}
                         >
                             <option value='15'>15</option>
-                            <option value='25'>25</option>
-                            <option value='50'>50</option>
-                            <option value='100'>100</option>
+                            <option value='30'>30</option>
                         </Form.Select>
                     </OverlayTrigger>
                     </Col>
