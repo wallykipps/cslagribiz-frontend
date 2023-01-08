@@ -364,20 +364,20 @@ function CashflowCharts(props) {
   const indexLastRecord_ = currentPage_ * recordsPerPage_
   const indexFirstRecord_ = indexLastRecord_ - recordsPerPage_
   const grouped_expenses_type_paginated = grouped_expenses_type.slice(indexFirstRecord_,indexLastRecord_)
-  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage)
+  const pages_=Math.ceil(grouped_expenses_type.length/recordsPerPage_)
 
   const firstPage_ = () => {
       if (pages_===0)
-          setCurrentPage(0)
+          setCurrentPage_(0)
       else
-          setCurrentPage(1) 
+          setCurrentPage_(1) 
   }
 
   const lastPage_ = () => {
       if (pages_===0)
-          setCurrentPage(0)
+          setCurrentPage_(0)
       else
-          setCurrentPage(pages_) 
+          setCurrentPage_(pages_) 
   }
 
   const activePage_ = (pageNumber_) =>  setActive_(pageNumber_)
