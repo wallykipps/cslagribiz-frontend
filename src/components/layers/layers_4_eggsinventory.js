@@ -72,7 +72,7 @@ function EggsInventory(props){
     let eggsinventory_1 = eggsinventory_0 .filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.inventory_date>=start_date && a.inventory_date<=end_date ).map(y=>({...y}))
     let eggsinventory_2 = eggsinventory_1.map(c=>({...c, "total_losses": c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted,"total_losses_crates": (c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted)/30, "total_stock": c.eggs_stock_actual_crates+c.eggs_stock_actual_pieces/30}))
     // let eggsinventory_2 = eggsinventory_1.filter(b => (batch===undefined||batch==='')? b.batch===2 : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    const eggsinventory_7 = eggsinventory_unfiltered.filter(k=>k.inventory_date===inventory_date)
+    const eggsinventory_7 = eggsinventory_0.filter(k=>k.inventory_date===inventory_date)
     const eggsinventory_length = eggsinventory_7.length
     // console.log(eggsinventory_length)
    

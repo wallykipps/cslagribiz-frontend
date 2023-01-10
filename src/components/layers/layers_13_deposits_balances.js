@@ -89,6 +89,7 @@ function DepositsBalances(props){
         credit_ac_:f.credit_ac_details, 
         id_:'cash_deposits'
     }))
+    
     let deposits=deposits_0.filter(a => (bank_type===undefined||bank_type==='')? a.debit_ac===bank_type_default : a.debit_ac===parseInt(bank_type)).map( b => ({...b}))
   
     //Sales
