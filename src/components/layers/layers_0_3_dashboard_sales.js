@@ -427,111 +427,155 @@ function LayersSalesDashboard(props) {
 
               <Tab eventKey="layers-products" title="Products">
                 {/* Products */}
-                <Products
-                 products={products}
-                 selectProduct={selectProduct}
-                 product={selectedProduct}
-                 createdProduct={createdProduct}
-                 newProduct={newProduct}
-                 updatedProduct={updatedProduct}
-                 deletedProduct={deletedProduct}
-                  
-                />
-
-
+                {loadingLayersProducts ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ) :(
+                    <Products
+                      products={products}
+                      selectProduct={selectProduct}
+                      product={selectedProduct}
+                      createdProduct={createdProduct}
+                      newProduct={newProduct}
+                      updatedProduct={updatedProduct}
+                      deletedProduct={deletedProduct}
+                     />
+                    )}
               </Tab>
 
               <Tab eventKey="layers-customers" title="Customers">
                 {/* Customers */}
-                <Customers
-                  customers={customers}
-                  selectCustomer={selectCustomer}
-                  customer={selectedCustomer}
-                  createdCustomer={createdCustomer}
-                  newCustomer={newCustomer}
-                  updatedCustomer={updatedCustomer}
-                  deletedCustomer={deletedCustomer}
-                  
-                />
+
+                {loadingLayersCustomers ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ) :(
+                    <Customers
+                      customers={customers}
+                      selectCustomer={selectCustomer}
+                      customer={selectedCustomer}
+                      createdCustomer={createdCustomer}
+                      newCustomer={newCustomer}
+                      updatedCustomer={updatedCustomer}
+                      deletedCustomer={deletedCustomer}
+                      
+                    />
+                    )}
 
               </Tab>
 
               <Tab eventKey="layers-sales" title="Sales">
                 {/* Sales */}
-                <Sales
-                  staffTeam={staffTeam}
-                  batches={batches}
-                  paymentmodes={paymentmodes}
-                  sales={sales}
-                  creditsales={creditsales}
-                  products={products}
-                  customers={customers}
-                  selectSale={selectSale}
-                  sale={selectedSale}
-                  createdSale={createdSale}
-                  newSale={newSale}
-                  updatedSale={updatedSale}
-                  deletedSale={deletedSale}
-                  
-                />
+
+                {loadingLayersSales ? (
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):loadingLayersCreditSales ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ):(
+
+                      <Sales
+                        staffTeam={staffTeam}
+                        batches={batches}
+                        paymentmodes={paymentmodes}
+                        sales={sales}
+                        creditsales={creditsales}
+                        products={products}
+                        customers={customers}
+                        selectSale={selectSale}
+                        sale={selectedSale}
+                        createdSale={createdSale}
+                        newSale={newSale}
+                        updatedSale={updatedSale}
+                        deletedSale={deletedSale}
+                        
+                      />
+                      )}
+{/* 
+                {loadingLayersSales ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ) :(
+                        <h1>Done</h1>
+                    )}
+ */}
 
               </Tab>
 
               <Tab eventKey="layers-credit-sales" title="Credit Sales">
                 {/* Credit Sales */}
-                <CreditSales
-                  staffTeam={staffTeam}
-                  batches={batches}
-                  paymentmodes={paymentmodes}
-                  customers={customers}
-                  sales={sales}
-                  products={products}
-                  creditsales={creditsales}
-                  selectCreditSale={selectCreditSale}
-                  creditsale={selectedCreditSale}
-                  createdCreditSale={createdCreditSale}
-                  newCreditSale={newCreditSale}
-                  updatedCreditSale={updatedCreditSale}
-                  deletedCreditSale={deletedCreditSale}
 
-                
-                />
+                {loadingLayersCreditSales ? (
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):(
+                      <CreditSales
+                        staffTeam={staffTeam}
+                        batches={batches}
+                        paymentmodes={paymentmodes}
+                        customers={customers}
+                        sales={sales}
+                        products={products}
+                        creditsales={creditsales}
+                        selectCreditSale={selectCreditSale}
+                        creditsale={selectedCreditSale}
+                        createdCreditSale={createdCreditSale}
+                        newCreditSale={newCreditSale}
+                        updatedCreditSale={updatedCreditSale}
+                        deletedCreditSale={deletedCreditSale}
+                      />
+                      )}
+
               </Tab>
 
               <Tab eventKey="layers-bank-deposits" title="Deposits/Balances">
                 {/* Deposits/Balances */}
-                <DepositsBalances
-                  staffTeam={staffTeam}
-                  batches={batches}
-                  banking={banking}
-                  sales={sales}
-                  creditsales={creditsales}
-                  expenses={expenses}
-                  creditexpenses={creditexpenses}
-                  deposits={deposits}
-                  selectDeposit={selectDeposit}
-                  deposit={selecteddeposit}
-                  createdDeposit={createdDeposit}
-                  newDeposit={newDeposit}
-                  updatedDeposit={updatedDeposit}
-                  deletedDeposit={deletedDeposit}
-
-
-                  // paymentmodes={paymentmodes}
-                  // customers={customers}
-                  // products={products}
-                  // selectCreditSale={selectCreditSale}
-                  // creditsale={selectedCreditSale}
-                  // createdCreditSale={createdCreditSale}
-                  // newCreditSale={newCreditSale}
-                  // updatedCreditSale={updatedCreditSale}
-                  // deletedCreditSale={deletedCreditSale}
-
-                />
+                {loadingLayersSales ?(
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):loadingLayersCreditSales ?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ):loadingLayersExpenses ?(
+                      <div className="loader-container">
+                      <div className="spinner"></div>
+                      </div>
+                      ):loadingLayersCreditExpenses ?(
+                        <div className="loader-container">
+                        <div className="spinner"></div>
+                        </div>
+                        ):loadingLayersBankDeposits ?(
+                          <div className="loader-container">
+                          <div className="spinner"></div>
+                          </div>
+                          ):(
+                              <DepositsBalances
+                                staffTeam={staffTeam}
+                                batches={batches}
+                                banking={banking}
+                                sales={sales}
+                                creditsales={creditsales}
+                                expenses={expenses}
+                                creditexpenses={creditexpenses}
+                                deposits={deposits}
+                                selectDeposit={selectDeposit}
+                                deposit={selecteddeposit}
+                                createdDeposit={createdDeposit}
+                                newDeposit={newDeposit}
+                                updatedDeposit={updatedDeposit}
+                                deletedDeposit={deletedDeposit}
+                              />
+                              )}
               </Tab>
-
-
-              
             </Tabs>
           </div>
           <Footer />

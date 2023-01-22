@@ -403,70 +403,100 @@ function LayersFlockDashboard(props){
                 <div className="tabContainer"> 
                 <Tabs defaultActiveKey="birdsstock" id="production" className="mb-3">
                   <Tab eventKey="batches" title="Batches">
-                    <Batches
-                        businessunits={businessunits} 
-                        enterprisetypes={enterprisetypes} 
-                        staffTeam={staffTeam}  
-                        batches={batches}
-                        selectBatch={selectBatch}
-                        btch={selectedBatch}
-                        updatedBatch={updatedBatch}
-                        newBatch={newBatch}
-                        createdBatch={createdBatch}
-                        deletedBatch={deletedBatch}
-                      />
+                  {loadingBatches?(
+                    <div className="loader-container">
+                      <div className="spinner"></div>
+                    </div>
+                    ):(
+                        <Batches
+                          businessunits={businessunits} 
+                          enterprisetypes={enterprisetypes} 
+                          staffTeam={staffTeam}  
+                          batches={batches}
+                          selectBatch={selectBatch}
+                          btch={selectedBatch}
+                          updatedBatch={updatedBatch}
+                          newBatch={newBatch}
+                          createdBatch={createdBatch}
+                          deletedBatch={deletedBatch}
+                        />
+                      )}
+
                   </Tab>
                   <Tab eventKey="birdsstock" title="Birds Stock">
-                    <BirdsStock 
-                        birds={birds}
-                        staffTeam={staffTeam} 
-                        stocktypes={stocktypes}
-                        selectStock={selectStock}
-                        bird={selectedStock}
-                        batches={batches}
-                        sales={sales}
-                        expenses={expenses}
-                        updatedBirds={updatedBirds}
-                        deletedBirdsStock={deletedBirdsStock}
-                        createdStock={createdStock}
-                        newBirdsStock={newBirdsStock}
-                    />
+                  {loadingLayersSales?(
+                    <div className="loader-container">
+                      <div className="spinner"></div>
+                    </div>
+                      ):loadingBirdStock?(
+                        <div className="loader-container">
+                          <div className="spinner"></div>
+                        </div>
+                          ):loadingLayersExpenses?(
+                            <div className="loader-container">
+                              <div className="spinner"></div>
+                            </div>
+                              ):(
+                                <BirdsStock 
+                                  birds={birds}
+                                  staffTeam={staffTeam} 
+                                  stocktypes={stocktypes}
+                                  selectStock={selectStock}
+                                  bird={selectedStock}
+                                  batches={batches}
+                                  sales={sales}
+                                  expenses={expenses}
+                                  updatedBirds={updatedBirds}
+                                  deletedBirdsStock={deletedBirdsStock}
+                                  createdStock={createdStock}
+                                  newBirdsStock={newBirdsStock}
+                                />
+                              )}
+
                   </Tab>
 
                   <Tab eventKey="weightmonitoring" title="Weight Monitoring">
                     <Tabs defaultActiveKey="weights" id="vweightmonitoring" className="mb-3">
                       <Tab eventKey="weighttargets" title="Weight Targets">
-                        <WeightTargets
-                          weighttargets={weighttargets}
-                          selectWeightTarget={selectWeightTarget}
-                          weighttarget={selectedWeightTarget}
-                          createdWeightTarget={createdWeightTarget}
-                          newWeightTarget={newWeightTarget}
-                          updatedWeightTarget={updatedWeightTarget}
-                          deletedWeightTarget={deletedWeightTarget}
-                        
-                        />
+                      {loadingWeightTargets?(
+                        <div className="loader-container">
+                          <div className="spinner"></div>
+                        </div>
+                        ):(
+                          <WeightTargets
+                            weighttargets={weighttargets}
+                            selectWeightTarget={selectWeightTarget}
+                            weighttarget={selectedWeightTarget}
+                            createdWeightTarget={createdWeightTarget}
+                            newWeightTarget={newWeightTarget}
+                            updatedWeightTarget={updatedWeightTarget}
+                            deletedWeightTarget={deletedWeightTarget}
+                          />
+                          )}
                     </Tab>
 
                     <Tab eventKey="weights" title="Weights">
-                      <Weights
-                        staffTeam={staffTeam}
-                        batches={batches}
-                        weighttargets={weighttargets}
-                        weights={weights}
-                        selectWeight={selectWeight}
-                        weight={selectedWeight}
-                        createdWeight={createdWeight}
-                        newWeight={newWeight}
-                        updatedWeight={updatedWeight}
-                        deletedWeight={deletedWeight}
-
-                      />
+                    {loadingWeightMonitoring?(
+                        <div className="loader-container">
+                          <div className="spinner"></div>
+                        </div>
+                        ):(
+                          <Weights
+                            staffTeam={staffTeam}
+                            batches={batches}
+                            weighttargets={weighttargets}
+                            weights={weights}
+                            selectWeight={selectWeight}
+                            weight={selectedWeight}
+                            createdWeight={createdWeight}
+                            newWeight={newWeight}
+                            updatedWeight={updatedWeight}
+                            deletedWeight={deletedWeight}
+                          />
+                          )}
                   </Tab>
 
-
-
-                    </Tabs>
+                  </Tabs>
 
                   </Tab>
 
@@ -474,52 +504,70 @@ function LayersFlockDashboard(props){
                   <Tab eventKey="vaccinationprogram_status" title="Vaccination Program/Status">
                     <Tabs defaultActiveKey="vaccination" id="vaccinationprogramstatus" className="mb-3">
                       <Tab eventKey="vaccinationprogram" title="Vaccination Program">
-                        <VaccinationProgram
-                          batches={batches}
-                          vaccines={vaccines}
-                          vaccineprogram={vaccineprogram}
-                          selectVaccineProgram={selectVaccineProgram}
-                          program={selectedVaccineProgram}
-                          createdVaccineProgram={createdVaccineProgram}
-                          newVaccineProgram={newVaccineProgram}
-                          updatedVaccineProgram={updatedVaccineProgram}
-                          deletedVaccineProgram={deletedVaccineProgram}
-                        
-                        />
+                        {loadingVaccinationProgram?(
+                          <div className="loader-container">
+                            <div className="spinner"></div>
+                          </div>
+                          ):(
+                            <VaccinationProgram
+                              batches={batches}
+                              vaccines={vaccines}
+                              vaccineprogram={vaccineprogram}
+                              selectVaccineProgram={selectVaccineProgram}
+                              program={selectedVaccineProgram}
+                              createdVaccineProgram={createdVaccineProgram}
+                              newVaccineProgram={newVaccineProgram}
+                              updatedVaccineProgram={updatedVaccineProgram}
+                              deletedVaccineProgram={deletedVaccineProgram}
+                            />
+                            )}
 
                       </Tab>
 
                       
                       <Tab eventKey="vaccination" title="Vaccination">
-                        <Vaccination
-                          staffTeam={staffTeam}
-                          batches={batches}
-                          vaccineprogram={vaccineprogram}
-                          vaccines={vaccines}
-                          selectVaccine={selectVaccine}
-                          vaccine={selectedVaccine}
-                          createdVaccine={createdVaccine}
-                          newVaccine={newVaccine}
-                          updatedVaccine={updatedVaccine}
-                          deletedVaccine={deletedVaccine}
-
-
-                        />
+                        {loadingVaccination?(
+                            <div className="loader-container">
+                              <div className="spinner"></div>
+                            </div>
+                            ):(
+                                <Vaccination
+                                  staffTeam={staffTeam}
+                                  batches={batches}
+                                  vaccineprogram={vaccineprogram}
+                                  vaccines={vaccines}
+                                  selectVaccine={selectVaccine}
+                                  vaccine={selectedVaccine}
+                                  createdVaccine={createdVaccine}
+                                  newVaccine={newVaccine}
+                                  updatedVaccine={updatedVaccine}
+                                  deletedVaccine={deletedVaccine}
+                              />
+                              )}
                       </Tab>
 
                       <Tab eventKey="vaccinationstatus" title="Vaccination Status">
-                        <VaccinationStatus
-                          batches={batches}
-                          vaccines={vaccines}
-                          vaccineprogram={vaccineprogram}
-                          selectVaccineProgram={selectVaccineProgram}
-                          program={selectedVaccineProgram}
-                          createdVaccineProgram={createdVaccineProgram}
-                          newVaccineProgram={newVaccineProgram}
-                          updatedVaccineProgram={updatedVaccineProgram}
-                          deletedVaccineProgram={deletedVaccineProgram}
-                        
-                        />
+                        {loadingVaccinationProgram?(
+                              <div className="loader-container">
+                                <div className="spinner"></div>
+                              </div>
+                              ):loadingVaccination?(
+                                <div className="loader-container">
+                                  <div className="spinner"></div>
+                                </div>
+                                ):(
+                                  <VaccinationStatus
+                                    batches={batches}
+                                    vaccines={vaccines}
+                                    vaccineprogram={vaccineprogram}
+                                    selectVaccineProgram={selectVaccineProgram}
+                                    program={selectedVaccineProgram}
+                                    createdVaccineProgram={createdVaccineProgram}
+                                    newVaccineProgram={newVaccineProgram}
+                                    updatedVaccineProgram={updatedVaccineProgram}
+                                    deletedVaccineProgram={deletedVaccineProgram}
+                                  />
+                                  )}
                       </Tab>
 
 

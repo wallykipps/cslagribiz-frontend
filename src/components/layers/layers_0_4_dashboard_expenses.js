@@ -328,73 +328,92 @@ function LayesExpensesDashboard(props) {
 
               <Tab eventKey="layers-expenses-categories" title="Vendors">
                 {/* Vendors */}
-                <Vendors
-                  vendors = {vendors}
-                  selectVendor={selectVendor}
-                  vendor ={selectedVendor}
-                  createdVendor={createdVendor}
-                  newVendor={newVendor}
-                  updatedVendor={updatedVendor}
-                  deletedVendor={deletedVendor}
-                />
-              
+                {loadingLayersVendors ?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      ):(
+                        <Vendors
+                          vendors = {vendors}
+                          selectVendor={selectVendor}
+                          vendor ={selectedVendor}
+                          createdVendor={createdVendor}
+                          newVendor={newVendor}
+                          updatedVendor={updatedVendor}
+                          deletedVendor={deletedVendor}
+                        />
+                      )}
               </Tab>
 
               <Tab eventKey="layers-vendors" title="Cost Categories">
                 {/* Cost Categories */}
-                <CostCategories
-                  costcategories={costcategories} 
-                  selectCostCategory={selectCostCategory}
-                  costcategory={selectedCostCategory}
-                  createdCostCategory={createdCostCategory}
-                  newCostCategory={newCostCategory}
-                  updatedCostCategory={updatedCostCategory}
-                  deletedCostCategory={deletedCostCategory}
-                />
+
+                {loadingLayersCostCategories ?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      ):(
+                      <CostCategories
+                        costcategories={costcategories} 
+                        selectCostCategory={selectCostCategory}
+                        costcategory={selectedCostCategory}
+                        createdCostCategory={createdCostCategory}
+                        newCostCategory={newCostCategory}
+                        updatedCostCategory={updatedCostCategory}
+                        deletedCostCategory={deletedCostCategory}
+                      />
+                      )}
 
               </Tab>
 
               <Tab eventKey="layers-expenses" title="Expenses">
                 {/* Expenses */}
-                <Expenses
-                  staffTeam={staffTeam}
-                  batches={batches}
-                  paymentmodes={paymentmodes}
-                  vendors = {vendors}
-                  costcategories={costcategories}
-                  feedtypes={feedtypes}
-                  expenses={expenses}
-                  selectExpense={selectExpense}
-                  expense={selectedExpense}
-                  createdExpense={createdExpense}
-                  newExpense={newExpense}
-                  updatedExpense={updatedExpense}
-                  deletedExpense={deletedExpense}
-                
-                />
-
-
+                {loadingLayersExpenses ?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      ):(
+                        <Expenses
+                          staffTeam={staffTeam}
+                          batches={batches}
+                          paymentmodes={paymentmodes}
+                          vendors = {vendors}
+                          costcategories={costcategories}
+                          feedtypes={feedtypes}
+                          expenses={expenses}
+                          selectExpense={selectExpense}
+                          expense={selectedExpense}
+                          createdExpense={createdExpense}
+                          newExpense={newExpense}
+                          updatedExpense={updatedExpense}
+                          deletedExpense={deletedExpense}
+                        />
+                        )}
               </Tab>
 
               <Tab eventKey="layers-credit-expenses" title="Credit Expenses">
                 {/* Credit Expenses */}
-                <CreditExpenses
-                  staffTeam={staffTeam}
-                  batches={batches}
-                  paymentmodes={paymentmodes}
-                  vendors = {vendors}
-                  costcategories={costcategories}
-                  expenses={expenses}
-                  creditexpenses={creditexpenses}
-                  selectCreditExpense={selectCreditExpense}
-                  creditexpense={selectedCreditExpense}
-                  createdCreditExpense={createdCreditExpense}
-                  newCreditExpense={newCreditExpense}
-                  updatedCreditExpense={updatedCreditExpense}
-                  deletedCrditExpense={deletedCrditExpense}
-                  
-                />
-
+                {loadingLayersCreditExpenses?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      ):(
+                        <CreditExpenses
+                          staffTeam={staffTeam}
+                          batches={batches}
+                          paymentmodes={paymentmodes}
+                          vendors = {vendors}
+                          costcategories={costcategories}
+                          expenses={expenses}
+                          creditexpenses={creditexpenses}
+                          selectCreditExpense={selectCreditExpense}
+                          creditexpense={selectedCreditExpense}
+                          createdCreditExpense={createdCreditExpense}
+                          newCreditExpense={newCreditExpense}
+                          updatedCreditExpense={updatedCreditExpense}
+                          deletedCrditExpense={deletedCrditExpense}
+                        />
+                        )}
               </Tab>
               
             </Tabs>

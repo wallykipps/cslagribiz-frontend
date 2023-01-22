@@ -386,96 +386,138 @@ function EggProductionDashboard(props){
                 <div className="tabContainer"> 
                 <Tabs defaultActiveKey="eggs-production" id="production-dashboard" className="mb-3">
                   <Tab eventKey="eggs-production" title="Eggs Production">
-                      <EggsProduction
-                        staffTeam={staffTeam}
-                        batches={batches}
-                        eggsproduction={eggsproduction}
-                        selectEggProduction={selectEggProduction}
-                        eggs={selectedEggsProduction}
-                        updatedEggProduction={updatedEggProduction}
-                        newEggProduction={newEggProduction}
-                        createdEggProduction={createdEggProduction}
-                        deletedEggProduction={deletedEggProduction}
-                        
-                      
-                      />
-
-                      
+                    {loadingEggProduction? (
+                      <div className="loader-container">
+                        <div className="spinner"></div>
+                      </div>
+                      ):(
+                          <EggsProduction
+                            staffTeam={staffTeam}
+                            batches={batches}
+                            eggsproduction={eggsproduction}
+                            selectEggProduction={selectEggProduction}
+                            eggs={selectedEggsProduction}
+                            updatedEggProduction={updatedEggProduction}
+                            newEggProduction={newEggProduction}
+                            createdEggProduction={createdEggProduction}
+                            deletedEggProduction={deletedEggProduction}
+                          />
+                          )}
                       
                   </Tab>
                   <Tab eventKey="eggs-inventory" title="Eggs Inventory">
                     {/* Eggs Inventory */}
-                      <EggsInventory
-                        staffTeam={staffTeam}
-                        batches={batches}
-                        eggsproduction={eggsproduction}
-                        sales={sales}
-                        eggsinventory={eggsinventory}
-                        selectEggsRecord={selectEggsRecord}
-                        record ={selectedEggsRecord}
-                        createdEggsInventory={createdEggsInventory}
-                        newEggsInventory={newEggsInventory}
-                        updatedEggsInventory={updatedEggsInventory}
-                        deletedEggsInventory={deletedEggsInventory}
-                      
-                      
-                      />
+                    {loadingEggProduction? (
+                      <div className="loader-container">
+                        <div className="spinner"></div>
+                      </div>
+                      ):loadingLayersSales? (
+                        <div className="loader-container">
+                          <div className="spinner"></div>
+                        </div>
+                        ):(
+                            <EggsInventory
+                              staffTeam={staffTeam}
+                              batches={batches}
+                              eggsproduction={eggsproduction}
+                              sales={sales}
+                              eggsinventory={eggsinventory}
+                              selectEggsRecord={selectEggsRecord}
+                              record ={selectedEggsRecord}
+                              createdEggsInventory={createdEggsInventory}
+                              newEggsInventory={newEggsInventory}
+                              updatedEggsInventory={updatedEggsInventory}
+                              deletedEggsInventory={deletedEggsInventory}
+                            />
+                          )}
 
                   </Tab>
 
                   <Tab eventKey="feeds" title="Feeds">
                     <Tabs defaultActiveKey="feeds_inventory" id="layers_feeds" className="mb-3">
                       <Tab eventKey="feed_types" title="Feed Types">
-                        <FeedTypes
-                            costcategories={costcategories}
-                            feedtypes={feedtypes}
-                            selectFeedType={selectFeedType}
-                            feedtype={selectedFeedType}
-                            createdFeedType={createdFeedType}
-                            newFeedType={newFeedType}
-                            updatedFeedType={updatedFeedType}
-                            deletedFeedType={deletedFeedType}
-                          
-                        />
+                        {loadingFeedTypes? (
+                        <div className="loader-container">
+                          <div className="spinner"></div>
+                        </div>
+                        ):(
+                            <FeedTypes
+                              costcategories={costcategories}
+                              feedtypes={feedtypes}
+                              selectFeedType={selectFeedType}
+                              feedtype={selectedFeedType}
+                              createdFeedType={createdFeedType}
+                              newFeedType={newFeedType}
+                              updatedFeedType={updatedFeedType}
+                              deletedFeedType={deletedFeedType}
+                            />
+                            )}
+
 
                       </Tab>
 
                      <Tab eventKey="feeds_inventory" title="Feeds Inventory">
-                        <FeedInventory
-                          staffTeam={staffTeam}
-                          batches={batches}
-                          costcategories={costcategories}
-                          expenses={expenses}
-                          feedtypes={feedtypes}
-                          feedinventory={feedinventory}
-                          selectFeedInventory={selectFeedInventory}
-                          record ={selectedFeedRecord}
-                          createdFeedInventory={createdFeedInventory}
-                          newFeedInventory={newFeedInventory}
-                          updatedFeedInventory={updatedFeedInventory}
-                          deletedFeedInventory={deletedFeedInventory}
-                        
-                        />
+                      {loadingLayersExpenses? (
+                          <div className="loader-container">
+                            <div className="spinner"></div>
+                          </div>
+                          ):loadingFeedInventory? (
+                            <div className="loader-container">
+                              <div className="spinner"></div>
+                            </div>
+                            ):(
+                                <FeedInventory
+                                  staffTeam={staffTeam}
+                                  batches={batches}
+                                  costcategories={costcategories}
+                                  expenses={expenses}
+                                  feedtypes={feedtypes}
+                                  feedinventory={feedinventory}
+                                  selectFeedInventory={selectFeedInventory}
+                                  record ={selectedFeedRecord}
+                                  createdFeedInventory={createdFeedInventory}
+                                  newFeedInventory={newFeedInventory}
+                                  updatedFeedInventory={updatedFeedInventory}
+                                  deletedFeedInventory={deletedFeedInventory}
+                                />
+                              )}
+
 
                       </Tab>
 
                       <Tab eventKey="feeds_monitoring" title="Feeds Monitoring">
-                        <FeedTargets
-                          batches={batches}
-                          birds={birds}
-                          costcategories={costcategories}
-                          expenses={expenses}
-                          feedinventory={feedinventory}
-                          feedtargets={feedtargets}
-                          selectFeedTarget={selectFeedTarget}
-                          feed ={selectedFeedTarget}
-                          createdFeedTarget={createdFeedTarget}
-                          newFeedTarget={newFeedTarget}
-                          updatedFeedTarget={updatedFeedTarget}
-                          deletedFeedTarget={deletedFeedTarget}
-                        
-                        />
-
+                        {loadingLayersExpenses? (
+                            <div className="loader-container">
+                              <div className="spinner"></div>
+                            </div>
+                            ):loadingFeedInventory? (
+                              <div className="loader-container">
+                                <div className="spinner"></div>
+                              </div>
+                              ):loadingFeedTypes? (
+                                <div className="loader-container">
+                                  <div className="spinner"></div>
+                                </div>
+                                ):loadingFeedTargets? (
+                                  <div className="loader-container">
+                                    <div className="spinner"></div>
+                                  </div>
+                                  ):(
+                                    <FeedTargets
+                                      batches={batches}
+                                      birds={birds}
+                                      costcategories={costcategories}
+                                      expenses={expenses}
+                                      feedinventory={feedinventory}
+                                      feedtargets={feedtargets}
+                                      selectFeedTarget={selectFeedTarget}
+                                      feed ={selectedFeedTarget}
+                                      createdFeedTarget={createdFeedTarget}
+                                      newFeedTarget={newFeedTarget}
+                                      updatedFeedTarget={updatedFeedTarget}
+                                      deletedFeedTarget={deletedFeedTarget}
+                                    />
+                                  )}
                       </Tab>
 
                     </Tabs>

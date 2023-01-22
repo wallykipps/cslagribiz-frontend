@@ -242,23 +242,110 @@ function LayersDashboard(props){
             <div className={main? 'main active':'main'} >
               <SideBar sidebar={sidebar} navbartoggler={navbartoggler}/>
               <Container fluid>
-                <Dashboard
-                  batches={batches}
-                  birds={birds}
-                  eggsproduction={eggsproduction}
-                  sales={sales}
-                  expenses={expenses}
-                  eggsinventory={eggsinventory}
-                  deposits={deposits}
-                  weighttargets={weighttargets}
-                  weights={weights}
-                  vaccineprogram={vaccineprogram}
-                  vaccines={vaccines}
-                  creditsales={creditsales}
-                  creditexpenses={creditexpenses}
-                
-                
-                />
+
+              {loadingBatches ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ) :loadingBirdStock ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      
+                    ):loadingVaccinationProgram ? (
+                      <div className="loader-container">
+                      <div className="spinner"></div>
+                      </div>
+                        
+                      ):loadingVaccination ? (
+                        <div className="loader-container">
+                        <div className="spinner"></div>
+                        </div>
+                          
+                        ):loadingWeightTargets ? (
+                          <div className="loader-container">
+                          <div className="spinner"></div>
+                          </div>
+                            
+                          ):loadingWeightMonitoring ? (
+                            <div className="loader-container">
+                            <div className="spinner"></div>
+                            </div>
+                              
+                            ):loadingEggProduction? (
+                              <div className="loader-container">
+                              <div className="spinner"></div>
+                              </div>
+                                
+                              ):loadingEggsInventory ? (
+                                <div className="loader-container">
+                                <div className="spinner"></div>
+                                </div>
+                                  
+                                ):loadingLayersSales ? (
+                                  <div className="loader-container">
+                                  <div className="spinner"></div>
+                                  </div>
+                                    
+                                  ):loadingLayersExpenses ? (
+                                    <div className="loader-container">
+                                    <div className="spinner"></div>
+                                    </div>
+                                      
+                                    ):loadingLayersCostCategories ? (
+                                      <div className="loader-container">
+                                      <div className="spinner"></div>
+                                      </div>
+                                        
+                                      ):loadingFeedTypes ? (
+                                        <div className="loader-container">
+                                        <div className="spinner"></div>
+                                        </div>
+                                          
+                                        ):loadingFeedInventory ? (
+                                          <div className="loader-container">
+                                          <div className="spinner"></div>
+                                          </div>
+                                            
+                                          ):loadingFeedTargets? (
+                                            <div className="loader-container">
+                                            <div className="spinner"></div>
+                                            </div>
+                                              
+                                            ):loadingLayersCreditSales ? (
+                                              <div className="loader-container">
+                                              <div className="spinner"></div>
+                                              </div>
+                                                
+                                              ):loadingLayersCreditExpenses ? (
+                                                <div className="loader-container">
+                                                <div className="spinner"></div>
+                                                </div>
+                                                  
+                                                ):loadingLayersBankDeposits ? (
+                                                  <div className="loader-container">
+                                                  <div className="spinner"></div>
+                                                  </div>
+                                                    
+                                                  ):(
+                                                  <Dashboard
+                                                    batches={batches}
+                                                    birds={birds}
+                                                    eggsproduction={eggsproduction}
+                                                    sales={sales}
+                                                    expenses={expenses}
+                                                    eggsinventory={eggsinventory}
+                                                    deposits={deposits}
+                                                    weighttargets={weighttargets}
+                                                    weights={weights}
+                                                    vaccineprogram={vaccineprogram}
+                                                    vaccines={vaccines}
+                                                    creditsales={creditsales}
+                                                    creditexpenses={creditexpenses}
+                                                  />
+                                  
+
+                                                  )}
 
                 <Footer/>
               </Container>
