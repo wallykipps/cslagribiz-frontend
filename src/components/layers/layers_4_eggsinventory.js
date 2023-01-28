@@ -77,7 +77,8 @@ function EggsInventory(props){
     // console.log(eggsinventory_length)
    
 
-    const sales_0 = sales_unfiltered.map(d=>({...d, "total_quantity_sold": d.product_==='Eggs'? d.unit != "Crates"? parseFloat(d.quantity)/30:parseFloat(d.quantity):parseFloat(d.quantity)}))
+    const sales_ = sales_unfiltered.map(d=>({...d, "total_quantity_sold": d.product_==='Eggs'? d.unit != "Crates"? parseFloat(d.quantity)/30:parseFloat(d.quantity):parseFloat(d.quantity)}))
+    let sales_0  = sales_.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     const sales_6 = sales_unfiltered.filter(k=>k.date===inventory_date)
     // console.log(sales_6)
     const sales_length = sales_6.length
