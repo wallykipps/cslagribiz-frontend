@@ -240,7 +240,6 @@ function useFetchLayersSales(){
                                   .catch(err => setErrorLayersSales(errorLayersSales))
             setDataLayersSales(dataLayersSales)
             setLoadingLayersSales(false);
-            // console.log(dataLayersSales)
         }
 
         fetchData();
