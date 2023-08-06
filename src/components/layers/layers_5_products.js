@@ -100,6 +100,9 @@ function Products(props){
     }
     const handleShow = () => setShow(true);
 
+    //Search form
+    const searchForm = props.searchForm
+
     
     return(
 
@@ -108,14 +111,14 @@ function Products(props){
             <Container fluid>
                 <Row className="tables">
                     <Row>
-                    <Col sm={12} md={12} lg={5}>
+                    <Col sm={12} md={12} lg={10}>
                         <OverlayTrigger overlay={<Tooltip >Add Record</Tooltip>}>
                         <Button className="mb-2 ml-0 btn btn-sm"  variant="outline-success" onClick={handleShow}>
                         <FontAwesomeIcon icon={faPlusCircle} size="lg"/>
                         </Button>
                         </OverlayTrigger>
                     </Col>
-
+                    <Col sm={12} md={12} lg={2}>{searchForm}</Col>
 
                     </Row>
 

@@ -10,7 +10,7 @@ import {useCookies} from 'react-cookie';
 import Paginate from '../pagination'
 import * as MUIcons from '@mui/icons-material';
 import { CSVLink, CSVDownload } from "react-csv";
-// import useDebounce from "../../Hooks/use-debounce";
+import useDebounce from "../../Hooks/use-debounce";
 
 
 

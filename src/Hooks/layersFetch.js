@@ -3,7 +3,7 @@ import LAYERS_PRODUCTION_API from '../apis/layers_production_inventory_api';
 import LAYERS_SALES_EXPENSES_API from '../apis/layers_sales_expenses_api';
 import {useCookies} from 'react-cookie';
 import { Row, Col, Table, Button, Container, Modal, Form, InputGroup, OverlayTrigger,Tooltip} from "react-bootstrap";
-// import useDebounce from './use-debounce';
+import useDebounce from './use-debounce';
 import { Sales } from '../components/layers/layers_7_sales';
 
 
@@ -153,7 +153,7 @@ function useFetchLayersProducts(){
     const[errorLayersProducts, setErrorLayersProducts] = useState();
     const [token]= useCookies(['mr-token']);
     const [searchTxt,setSearchTxt]=useState('')
-    // const debounce = useDebounce(searchTxt,500)
+    const debounce = useDebounce(searchTxt,500)
     const searchForm = 
     (<div>
     <Form.Group className="mb-2" controlId="searchbox">
@@ -179,9 +179,8 @@ function useFetchLayersProducts(){
         }
 
         fetchData();
-    })
+    },[debounce])
 
-    // },[debounce])
     return [dataLayersProducts, loadingLayersProducts, errorLayersProducts, searchForm]
     
     
@@ -231,7 +230,7 @@ function useFetchLayersSales(){
         // console.log(newBatch)
         setBatchFilter(newBatch);
       }
-    // const debounce = useDebounce(batchFilter,500)
+    const debounce = useDebounce(batchFilter,500)
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersSales(true);
@@ -244,8 +243,8 @@ function useFetchLayersSales(){
 
         fetchData();
 
-    })
-    // },[debounce])
+    // })
+    },[debounce])
 
     return [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter]
 }
