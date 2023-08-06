@@ -4,7 +4,7 @@
 export default class LAYERS_SALES_EXPENSES_API {
 
   static getLayersProducts (token, searchTxt){
-      return fetch(`http://127.0.0.1:8000/layers/products/?search=${searchTxt}`, {
+      return fetch(`http://backend.cslagri.biz/layers/products/?search=${searchTxt}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export default class LAYERS_SALES_EXPENSES_API {
   }
 
   static addLayersProducts( body, token ){
-      return fetch(`http://127.0.0.1:8000/layers/products/`, {
+      return fetch(`http://backend.cslagri.biz/layers/products/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
     
     static updateLayersProducts(product_id, body, token){
-      return fetch(`http://127.0.0.1:8000/layers/products/${product_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/products/${product_id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
 
     static removeLayersProducts(product_id, token){
-      return fetch(`http://127.0.0.1:8000/layers/products/${product_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/products/${product_id}/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
   static getLayersCustomers(token){
-      return fetch("http://127.0.0.1:8000/layers/customers/", {
+      return fetch("http://backend.cslagri.biz/layers/customers/", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
   static addLayersCustomers( body, token ){
-      return fetch(`http://127.0.0.1:8000/layers/customers/`, {
+      return fetch(`http://backend.cslagri.biz/layers/customers/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
     
     static updateLayersCustomers(customer_id, body, token){
-      return fetch(`http://127.0.0.1:8000/layers/customers/${customer_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/customers/${customer_id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
 
     static removeLayersCustomers(customer_id, token){
-      return fetch(`http://127.0.0.1:8000/layers/customers/${customer_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/customers/${customer_id}/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
   static getLayersSales(token,batchFilter ){      
-      return fetch(`http://127.0.0.1:8000/layers/sales?batch=${batchFilter}`, {
+      return fetch(`http://backend.cslagri.biz/layers/sales?batch=${batchFilter}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export default class LAYERS_SALES_EXPENSES_API {
   }
 
   static addLayersSales( body, token ){
-      return fetch(`http://127.0.0.1:8000/layers/sales/`, {
+      return fetch(`http://backend.cslagri.biz/layers/sales/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
     
     static updateLayersSales(sale_id, body, token){
-      return fetch(`http://127.0.0.1:8000/layers/sales/${sale_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/sales/${sale_id}/`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
 
     static removeLayersSales(sale_id, token){
-      return fetch(`http://127.0.0.1:8000/layers/sales/${sale_id}/`, {
+      return fetch(`http://backend.cslagri.biz/layers/sales/${sale_id}/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
   static getLayersCreditSales(token){
-    return fetch("http://127.0.0.1:8000/layers/creditsales/", {
+    return fetch("http://backend.cslagri.biz/layers/creditsales/", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
 static addLayersCreditSales( body, token ){
-  return fetch(`http://127.0.0.1:8000/layers/creditsales/`, {
+  return fetch(`http://backend.cslagri.biz/layers/creditsales/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ static addLayersCreditSales( body, token ){
 
 
 static updateLayersCreditSales(creditsale_id, body, token){
-  return fetch(`http://127.0.0.1:8000/layers/creditsales/${creditsale_id}/`, {
+  return fetch(`http://backend.cslagri.biz/layers/creditsales/${creditsale_id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ static updateLayersCreditSales(creditsale_id, body, token){
 }
 
 static removeLayersCreditSales(creditsale_id, token){
-  return fetch(`http://127.0.0.1:8000/layers/creditsales/${creditsale_id}/`, {
+  return fetch(`http://backend.cslagri.biz/layers/creditsales/${creditsale_id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -197,7 +197,7 @@ static removeLayersCreditSales(creditsale_id, token){
 
 
 static getLayersVendors(token){
-  return fetch("http://127.0.0.1:8000/layers/vendors/", {
+  return fetch("http://backend.cslagri.biz/layers/vendors/", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ static getLayersVendors(token){
 
 
 static addLayersVendors( body, token ){
-return fetch(`http://127.0.0.1:8000/layers/vendors/`, {
+return fetch(`http://backend.cslagri.biz/layers/vendors/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -222,7 +222,7 @@ return fetch(`http://127.0.0.1:8000/layers/vendors/`, {
 
 
 static updateLayersVendors(vendor_id, body, token){
-return fetch(`http://127.0.0.1:8000/layers/vendors/${vendor_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/vendors/${vendor_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ return fetch(`http://127.0.0.1:8000/layers/vendors/${vendor_id}/`, {
 }
 
 static removeLayersVendors(vendor_id, token){
-return fetch(`http://127.0.0.1:8000/layers/vendors/${vendor_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/vendors/${vendor_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -247,7 +247,7 @@ return fetch(`http://127.0.0.1:8000/layers/vendors/${vendor_id}/`, {
 
 
 static getLayersCostCategories(token){
-return fetch("http://127.0.0.1:8000/layers/costcategories/", {
+return fetch("http://backend.cslagri.biz/layers/costcategories/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -257,7 +257,7 @@ return fetch("http://127.0.0.1:8000/layers/costcategories/", {
 }
 
 static addLayersCostCategories( body, token ){
-return fetch(`http://127.0.0.1:8000/layers/costcategories/`, {
+return fetch(`http://backend.cslagri.biz/layers/costcategories/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ return fetch(`http://127.0.0.1:8000/layers/costcategories/`, {
 
 
 static updateLayersCostCategories(cost_id, body, token){
-return fetch(`http://127.0.0.1:8000/layers/costcategories/${cost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/costcategories/${cost_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -283,7 +283,7 @@ return fetch(`http://127.0.0.1:8000/layers/costcategories/${cost_id}/`, {
 }
 
 static removeLayersCostCategories(cost_id, token){
-return fetch(`http://127.0.0.1:8000/layers/costcategories/${cost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/costcategories/${cost_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -296,7 +296,7 @@ return fetch(`http://127.0.0.1:8000/layers/costcategories/${cost_id}/`, {
 
 
 static getLayersExpenses(token){
-return fetch("http://127.0.0.1:8000/layers/expenses/", {
+return fetch("http://backend.cslagri.biz/layers/expenses/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -307,7 +307,7 @@ return fetch("http://127.0.0.1:8000/layers/expenses/", {
 
 
 static addLayersExpenses( body, token ){
-return fetch(`http://127.0.0.1:8000/layers/expenses/`, {
+return fetch(`http://backend.cslagri.biz/layers/expenses/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -321,7 +321,7 @@ return fetch(`http://127.0.0.1:8000/layers/expenses/`, {
 
 
 static updateLayersExpenses(cost_id, body, token){
-return fetch(`http://127.0.0.1:8000/layers/expenses/${cost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/expenses/${cost_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -333,7 +333,7 @@ return fetch(`http://127.0.0.1:8000/layers/expenses/${cost_id}/`, {
 }
 
 static removeLayersExpenses(cost_id, token){
-return fetch(`http://127.0.0.1:8000/layers/expenses/${cost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/expenses/${cost_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -345,7 +345,7 @@ return fetch(`http://127.0.0.1:8000/layers/expenses/${cost_id}/`, {
 
 
 static getLayersCreditExpenses(token){
-return fetch("http://127.0.0.1:8000/layers/creditexpenses/", {
+return fetch("http://backend.cslagri.biz/layers/creditexpenses/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ return fetch("http://127.0.0.1:8000/layers/creditexpenses/", {
 
 
 static addLayersCreditExpenses( body, token ){
-return fetch(`http://127.0.0.1:8000/layers/creditexpenses/`, {
+return fetch(`http://backend.cslagri.biz/layers/creditexpenses/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -370,7 +370,7 @@ return fetch(`http://127.0.0.1:8000/layers/creditexpenses/`, {
 
 
 static updateLayersCreditExpenses(creditcost_id, body, token){
-return fetch(`http://127.0.0.1:8000/layers/creditexpenses/${creditcost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/creditexpenses/${creditcost_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -382,7 +382,7 @@ return fetch(`http://127.0.0.1:8000/layers/creditexpenses/${creditcost_id}/`, {
 }
 
 static removeLayersCreditExpenses(creditcost_id, token){
-return fetch(`http://127.0.0.1:8000/layers/creditexpenses/${creditcost_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/creditexpenses/${creditcost_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -394,7 +394,7 @@ return fetch(`http://127.0.0.1:8000/layers/creditexpenses/${creditcost_id}/`, {
 
 
 static getLayersBankDeposits(token){
-return fetch("http://127.0.0.1:8000/layers/cashbalance/", {
+return fetch("http://backend.cslagri.biz/layers/cashbalance/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -405,7 +405,7 @@ return fetch("http://127.0.0.1:8000/layers/cashbalance/", {
 
 
 static addLayersBankDeposits( body, token ){
-return fetch(`http://127.0.0.1:8000/layers/cashbalance/`, {
+return fetch(`http://backend.cslagri.biz/layers/cashbalance/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -419,7 +419,7 @@ return fetch(`http://127.0.0.1:8000/layers/cashbalance/`, {
 
 
 static updateLayersBankDeposits(deposit_id, body, token){
-return fetch(`http://127.0.0.1:8000/layers/cashbalance/${deposit_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/cashbalance/${deposit_id}/`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -431,7 +431,7 @@ return fetch(`http://127.0.0.1:8000/layers/cashbalance/${deposit_id}/`, {
 }
 
 static removeLayersBankDeposits(deposit_id, token){
-return fetch(`http://127.0.0.1:8000/layers/cashbalance/${deposit_id}/`, {
+return fetch(`http://backend.cslagri.biz/layers/cashbalance/${deposit_id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
