@@ -2,12 +2,20 @@ import {useState, useEffect} from 'react';
 import LAYERS_PRODUCTION_API from '../apis/layers_production_inventory_api';
 import LAYERS_SALES_EXPENSES_API from '../apis/layers_sales_expenses_api';
 import {useCookies} from 'react-cookie';
+import { Row, Col, Table, Button, Container, Modal, Form, InputGroup, OverlayTrigger,Tooltip} from "react-bootstrap";
+import useDebounce from './use-debounce';
+import { Sales } from '../components/layers/layers_7_sales';
+
+
 
 function useFetchBatches(){
+
     const [dataBatches, setDataBatches] = useState([])
     const[loadingBatches, setLoadingBatches] = useState(true);
     const[errorBatches, setErrorBatches] = useState();
     const [token]= useCookies(['mr-token']);
+    // console.log(token)
+    // console.log(dataBatches)
 
     useEffect(()=>{
         async function fetchData(){
@@ -23,11 +31,13 @@ function useFetchBatches(){
 
     },[])
 
+
     return [dataBatches, loadingBatches, errorBatches]
 
 }
 
 export {useFetchBatches};
+
 
 function useFetchStockMovement(){
     const [dataStockMovement, setDataStockMovement] = useState([])
@@ -76,7 +86,7 @@ function useFetchBirdStock(){
 
     },[])
 
-    return [dataBirdStock, loadingBirdStock, errorBirdStock]
+    return[dataBirdStock, loadingBirdStock, errorBirdStock]
 
 }
 
@@ -142,26 +152,43 @@ function useFetchLayersProducts(){
     const[loadingLayersProducts, setLoadingLayersProducts] = useState(true);
     const[errorLayersProducts, setErrorLayersProducts] = useState();
     const [token]= useCookies(['mr-token']);
+    const [searchTxt,setSearchTxt]=useState('')
+    const debounce = useDebounce(searchTxt,500)
+    const searchForm = 
+    (<div>
+    <Form.Group className="mb-2" controlId="searchbox">
+    <Form.Control 
+        type="text" 
+        placeholder="Search Table"
+        value={searchTxt} 
+        onChange = {(e)=>setSearchTxt(e.target.value)}
+        />
+    </Form.Group>
+    </div>)
+
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersProducts(true);
             setErrorLayersProducts();
-            const dataLayersProducts = await  LAYERS_SALES_EXPENSES_API.getLayersProducts(token['mr-token'])
+            const dataLayersProducts = await  LAYERS_SALES_EXPENSES_API.getLayersProducts(token['mr-token'],searchTxt)
                                   .catch(err => setErrorLayersProducts(errorLayersProducts))
             setDataLayersProducts(dataLayersProducts)
             setLoadingLayersProducts(false);
+            
         }
 
         fetchData();
 
-    },[])
-
-    return [dataLayersProducts, loadingLayersProducts, errorLayersProducts]
+    },[debounce])
+    return [dataLayersProducts, loadingLayersProducts, errorLayersProducts, searchForm]
+    
+    
 
 }
 
 export {useFetchLayersProducts};
+
 
 
 function useFetchLayersCustomers(){
@@ -196,23 +223,31 @@ function useFetchLayersSales(){
     const[loadingLayersSales, setLoadingLayersSales] = useState(true);
     const[errorLayersSales, setErrorLayersSales] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilter,setBatchFilter]=useState(3)
+    // console.log(batchFilter)
 
+    const updateBatchFilter = (newBatch) => {
+        // console.log(newBatch)
+        setBatchFilter(newBatch);
+      }
+
+    const debounce = useDebounce(batchFilter,500)
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersSales(true);
             setErrorLayersSales();
-            const dataLayersSales = await  LAYERS_SALES_EXPENSES_API.getLayersSales(token['mr-token'])
+            const dataLayersSales = await  LAYERS_SALES_EXPENSES_API.getLayersSales(token['mr-token'],batchFilter)
                                   .catch(err => setErrorLayersSales(errorLayersSales))
             setDataLayersSales(dataLayersSales)
             setLoadingLayersSales(false);
+            // console.log(dataLayersSales)
         }
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataLayersSales, loadingLayersSales, errorLayersSales]
-
+    return [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter]
 }
 
 export {useFetchLayersSales};

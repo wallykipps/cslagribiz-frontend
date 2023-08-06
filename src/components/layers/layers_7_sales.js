@@ -10,6 +10,7 @@ import {useCookies} from 'react-cookie';
 import Paginate from '../pagination'
 import * as MUIcons from '@mui/icons-material';
 import { CSVLink, CSVDownload } from "react-csv";
+import useDebounce from "../../Hooks/use-debounce";
 
 
 
@@ -76,6 +77,7 @@ function Sales(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+
     //Sort tables
     const [sortTable, setsortTable]= useState(true)
     const sortByDate= () => {
@@ -89,16 +91,18 @@ function Sales(props){
         }return
         
     }
+
     let sales_filtered_0 = sales_unfiltered.map(c => ({...c,"total_sales_1": c.quantity*c.unitprice}) )
     // console.log(sales_filtered_0)
 
     let sales_filtered_1= sales_filtered_0.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
-    let sales_filtered_2= sales_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let sales_filtered_3 = sales_filtered_2.filter(c => (customer_===undefined||customer_==='')? c : c.customer_name === customer_).map( w => ({...w}))
-    let sales_ = sales_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === parseInt(paymentstatus)).map( z => ({...z}))
-    let sales = sales_.sort((a, b) => sortTable===true? new Date(b.date) - new Date(a.date):new Date(a.date) - new Date(b.date))
+    // let sales_filtered_2= sales_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let sales_filtered_3 = sales_filtered_1.filter(c => (customer_===undefined||customer_==='')? c : c.customer_name === customer_).map( w => ({...w}))
+    let sales_filtered_4 = sales_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === parseInt(paymentstatus)).map( z => ({...z}))
+    let sales = sales_filtered_4 .sort((a, b) => sortTable===true? new Date(b.date) - new Date(a.date):new Date(a.date) - new Date(b.date))
     let cash_sales = sales.filter(d => d.payment_mode !=2).map( z => ({...z}))
     // console.log(sales)
+
 
 
     const sales_total = sales.reduce(add_sales, 0); // with initial value to avoid when the array is empty
@@ -221,6 +225,9 @@ function Sales(props){
              setActive(currentPage - 1)
     }
 
+    let batchFilter = props.batchFilter
+    let setBatchFilter = props.setBatchFilter
+
     
     return(
 
@@ -247,7 +254,7 @@ function Sales(props){
                 </Row>
 
                 <Row className="tables">
-                    <Row>
+                    {/* <Row> */}
                     <Col sm={12} md={12} lg={1}>
                         <OverlayTrigger overlay={<Tooltip >Add Record</Tooltip>}>
                         <Button className="mb-2 ml-0 btn btn-sm"  variant="outline-success" onClick={handleShow}>
@@ -258,15 +265,16 @@ function Sales(props){
 
 
                     <Col sm={12} md={12} lg={2}>
-                        <OverlayTrigger overlay={<Tooltip>Select Batch Filter</Tooltip>}>
+                    <OverlayTrigger overlay={<Tooltip>Select Batch Filter</Tooltip>}>
                         <InputGroup  className="mb-2" size="sm">
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batchFilter||2}
+                                    onChange={evt => setBatchFilter(evt.target.value)}
+                                    // onChange={evt => setBatchFilter(batch_last)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>Select...</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -274,7 +282,7 @@ function Sales(props){
                                         }
                                 </Form.Select>
                         </InputGroup>
-                        </OverlayTrigger>
+                    </OverlayTrigger>
                     </Col>
 
                     <Col sm={12} md={12} lg={2}>
@@ -349,7 +357,7 @@ function Sales(props){
                         </OverlayTrigger>
                     </Col>
 
-                    </Row>
+                    {/* </Row> */}
 
 
                     <Table  className="table table-success table-striped table-hover table-sm table-borderless" >
@@ -359,8 +367,10 @@ function Sales(props){
                         <th> Sale Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
                                 }
                             </OverlayTrigger>
                         </th>
@@ -443,12 +453,14 @@ function Sales(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
                     />
                     </Col>
                 </Row>
 
             </Row>
         </Container>
+
 
         {/* <h1>{eggs_.id? 'Eggs': 'Not Eggs'}</h1> */}
 

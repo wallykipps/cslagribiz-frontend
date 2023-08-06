@@ -12,7 +12,7 @@ import {DepositsBalances} from './layers_13_deposits_balances';
 import NavBar from "../navbar";
 import SideBar from "../sidebar";
 import Footer from "../footer";
-import { Tabs, Tab, Row, Col, Nav, Container } from "react-bootstrap";
+import { Tabs, Tab, Row, Col, Nav, Container, Form, Button,InputGroup } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import {
   useFetchBatches,
@@ -36,39 +36,35 @@ import {
   useFetchBanking,
 } from "../../Hooks/enterpriseFetch";
 
+
 function LayersSalesDashboard(props) {
   const [token, setToken, deleteToken] = useCookies(["mr-token"]);
+  //Authentication 
+  useEffect(() => {
+    // console.log(token);
+    if (!token["mr-token"]) window.location.href = "/login";
+  }, [token]);
+  
+  const [batches, setBatches] = useState([]);
+  const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
+  
 
-  const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
-  const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
+  // const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
+  // const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
   const [dataStaff, loadingStaff, errorStaff] = useFetchStaff();
   const [dataPaymentModes, loadingPaymentModes, errorPaymentModes] = useFetchPaymentModes();
   const [dataBanking, loadingBanking, errorBanking] = useFetchBanking();
 
-  const [businessunits, setBusinessUnit] = useState([]);
-  const [enterprisetypes, setEnterpriseType] = useState([]);
+  // const [businessunits, setBusinessUnit] = useState([]);
+  // const [enterprisetypes, setEnterpriseType] = useState([]);
   const [staffTeam, setStaffTeam] = useState([]);
   const [paymentmodes, setPaymentModes] = useState([]);
   const [banking, setBanking] = useState([]);
 
-  const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
   // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
   // const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
   // const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
-
-
-  const [dataLayersProducts, loadingLayersProducts, errorLayersProducts] = useFetchLayersProducts();
-  const [dataLayersCustomers, loadingLayersCustomers, errorLayersCustomers] = useFetchLayersCustomers();
-  const [dataLayersSales, loadingLayersSales, errorLayersSales] = useFetchLayersSales();
-  const [dataLayersCreditSales, loadingLayersCreditSales, errorLayersCreditSales] = useFetchLayersCreditSales();
-  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
-  const [dataLayersCreditExpenses, loadingLayersCreditExpenses, errorLayersCreditExpenses] = useFetchLayersCreditExpenses();
-  const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits] = useFetchLayersBankDeposits();
-
-
-  const [batches, setBatches] = useState([]);
   // const [selectedBatch, setSelectedBatch] = useState([]);
-
   // const [stocktypes, setStockTypes] = useState([]);
   // const [birds, setBirds] = useState([]);
   // const [selectedStock, setSelectedStock] = useState([]);
@@ -76,10 +72,16 @@ function LayersSalesDashboard(props) {
   // const [eggsproduction, setEggsProduction] = useState([]);
   // const [selectedEggsProduction, setSelectedEggsProduction] = useState([]);
 
+  const [dataLayersProducts, loadingLayersProducts, errorLayersProducts,searchForm] = useFetchLayersProducts();
+  const [dataLayersCustomers, loadingLayersCustomers, errorLayersCustomers] = useFetchLayersCustomers();
+  const [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter] = useFetchLayersSales();
+  const [dataLayersCreditSales, loadingLayersCreditSales, errorLayersCreditSales] = useFetchLayersCreditSales();
+  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+  const [dataLayersCreditExpenses, loadingLayersCreditExpenses, errorLayersCreditExpenses] = useFetchLayersCreditExpenses();
+  const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits] = useFetchLayersBankDeposits();
+
   const [expenses, setExpenses] = useState([]);
   const [creditexpenses, setCreditExpenses] = useState([]);
-
-
 
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState([]);
@@ -92,23 +94,23 @@ function LayersSalesDashboard(props) {
   const [deposits, setDeposits] = useState([]);
   const [selecteddeposit, setSelectedDeposit] = useState([]);
 
+  const sales_len = sales.length
+  const expenses_len = expenses.length
+  const creditsales_len = creditsales.length
+  const creditexpenses_len = creditexpenses.length
 
+ 
 
-  //Authentication 
-  useEffect(() => {
-    // console.log(token);
-    if (!token["mr-token"]) window.location.href = "/login";
-  }, [token]);
 
   //Enterprise App
 
-  useEffect(() => {
-    setBusinessUnit(dataBunits);
-  }, [dataBunits]);
+  // useEffect(() => {
+  //   setBusinessUnit(dataBunits);
+  // }, [dataBunits]);
 
-  useEffect(() => {
-    setEnterpriseType(dataEtypes);
-  }, [dataEtypes]);
+  // useEffect(() => {
+  //   setEnterpriseType(dataEtypes);
+  // }, [dataEtypes]);
 
   useEffect(() => {
     setStaffTeam(dataStaff);
@@ -408,6 +410,7 @@ function LayersSalesDashboard(props) {
     setNavbartoggler(!navbartoggler);
   };
 
+
   return (
     <div className="App">
       <NavBar
@@ -427,6 +430,7 @@ function LayersSalesDashboard(props) {
 
               <Tab eventKey="layers-products" title="Products">
                 {/* Products */}
+
                 {loadingLayersProducts ? (
                     <div className="loader-container">
                     <div className="spinner"></div>
@@ -440,8 +444,10 @@ function LayersSalesDashboard(props) {
                       newProduct={newProduct}
                       updatedProduct={updatedProduct}
                       deletedProduct={deletedProduct}
+                      searchForm={searchForm}
                      />
                     )}
+
               </Tab>
 
               <Tab eventKey="layers-customers" title="Customers">
@@ -493,18 +499,11 @@ function LayersSalesDashboard(props) {
                         newSale={newSale}
                         updatedSale={updatedSale}
                         deletedSale={deletedSale}
+                        batchFilter ={batchFilter}
+                        setBatchFilter={setBatchFilter}
                         
                       />
                       )}
-{/* 
-                {loadingLayersSales ? (
-                    <div className="loader-container">
-                    <div className="spinner"></div>
-                    </div>
-                    ) :(
-                        <h1>Done</h1>
-                    )}
- */}
 
               </Tab>
 
@@ -537,6 +536,60 @@ function LayersSalesDashboard(props) {
 
               <Tab eventKey="layers-bank-deposits" title="Deposits/Balances">
                 {/* Deposits/Balances */}
+
+                {sales_len>expenses_len?
+
+                loadingLayersSales ?(
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):(
+                    <DepositsBalances
+                      staffTeam={staffTeam}
+                      batches={batches}
+                      banking={banking}
+                      sales={sales}
+                      creditsales={creditsales}
+                      expenses={expenses}
+                      creditexpenses={creditexpenses}
+                      deposits={deposits}
+                      selectDeposit={selectDeposit}
+                      deposit={selecteddeposit}
+                      createdDeposit={createdDeposit}
+                      newDeposit={newDeposit}
+                      updatedDeposit={updatedDeposit}
+                      deletedDeposit={deletedDeposit}
+                    />
+                    )
+                
+                :
+
+                loadingLayersExpenses ?(
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):(
+                    <DepositsBalances
+                      staffTeam={staffTeam}
+                      batches={batches}
+                      banking={banking}
+                      sales={sales}
+                      creditsales={creditsales}
+                      expenses={expenses}
+                      creditexpenses={creditexpenses}
+                      deposits={deposits}
+                      selectDeposit={selectDeposit}
+                      deposit={selecteddeposit}
+                      createdDeposit={createdDeposit}
+                      newDeposit={newDeposit}
+                      updatedDeposit={updatedDeposit}
+                      deletedDeposit={deletedDeposit}
+                    />
+                    )
+
+                }
+
+
                 {loadingLayersSales ?(
                   <div className="loader-container">
                   <div className="spinner"></div>
