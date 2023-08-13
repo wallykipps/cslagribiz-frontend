@@ -26,6 +26,10 @@ import {
   useFetchLayersBankDeposits,
   useFetchLayersExpenses,
   useFetchLayersCreditExpenses,
+  // useExternalHookAsState,
+  // MessageUpdater,
+  // BatchFilterForm,
+  // BatchForm,
 
 } from "../../Hooks/layersFetch";
 import {
@@ -48,6 +52,14 @@ function LayersSalesDashboard(props) {
   const [batches, setBatches] = useState([]);
   const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
   
+
+
+
+  // const [message, updateMessage] = useExternalHookAsState();
+  
+  // useEffect(() => {
+  //   console.log('effect on message tirggered');
+  // }, [message]);
 
   // const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
   // const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
@@ -448,6 +460,19 @@ function LayersSalesDashboard(props) {
                      />
                     )}
 
+{/* 
+                  <Products
+                      products={products}
+                      selectProduct={selectProduct}
+                      product={selectedProduct}
+                      createdProduct={createdProduct}
+                      newProduct={newProduct}
+                      updatedProduct={updatedProduct}
+                      deletedProduct={deletedProduct}
+                      searchForm={searchForm}
+                     /> */}
+
+
               </Tab>
 
               <Tab eventKey="layers-customers" title="Customers">
@@ -504,6 +529,36 @@ function LayersSalesDashboard(props) {
                         
                       />
                       )}
+
+
+                      {/* <Sales
+                        staffTeam={staffTeam}
+                        batches={batches}
+                        paymentmodes={paymentmodes}
+                        sales={sales}
+                        creditsales={creditsales}
+                        products={products}
+                        customers={customers}
+                        selectSale={selectSale}
+                        sale={selectedSale}
+                        createdSale={createdSale}
+                        newSale={newSale}
+                        updatedSale={updatedSale}
+                        deletedSale={deletedSale}
+                        batchFilter ={batchFilter}
+                        setBatchFilter={setBatchFilter}
+                        
+                      /> */}
+
+{/* 
+                {loadingLayersSales ? (
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                    ) :(
+                        <h1>Done</h1>
+                    )}
+ */}
 
               </Tab>
 
