@@ -225,6 +225,9 @@ function Sales(props){
              setActive(currentPage - 1)
     }
 
+   
+
+
     let batchFilter = props.batchFilter
     let setBatchFilter = props.setBatchFilter
 
@@ -236,6 +239,24 @@ function Sales(props){
             <Container fluid>
              <Row>
                     <Col sm={12} md={12} lg={5}>
+                    {/* <OverlayTrigger overlay={<Tooltip>Select Batch Filter</Tooltip>}>
+                        <InputGroup  className="mb-2" size="sm">
+                            <InputGroup.Text >Batch</InputGroup.Text>
+                                <Form.Select
+                                    size="sm"
+                                    value={batchFilter||2}
+                                    onChange={evt => setBatchFilter(evt.target.value)}
+                                    // onChange={evt => setBatchFilter(batch_last)}
+                                >
+                                    <option value=''>Select...</option>
+                                        {
+                                            batches.map(btch =>{
+                                                return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
+                                                })
+                                        }
+                                </Form.Select>
+                        </InputGroup>
+                        </OverlayTrigger> */}
                     </Col>
 
 
@@ -283,6 +304,24 @@ function Sales(props){
                                 </Form.Select>
                         </InputGroup>
                     </OverlayTrigger>
+
+                    {/* <OverlayTrigger overlay={<Tooltip>Select Batch Filter</Tooltip>}>
+                        <InputGroup  className="mb-2" size="sm">
+                            <InputGroup.Text >Batch</InputGroup.Text>
+                                <Form.Select
+                                    size="sm"
+                                    value={batch || ''}
+                                    onChange={evt => setBatch(evt.target.value)}
+                                >
+                                    <option value=''>Select...</option>
+                                        {
+                                            batches.map(btch =>{
+                                                return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
+                                                })
+                                        }
+                                </Form.Select>
+                        </InputGroup>
+                    </OverlayTrigger> */}
                     </Col>
 
                     <Col sm={12} md={12} lg={2}>
