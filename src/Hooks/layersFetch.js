@@ -153,6 +153,7 @@ function useFetchLayersProducts(){
     const[errorLayersProducts, setErrorLayersProducts] = useState();
     const [token]= useCookies(['mr-token']);
     const [searchTxt,setSearchTxt]=useState('')
+    // console.log(searchTxt)
     const debounce = useDebounce(searchTxt,500)
     const searchForm = 
     (<div>
@@ -179,8 +180,8 @@ function useFetchLayersProducts(){
         }
 
         fetchData();
-    },[debounce])
 
+    },[debounce])
     return [dataLayersProducts, loadingLayersProducts, errorLayersProducts, searchForm]
     
     
@@ -224,12 +225,13 @@ function useFetchLayersSales(){
     const[errorLayersSales, setErrorLayersSales] = useState();
     const [token]= useCookies(['mr-token']);
     const [batchFilter,setBatchFilter]=useState(3)
-    // console.log(batchFilter)
+    console.log(batchFilter)
 
     const updateBatchFilter = (newBatch) => {
         // console.log(newBatch)
         setBatchFilter(newBatch);
       }
+
     const debounce = useDebounce(batchFilter,500)
     useEffect(()=>{
         async function fetchData(){
@@ -239,17 +241,54 @@ function useFetchLayersSales(){
                                   .catch(err => setErrorLayersSales(errorLayersSales))
             setDataLayersSales(dataLayersSales)
             setLoadingLayersSales(false);
+            // console.log(dataLayersSales)
         }
 
         fetchData();
 
-    // })
     },[debounce])
 
     return [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter]
 }
 
 export {useFetchLayersSales};
+
+// const BatchFilterForm =({batchFilter,onUpdate})=>{
+
+//     return(
+//         <div>
+//            <input type="text" value={batchFilter}  onChange={(e) => onUpdate(e.target.value)}/>
+//         </div>
+        
+
+//     )
+// }
+// export {BatchFilterForm};
+
+// const BatchForm =({batchFilter, onFilter}) => {
+//     const batches =[{id:1,batch:1},{id:2,batch:2},{id:3,batch:3},{id:4,batch:4}]
+//     return (
+//         <div>
+//             <InputGroup  className="mb-2" size="sm">
+//                 <InputGroup.Text >Batch</InputGroup.Text>
+//                     <Form.Select
+//                         size="sm"
+//                         value={batchFilter||2}
+//                         onChange={evt => onFilter(evt.target.value)}
+//                     >
+//                         <option value=''>Select...</option>
+//                             {
+//                                 batches.map(btch =>{
+//                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
+//                                     })
+//                             }
+//                     </Form.Select>
+//             </InputGroup>
+
+//         </div>
+//     )
+// }
+// export {BatchForm};
 
 
 function useFetchLayersCreditSales(){
