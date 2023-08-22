@@ -3,7 +3,8 @@ import '../../App.css';
 import '../css/Layers.css';
 import { Row, Col, Table, Button, Container, Modal, Form, InputGroup, OverlayTrigger,Tooltip, Stack} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash, faPlusCircle,faSyncAlt} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlusCircle,faSyncAlt, faSortDown, faSortUp} from '@fortawesome/free-solid-svg-icons';
+import * as FAIcons from '@fortawesome/free-solid-svg-icons';
 import LAYERS_PRODUCTION_API from '../../apis/layers_production_inventory_api';
 import {useCookies} from 'react-cookie';
 import Paginate from '../pagination'
@@ -61,6 +62,11 @@ function EggsProduction(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterEggsProd = props.batchFilterEggsProd
+    let setBatchFilterEggsProd = props.setBatchFilterEggsProd
+    let batch_filter = batches_1[batchFilterEggsProd-1]
+
+
      //Sort tables
      const [sortTable, setsortTable]= useState(true)
 
@@ -77,10 +83,9 @@ function EggsProduction(props){
      }
   
 
-    let eggssproduction_= eggsproduction.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.prod_date>=start_date && a.prod_date<=end_date ).map(y=>({...y}))
-    let eggs_production_0= eggssproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let eggs_production = eggs_production_0.sort((a, b) => sortTable===true? new Date(b.prod_date) - new Date(a.prod_date):new Date(a.peod_date) - new Date(b.prod_date))
-
+    let eggsproduction_= eggsproduction.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.prod_date>=start_date && a.prod_date<=end_date ).map(y=>({...y}))
+    // let eggs_production_0= eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggs_production = eggsproduction_.sort((a, b) => sortTable===true? new Date(b.prod_date) - new Date(a.prod_date):new Date(a.peod_date) - new Date(b.prod_date))
 
     const resetTable = () => {
         setStartDate('')
@@ -150,43 +155,44 @@ function EggsProduction(props){
 
         //Pagination
 
-        const [recordsPerPage, setRecordsPerPage]= useState(10)
-        const [currentPage, setCurrentPage]= useState(1)
-        const [active, setActive] = useState(1)
+    const [recordsPerPage, setRecordsPerPage]= useState(10)
+    const [currentPage, setCurrentPage]= useState(1)
+    const [active, setActive] = useState(1)
+
+    const indexLastRecord = currentPage * recordsPerPage 
+    const indexFirstRecord = indexLastRecord - recordsPerPage
+    const eggs_production_paginated = eggs_production.slice(indexFirstRecord,indexLastRecord )
+    const pages=Math.ceil(eggs_production.length/recordsPerPage)
+
+    const firstPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(1) 
+    }
+
+    const lastPage = () => {
+        if (pages===0)
+            setCurrentPage(0)
+        else
+            setCurrentPage(pages) 
+    }
+
+    const activePage = (pageNumber) =>  setActive(pageNumber)
     
-        const indexLastRecord = currentPage * recordsPerPage 
-        const indexFirstRecord = indexLastRecord - recordsPerPage
-        const eggs_production_paginated = eggs_production.slice(indexFirstRecord,indexLastRecord )
-        const pages=Math.ceil(eggs_production.length/recordsPerPage)
+ 
+    const nextPage = () => {
+        if(currentPage !== pages) 
+            setCurrentPage(currentPage + 1)
+            setActive(currentPage + 1)
+       }
     
-        const firstPage = () => {
-            if (pages===0)
-                setCurrentPage(0)
-            else
-                setCurrentPage(1) 
-        }
-    
-        const lastPage = () => {
-            if (pages===0)
-                setCurrentPage(0)
-            else
-                setCurrentPage(pages) 
-        }
-    
-        const activePage = (pageNumber) =>  setActive(pageNumber)
+    const prevPage = () => {
+        if(currentPage > 1) 
+            setCurrentPage(currentPage - 1)
+            setActive(currentPage + 1)
+    }
         
-     
-        const nextPage = () => {
-            if(currentPage !== pages) 
-                setCurrentPage(currentPage + 1)
-                setActive(currentPage + 1)
-           }
-        
-        const prevPage = () => {
-            if(currentPage > 1) 
-                setCurrentPage(currentPage - 1)
-                setActive(currentPage + 1)
-        }
 
     
     return(
@@ -210,10 +216,10 @@ function EggsProduction(props){
                                 <InputGroup.Text >Batch</InputGroup.Text>
                                     <Form.Select
                                         size="sm"
-                                        value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        value={batch_filter  || ''}
+                                        onChange={evt => setBatchFilterEggsProd(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter }</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -272,8 +278,10 @@ function EggsProduction(props){
                         <th>Production Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
-                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
-                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
+                                <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
                                 }
                             </OverlayTrigger>
                         </th>
@@ -359,6 +367,7 @@ function EggsProduction(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
                     />
                     </Col>
                 </Row>

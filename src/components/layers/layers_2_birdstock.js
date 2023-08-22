@@ -16,6 +16,7 @@ import { RestaurantMenu } from "@material-ui/icons";
 
 
 
+
 function BirdsStock(props){
 
     const [token, setToken, deleteToken]= useCookies(['mr-token']);
@@ -71,11 +72,23 @@ function BirdsStock(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterBirds = props.batchFilterBirds
+    let setBatchFilterBirds = props.setBatchFilterBirds
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batch_filter = batches_1[batchFilterBirds-1]
+
+
 
     // running balance without grouping and filtered
-    let birds_data_0 = birds_data_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let birds_data = birds_data_.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? birds_data_0 : a.stock_date>=start_date && a.stock_date<=end_date ).map(y=>({...y}))
+    // let birds_data_0 = birds_data_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    // let birds_data = birds_data_.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? birds_data_0 : a.stock_date>=start_date && a.stock_date<=end_date ).map(y=>({...y}))
+    let birds_data = birds_data_.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? birds_data_ : a.stock_date>=start_date && a.stock_date<=end_date ).map(y=>({...y}))
+
     // console.log(birds_data_date_filtered)
+
 
     let birds_actual= birds_data.map(y=>y.birds_stock_actual)
     let birds_actual_latest = birds_actual[birds_actual.length-1]
@@ -86,10 +99,11 @@ function BirdsStock(props){
 
     //dayold chicks
     const expenses_ = props.expenses && props.expenses
-    let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    // let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let expenses = expenses_
     let day_old_chick_acc=0
     let dayold_chicks =  expenses.filter(b => (b.cost_category===4) ).map( (x,key) => ({...x,
-        chicks_id:parseInt([key+1]),stock_date: x.purchase_date,stock_date_1:x.purchase_date_1,
+        chicks_id:parseInt([key+1]), stock_date: x.purchase_date,stock_date_1:x.purchase_date_1,
         batch: x.batch, batch_number:x.batch_number,
         stock_movement_type:x.cost_category,
         stock_type:x.expense_category,birds:parseInt(x.quantity), 
@@ -103,9 +117,10 @@ function BirdsStock(props){
 
     //xlayers
     const sales_ = props.sales && props.sales
-    let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    // let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let sales = sales_
     let sales_xlayers =  sales.filter(b => (b.product===3) ).map( (x,key) => ({...x,
-        xlayers_id:parseInt([key+1]),stock_date: x.date, stock_date_1:x.date_1,
+        xlayers_id:parseInt([key+1]),stock_date:x.date, stock_date_1: x.date_1,
         batch: x.batch, batch_number:x.batch_number,
         stock_movement_type:x.product,
         stock_type:x.product_,birds:-parseInt(x.quantity), 
@@ -116,11 +131,10 @@ function BirdsStock(props){
     }))
     // console.log(sales_xlayers)
 
+     //Sort tables
+   const [sortTable, setsortTable]= useState(true)
 
-    //Sort tables
-    const [sortTable, setsortTable]= useState(true)
-
-    const sortByDate= () => {
+   const sortByDate= () => {
     if (sortTable===true) {
         setsortTable(false)
 
@@ -130,19 +144,21 @@ function BirdsStock(props){
 
     }return
     
-    }
-    
-    //console.log(sortTable)
+   }
+
+//    console.log(sortTable)
 
     const birds_all_=dayold_chicks.concat(birds_data,sales_xlayers)
-    let birds_all=  birds_all_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-
+    // let birds_all=  birds_all_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let birds_all = birds_all_
     let birds_acc = 0;
     let birds_stock_ = birds_all.map( (x,key) => ({...x,stocK_id:parseInt([key+1]),"birds_total": birds_acc+=x.birds}))
     // let birds_stock = birds_stock_.sort((a, b) => new Date(b.stock_date_1) - new Date(a.stock_date_1))
     let birds_stock = birds_stock_.sort((a, b) => sortTable===true? new Date(b.stock_date) - new Date(a.stock_date):new Date(a.stock_date) - new Date(b.stock_date))
-
+    // let birds_stock = birds_stock_.sort((a, b) => sortTable===true? b.stock_date_1 - a.stock_date:a.stock_date_1 - b.stock_date_1)
     // console.log(birds_stock)
+
+ 
 
     
     //handle submit
@@ -241,7 +257,26 @@ function BirdsStock(props){
             setCurrentPage(currentPage - 1)
             setActive(currentPage - 1)
    }
- 
+
+
+//    const prevPage = () =>setCurrentPage(currentPage-1)
+//    const nextPage = () =>setCurrentPage(currentPage+1)
+
+
+// //Pagination  @MUI
+// const [page, setPage] = useState(0);
+// const [rowsPerPage, setRowsPerPage] = useState(10);
+
+// const handleChangePage = (event, newPage) => {
+//   setPage(newPage);
+// };
+
+// const handleChangeRowsPerPage = (event) => {
+//   setRowsPerPage(+event.target.value);
+//   setPage(0);
+// };
+   
+
     return(
         
         <div>
@@ -264,10 +299,10 @@ function BirdsStock(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batch_filter || ''}
+                                    onChange={evt => setBatchFilterBirds(evt.target.value)||setBatchFilterSales(evt.target.value)||setBatchFilterExpenses(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -324,12 +359,14 @@ function BirdsStock(props){
                     <Table className="table table-success table-striped table-hover table-sm table-borderless">
                     <thead>
                     <tr>
-                       <th>Stock Date
+                        <th>Stock Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
-                            {sortTable===true?
-                                <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
-                                <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
-                            }
+                                {sortTable===true?
+
+                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
+                                }
                             </OverlayTrigger>
                         </th>
                         <th>Batch</th>
@@ -412,9 +449,10 @@ function BirdsStock(props){
                     </Col>
 
                     <Col sm={10} md={11} lg={11} style={{fontSize:10}}>
+                        
                     <Paginate 
                         recordsPerPage={recordsPerPage} 
-                        totalRecords={birds_data.length}
+                        totalRecords={birds_stock.length}
                         nextPage={nextPage}
                         prevPage={prevPage}
                         activePage={activePage}
@@ -423,6 +461,14 @@ function BirdsStock(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
+
+
+                        // page={page}
+                        // rowsPerPage={rowsPerPage}
+                        // handleChangePage={handleChangePage}
+                        // handleChangeRowsPerPage={handleChangeRowsPerPage}
+
 
                     />
                     </Col>

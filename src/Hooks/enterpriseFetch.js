@@ -1,12 +1,15 @@
 import {useState, useEffect} from 'react';
 import ENTERPRISES_API from '../apis/enterprises-api';
 import {useCookies} from 'react-cookie';
+import axios from 'axios'
 
 function useFetchCompanies(){
     const [dataCompanies, setDataCompanies] = useState([])
     const[loadingCompanies, setLoadingCompanies] = useState(true);
     const[errorCompanies, setErrorCompanies] = useState();
     const [token]= useCookies(['mr-token']);
+    // console.log(token)
+    // console.log(dataCompanies)
 
     useEffect(()=>{
         async function fetchData(){
@@ -22,11 +25,121 @@ function useFetchCompanies(){
 
     },[])
 
+    // useEffect(() => {
+    //     console.log(dataCompanies)
+    //   }, [dataCompanies])
+
     return [dataCompanies, loadingCompanies, errorCompanies]
 
 }
 
 export {useFetchCompanies};
+
+function useFetchCompanies_1(){
+    // const [companies_1, setCompanies_1]=useState([])
+    const [token]= useCookies(['mr-token']);
+    // console.log(token)
+    // console.log(companies_1)
+
+    useEffect(()=>{
+        fetchData()
+
+    },[])
+
+    const fetchData = async()=>{
+        
+        const url = `http://127.0.0.1:8000/enterprises/companies/`
+
+        try {
+            const response = await fetch(url,{
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization':  `Token ${token['mr-token']}`
+                }
+            })
+
+            const companies_1 = await response.json()
+            // console.log(companies_1)
+        }
+    
+        catch (e){
+            console.log(e)
+        }
+    
+    }
+
+    return [fetchData]
+
+}
+export {useFetchCompanies_1};
+
+//Get data using axios (example 1)
+
+function useFetchCompanies_2(){
+    const [token]= useCookies(['mr-token']);
+
+    useEffect(()=>{
+        fetchData_1()
+        
+    },[])
+
+    const fetchData_1 = async()=>{
+
+        const url = `http://127.0.0.1:8000/enterprises/companies/`
+
+        axios.get(url,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':  `Token ${token['mr-token']}`
+              }
+
+        })
+        .then((response) => {
+            const data = response.data
+            // console.log(data)
+        
+            // console.log(response)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+   
+    
+    }
+
+    
+    return [fetchData_1]
+
+}
+export {useFetchCompanies_2};
+
+//Get data using axios (example 2)
+
+function useFetchCompanies_3(){
+    const [token]= useCookies(['mr-token']);
+    const [post, setPost] = useState(null);
+    const url = `http://127.0.0.1:8000/enterprises/companies/`
+    // console.log(post)
+
+    useEffect(() => {
+      axios.get(url,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization':  `Token ${token['mr-token']}`
+          }
+
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+    }, []);
+
+    return[post]
+
+}
+
+export {useFetchCompanies_3};
 
 
 
@@ -162,5 +275,3 @@ function useFetchBanking(){
 }
 
 export {useFetchBanking};
-
-

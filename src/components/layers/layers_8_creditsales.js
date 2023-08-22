@@ -75,12 +75,18 @@ function CreditSales(props){
     const batch_last = batches_0[batches_0.length - 1]
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
+    
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batch_filter = batches_1[batchFilterSales-1]
+
+    // console.log(batch_filter)
 
 
 
     //Filtering the sales table concurrently with credit sales table
-    let sales_0= sales_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch)) ).map( f => ({...f}))
-    let sales_1=sales_0.filter(a => (customer===undefined||customer==='')? a : a.customer===parseInt(customer)).map( b => ({...b}))
+    // let sales_0= sales_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch)) ).map( f => ({...f}))
+    let sales_1=sales_unfiltered.filter(a => (customer===undefined||customer==='')? a : a.customer===parseInt(customer)).map( b => ({...b}))
     let sales_2 = sales_1.filter(c=>c.payment_mode===2).map(c=>({...c}))//filter credit sales only
     let sales = sales_2.filter(g => (sale===undefined||sale==='')? g  : (g.id ===parseInt(sale)) ).map( h => ({...h}))
 
@@ -92,8 +98,8 @@ function CreditSales(props){
     }
 
     //Filtering credit sales table
-    let credit_sales_filtered_1= credit_sales_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
-    let credit_sales_1 = credit_sales_filtered_1.filter(g => (customer===undefined||customer==='')? g : (g.customer_id ===parseInt(customer)) ).map( h => ({...h}))
+    // let credit_sales_filtered_1= credit_sales_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
+    let credit_sales_1 = credit_sales_unfiltered.filter(g => (customer===undefined||customer==='')? g : (g.customer_id ===parseInt(customer)) ).map( h => ({...h}))
     let credit_sales = credit_sales_1.filter(g => (sale===undefined||sale==='')? g  : (g.sale_id ===parseInt(sale)) ).map( h => ({...h}))
 
 
@@ -302,10 +308,10 @@ function CreditSales(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batch_filter || ''}
+                                    onChange={evt => setBatchFilterSales(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -380,8 +386,10 @@ function CreditSales(props){
                         <th> Instalment Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                
                                 }
                             </OverlayTrigger>
                         </th>
@@ -460,6 +468,8 @@ function CreditSales(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
+
                     />
                     </Col>
                 </Row>

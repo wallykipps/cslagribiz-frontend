@@ -21,13 +21,6 @@ function Paginate({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, ne
         //     </Pagination.Item>,
         //   );
     }
-    // console.log(totalRecords)
-    // console.log(totalPages)
-    // console.log(currentPage)
-    // console.log(totalPages)
-
-
-
     // const totalPages=Math.ceil(totalRecords/recordsPerPage)
     // console.log(totalPages)
 
@@ -50,31 +43,38 @@ function Paginate({recordsPerPage, totalRecords,firstPage,lastPage, prevPage, ne
     // </Pagination>
     
     <Pagination>
-      {/* <Pagination.First onClick={()=> {paginate(totalPages===0?0:1);activePage(totalPages-(totalPages-1))}}/> */}
       <Pagination.First onClick={()=> firstPage()}/>
       <Pagination.Prev onClick={()=> prevPage()} />
-      <Pagination.Item>{currentPage>totalPages?totalPages===0?0:1:currentPage} of {totalPages}</Pagination.Item>
+      <Pagination.Item>{currentPage>totalPages?totalPages===0?0:1:currentPage} of {totalPages} Pages</Pagination.Item>
       <Pagination.Next onClick={()=> nextPage()}/>
       <Pagination.Last onClick={()=> lastPage()} />
-
     </Pagination>
 
 
     // <TablePagination
-    // rowsPerPageOptions={[10, 25, 100]}
-    // component="div"
-    // count={totalPages}
-    // rowsPerPage={rowsPerPage}
-    // page={page}
-    // onChangePage={handleChangePage}
-    // onChangeRowsPerPage={handleChangeRowsPerPage}
+    //   rowsPerPageOptions={[10, 25, 100]}
+    //   component="div"
+    //   count={totalPages}
+    //   rowsPerPage={recordsPerPage}
+    //   page={currentPage}
+    //   onChangePage={handleChangePage}
+    //   onChangeRowsPerPage={handleChangeRowsPerPage}
     // />
 
 
 
 
 
-  //<Pagination count={10} variant="outlined" shape="rounded" color="secondary" size="small" showFirstButton showLastButton/>
+  // <Pagination 
+  //   count={5} 
+  //   variant="outlined" 
+  //   shape="rounded" 
+  //   color="secondary" 
+  //   size="small" 
+  //   showFirstButton 
+  //   showLastButton
+  //   page={currentPage}
+  // />
 
 
     // <Pagination>{pageNumbers}</Pagination>

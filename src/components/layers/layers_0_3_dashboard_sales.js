@@ -86,11 +86,11 @@ function LayersSalesDashboard(props) {
 
   const [dataLayersProducts, loadingLayersProducts, errorLayersProducts,searchForm] = useFetchLayersProducts();
   const [dataLayersCustomers, loadingLayersCustomers, errorLayersCustomers] = useFetchLayersCustomers();
-  const [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter] = useFetchLayersSales();
+  const [dataLayersSales, loadingLayersSales, errorLayersSales, batchFilterSales,setBatchFilterSales,updateBatchFilterSales] = useFetchLayersSales();
   const [dataLayersCreditSales, loadingLayersCreditSales, errorLayersCreditSales] = useFetchLayersCreditSales();
-  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses] = useFetchLayersExpenses();
   const [dataLayersCreditExpenses, loadingLayersCreditExpenses, errorLayersCreditExpenses] = useFetchLayersCreditExpenses();
-  const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits] = useFetchLayersBankDeposits();
+  const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits, batchFilterDeposits, setBatchFilterDeposits, setDataLayersBankDeposits] = useFetchLayersBankDeposits();
 
   const [expenses, setExpenses] = useState([]);
   const [creditexpenses, setCreditExpenses] = useState([]);
@@ -524,8 +524,9 @@ function LayersSalesDashboard(props) {
                         newSale={newSale}
                         updatedSale={updatedSale}
                         deletedSale={deletedSale}
-                        batchFilter ={batchFilter}
-                        setBatchFilter={setBatchFilter}
+
+                        batchFilterSales ={batchFilterSales}
+                        setBatchFilterSales={setBatchFilterSales}
                         
                       />
                       )}
@@ -584,6 +585,10 @@ function LayersSalesDashboard(props) {
                         newCreditSale={newCreditSale}
                         updatedCreditSale={updatedCreditSale}
                         deletedCreditSale={deletedCreditSale}
+
+                        batchFilterSales ={batchFilterSales}
+                        setBatchFilterSales={setBatchFilterSales}
+
                       />
                       )}
 
@@ -614,6 +619,15 @@ function LayersSalesDashboard(props) {
                       newDeposit={newDeposit}
                       updatedDeposit={updatedDeposit}
                       deletedDeposit={deletedDeposit}
+
+                      batchFilterDeposits={batchFilterDeposits}
+                      setBatchFilterDeposits={setBatchFilterDeposits}
+                      batchFilterSales ={batchFilterSales}
+                      setBatchFilterSales={setBatchFilterSales}
+                      batchFilterExpenses={batchFilterExpenses}
+                      setBatchFilterExpenses={setBatchFilterExpenses}
+
+
                     />
                     )
                 
@@ -639,13 +653,21 @@ function LayersSalesDashboard(props) {
                       newDeposit={newDeposit}
                       updatedDeposit={updatedDeposit}
                       deletedDeposit={deletedDeposit}
+
+                      batchFilterDeposits={batchFilterDeposits}
+                      setBatchFilterDeposits={setBatchFilterDeposits}
+                      batchFilterSales ={batchFilterSales}
+                      setBatchFilterSales={setBatchFilterSales}
+                      batchFilterExpenses={batchFilterExpenses}
+                      setBatchFilterExpenses={setBatchFilterExpenses}
+
                     />
                     )
 
                 }
 
 
-                {loadingLayersSales ?(
+                {/* {loadingLayersSales ?(
                   <div className="loader-container">
                   <div className="spinner"></div>
                   </div>
@@ -682,7 +704,7 @@ function LayersSalesDashboard(props) {
                                 updatedDeposit={updatedDeposit}
                                 deletedDeposit={deletedDeposit}
                               />
-                              )}
+                              )} */}
               </Tab>
             </Tabs>
           </div>

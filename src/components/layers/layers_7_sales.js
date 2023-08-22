@@ -77,6 +77,10 @@ function Sales(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batch_filter = batches_1[batchFilterSales-1]
+
 
     //Sort tables
     const [sortTable, setsortTable]= useState(true)
@@ -226,12 +230,6 @@ function Sales(props){
     }
 
    
-
-
-    let batchFilter = props.batchFilter
-    let setBatchFilter = props.setBatchFilter
-
-    
     return(
 
         <div>
@@ -291,11 +289,11 @@ function Sales(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batchFilter||2}
-                                    onChange={evt => setBatchFilter(evt.target.value)}
+                                    value={batch_filter||''}
+                                    onChange={evt => setBatchFilterSales(evt.target.value)}
                                     // onChange={evt => setBatchFilter(batch_last)}
                                 >
-                                    <option value=''>Select...</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)

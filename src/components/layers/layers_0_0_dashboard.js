@@ -61,22 +61,22 @@ function LayersDashboard(props){
     
     const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
     // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
-    const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
+    const [dataBirdStock, loadingBirdStock, errorBirdStock, batchFilterBirds, setBatchFilterBirds,updateBatchFilterBirds] = useFetchBirdStock();
     const [dataVaccinationProgram, loadingVaccinationProgram, errorVaccinationProgram] = useFetchVaccinationProgram();
-    const [dataVaccination, loadingVaccination, errorVaccination] = useFetchVaccination();
+    const [dataVaccination, loadingVaccination, errorVaccination, batchFilterVaccination, setBatchFilterVaccination, updateBatchFilterVaccination] = useFetchVaccination();
     const [dataWeightTargets, loadingWeightTargets, errorWeightTargets] = useFetchWeightTargets();
-    const [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring] = useFetchWeightMonitoring();
-    const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
-    const [dataEggsInventory, loadingEggsInventory, errorEggsInventory] = useFetchEggsInventory();
-    const [dataLayersSales, loadingLayersSales, errorLayersSales] = useFetchLayersSales();
-    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+    const [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring, batchFilterWeights, setBatchFilterWeights, updateBatchFilterWeights] = useFetchWeightMonitoring();
+    const [dataEggProduction, loadingEggProduction, errorEggProduction,  batchFilterEggsProd, setBatchFilterEggsProd, updateBatchFilterEggsProd] = useFetchEggProduction();
+    const [dataEggsInventory, loadingEggsInventory, errorEggsInventory, batchFilterEggsStock, setBatchFilterEggsStock, updateBatchFilterEggsStock] = useFetchEggsInventory();
+    const [dataLayersSales, loadingLayersSales, errorLayersSales, batchFilterSales,setBatchFilterSales,updateBatchFilterSales] = useFetchLayersSales();
+    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses] = useFetchLayersExpenses();
     const [dataLayersCostCategories, loadingLayersCostCategories, errorLayersCostCategories] = useFetchLayersCostCategories();
     const [dataFeedTypes, loadingFeedTypes, errorFeedTypes] = useFetchFeedTypes();
-    const [dataFeedInventory, loadingFeedInventory, errorFeedInventory] = useFetchFeedInventory();
+    const [dataFeedInventory, loadingFeedInventory, errorFeedInventory, batchFilterFeeds, setBatchFilterFeeds, updateBatchFilterFeeds] = useFetchFeedInventory();
     const [dataFeedTargets, loadingFeedTargets, errorFeedTargets] = useFetchFeedTargets();
     const [dataLayersCreditSales, loadingLayersCreditSales, errorLayersCreditSales] = useFetchLayersCreditSales();
     const [dataLayersCreditExpenses, loadingLayersCreditExpenses, errorLayersCreditExpenses] = useFetchLayersCreditExpenses();
-    const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits] = useFetchLayersBankDeposits();
+    const [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits, batchFilterDeposits, setBatchFilterDeposits, setDataLayersBankDeposits] = useFetchLayersBankDeposits();
   
 
 
@@ -243,86 +243,94 @@ function LayersDashboard(props){
               <SideBar sidebar={sidebar} navbartoggler={navbartoggler}/>
               <Container fluid>
 
-              {loadingBatches ? (
-                    <div className="loader-container">
-                    <div className="spinner"></div>
-                    </div>
-                    ) :loadingBirdStock ? (
-                    <div className="loader-container">
-                    <div className="spinner"></div>
-                    </div>
+              {
+              
+              // loadingBatches ? (
+              //       <div className="loader-container">
+              //       <div className="spinner"></div>
+              //       </div>
+              //       ) :loadingBirdStock ? (
+              //       <div className="loader-container">
+              //       <div className="spinner"></div>
+              //       </div>
                       
-                    ):loadingVaccinationProgram ? (
-                      <div className="loader-container">
-                      <div className="spinner"></div>
-                      </div>
+              //       ):loadingVaccinationProgram ? (
+              //         <div className="loader-container">
+              //         <div className="spinner"></div>
+              //         </div>
                         
-                      ):loadingVaccination ? (
-                        <div className="loader-container">
-                        <div className="spinner"></div>
-                        </div>
+              //         ):loadingVaccination ? (
+              //           <div className="loader-container">
+              //           <div className="spinner"></div>
+              //           </div>
                           
-                        ):loadingWeightTargets ? (
-                          <div className="loader-container">
-                          <div className="spinner"></div>
-                          </div>
+              //           ):loadingWeightTargets ? (
+              //             <div className="loader-container">
+              //             <div className="spinner"></div>
+              //             </div>
                             
-                          ):loadingWeightMonitoring ? (
-                            <div className="loader-container">
-                            <div className="spinner"></div>
-                            </div>
+              //             ):loadingWeightMonitoring ? (
+              //               <div className="loader-container">
+              //               <div className="spinner"></div>
+              //               </div>
                               
-                            ):loadingEggProduction? (
-                              <div className="loader-container">
-                              <div className="spinner"></div>
-                              </div>
+              //               ):loadingEggProduction? (
+              //                 <div className="loader-container">
+              //                 <div className="spinner"></div>
+              //                 </div>
                                 
-                              ):loadingEggsInventory ? (
-                                <div className="loader-container">
-                                <div className="spinner"></div>
-                                </div>
+              //                 ):loadingEggsInventory ? (
+              //                   <div className="loader-container">
+              //                   <div className="spinner"></div>
+              //                   </div>
                                   
-                                ):loadingLayersSales ? (
-                                  <div className="loader-container">
-                                  <div className="spinner"></div>
-                                  </div>
+              //                   ):loadingLayersSales ? (
+              //                     <div className="loader-container">
+              //                     <div className="spinner"></div>
+              //                     </div>
                                     
-                                  ):loadingLayersExpenses ? (
-                                    <div className="loader-container">
-                                    <div className="spinner"></div>
-                                    </div>
+              //                     ):loadingLayersExpenses ? (
+              //                       <div className="loader-container">
+              //                       <div className="spinner"></div>
+              //                       </div>
                                       
-                                    ):loadingLayersCostCategories ? (
-                                      <div className="loader-container">
-                                      <div className="spinner"></div>
-                                      </div>
+              //                       ):loadingLayersCostCategories ? (
+              //                         <div className="loader-container">
+              //                         <div className="spinner"></div>
+              //                         </div>
                                         
-                                      ):loadingFeedTypes ? (
-                                        <div className="loader-container">
-                                        <div className="spinner"></div>
-                                        </div>
+              //                         ):loadingFeedTypes ? (
+              //                           <div className="loader-container">
+              //                           <div className="spinner"></div>
+              //                           </div>
                                           
-                                        ):loadingFeedInventory ? (
-                                          <div className="loader-container">
-                                          <div className="spinner"></div>
-                                          </div>
+              //                           ):loadingFeedInventory ? (
+              //                             <div className="loader-container">
+              //                             <div className="spinner"></div>
+              //                             </div>
                                             
-                                          ):loadingFeedTargets? (
-                                            <div className="loader-container">
-                                            <div className="spinner"></div>
-                                            </div>
+              //                             ):loadingFeedTargets? (
+              //                               <div className="loader-container">
+              //                               <div className="spinner"></div>
+              //                               </div>
                                               
-                                            ):loadingLayersCreditSales ? (
-                                              <div className="loader-container">
-                                              <div className="spinner"></div>
-                                              </div>
+              //                               ):loadingLayersCreditSales ? (
+              //                                 <div className="loader-container">
+              //                                 <div className="spinner"></div>
+              //                                 </div>
                                                 
-                                              ):loadingLayersCreditExpenses ? (
-                                                <div className="loader-container">
-                                                <div className="spinner"></div>
-                                                </div>
+              //                                 ):loadingLayersCreditExpenses ? (
+              //                                   <div className="loader-container">
+              //                                   <div className="spinner"></div>
+              //                                   </div>
                                                   
-                                                ):loadingLayersBankDeposits ? (
+              //                                   ):                                               
+              //                                   loadingLayersBankDeposits ? (
+              //                                     <div className="loader-container">
+              //                                     <div className="spinner"></div>
+              //                                     </div>
+
+                                                  loadingLayersSales ? (
                                                   <div className="loader-container">
                                                   <div className="spinner"></div>
                                                   </div>
@@ -342,10 +350,31 @@ function LayersDashboard(props){
                                                     vaccines={vaccines}
                                                     creditsales={creditsales}
                                                     creditexpenses={creditexpenses}
+                                                    
+                                                    batchFilterBirds={batchFilterBirds}
+                                                    setBatchFilterBirds={setBatchFilterBirds}
+                                                    batchFilterSales={batchFilterSales}
+                                                    setBatchFilterSales={setBatchFilterSales}
+                                                    batchFilterExpenses={batchFilterExpenses}
+                                                    setBatchFilterExpenses={setBatchFilterExpenses}
+                                                    batchFilterDeposits={batchFilterDeposits}
+                                                    setBatchFilterDeposits={setBatchFilterDeposits}
+                                                    batchFilterEggsStock={batchFilterEggsStock}
+                                                    setBatchFilterEggsStock={setBatchFilterEggsStock}
+                                                    batchFilterEggsProd ={batchFilterEggsProd}
+                                                    setBatchFilterEggsProd={setBatchFilterEggsProd}
+                                                    batchFilterVaccination={batchFilterVaccination}
+                                                    setBatchFilterVaccination={setBatchFilterVaccination}
+                                                    batchFilterWeights={batchFilterWeights}
+                                                    setBatchFilterWeights={setBatchFilterWeights}
+                                                    batchFilterFeeds={batchFilterFeeds}
+                                                    setBatchFilterFeeds={setBatchFilterFeeds}
+                  
                                                   />
                                   
 
                                                   )}
+
 
                 <Footer/>
               </Container>

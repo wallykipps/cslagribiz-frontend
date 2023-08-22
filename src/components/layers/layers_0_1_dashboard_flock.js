@@ -31,7 +31,24 @@ import {useFetchBusinessUnits, useFetchEnterpriseTypes, useFetchStaff} from '../
 function LayersFlockDashboard(props){
 
     const [token, setToken, deleteToken]= useCookies(['mr-token']);
+    //Authentication
+    useEffect(()=>{
+      // console.log(token);
+      if(!token['mr-token']) window.location.href ='/login';
+    },[token])
 
+    const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
+    // console.log(dataBatches)
+
+    const [batches, setBatches] = useState([]);
+    const [selectedBatch, setSelectedBatch]=useState([]);
+    
+    useEffect(() => {
+      setBatches(dataBatches);
+      // console.log(dataBatches)
+    },[dataBatches])
+    
+ 
     const [dataBunits, loadingBunits, errorBunits] = useFetchBusinessUnits();
     const [dataEtypes, loadingEtypes, errorEtypes] = useFetchEnterpriseTypes();
     const [dataStaff, loadingStaff, errorStaff] = useFetchStaff();
@@ -41,25 +58,20 @@ function LayersFlockDashboard(props){
     const [staffTeam, setStaffTeam] = useState([]);
 
     
-    const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
-    const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
-    const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
 
-    const [dataLayersSales, loadingLayersSales, errorLayersSales] = useFetchLayersSales();
-    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+    const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
+    const [dataBirdStock, loadingBirdStock, errorBirdStock, batchFilterBirds, setBatchFilterBirds,updateBatchFilterBirds] = useFetchBirdStock();
+
+    const [dataLayersSales, loadingLayersSales, errorLayersSales, batchFilterSales,setBatchFilterSales,updateBatchFilterSales] = useFetchLayersSales();
+    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses] = useFetchLayersExpenses();
 
 
     const [dataVaccinationProgram, loadingVaccinationProgram, errorVaccinationProgram] = useFetchVaccinationProgram();
-    const [dataVaccination, loadingVaccination, errorVaccination] = useFetchVaccination();
+    const [dataVaccination, loadingVaccination, errorVaccination, batchFilterVaccination, setBatchFilterVaccination, updateBatchFilterVaccination] = useFetchVaccination();
 
     const [dataWeightTargets, loadingWeightTargets, errorWeightTargets] = useFetchWeightTargets();
-    const [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring] = useFetchWeightMonitoring();
+    const [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring, batchFilterWeights, setBatchFilterWeights, updateBatchFilterWeights] = useFetchWeightMonitoring();
 
-
-
-    
-    const [batches, setBatches] = useState([]);
-    const [selectedBatch, setSelectedBatch]=useState([]);
 
     const [stocktypes, setStockTypes] = useState([]);
     const [birds, setBirds] = useState([]);
@@ -81,13 +93,6 @@ function LayersFlockDashboard(props){
     const [selectedWeight, setSelectedWeight]=useState([]);
 
 
-    
-
-    //Authentication
-    useEffect(()=>{
-        // console.log(token);
-        if(!token['mr-token']) window.location.href ='/login';
-      },[token])
 
       //Enterprise App
 
@@ -104,9 +109,9 @@ function LayersFlockDashboard(props){
       },[dataStaff])
 
     //Get data
-    useEffect(() => {
-        setBatches(dataBatches);
-      },[dataBatches])
+    // useEffect(() => {
+    //     setBatches(dataBatches);
+    //   },[dataBatches])
 
     useEffect(() => {
         setStockTypes(dataStockMovement);
@@ -450,6 +455,14 @@ function LayersFlockDashboard(props){
                                   deletedBirdsStock={deletedBirdsStock}
                                   createdStock={createdStock}
                                   newBirdsStock={newBirdsStock}
+
+                                  batchFilterBirds={batchFilterBirds}
+                                  setBatchFilterBirds={setBatchFilterBirds}
+                                  batchFilterSales={batchFilterSales}
+                                  setBatchFilterSales={setBatchFilterSales}
+                                  batchFilterExpenses={batchFilterExpenses}
+                                  setBatchFilterExpenses={setBatchFilterExpenses}
+
                                 />
                               )}
 
@@ -492,6 +505,9 @@ function LayersFlockDashboard(props){
                             newWeight={newWeight}
                             updatedWeight={updatedWeight}
                             deletedWeight={deletedWeight}
+
+                            batchFilterWeights={batchFilterWeights}
+                            setBatchFilterWeights={setBatchFilterWeights}
                           />
                           )}
                   </Tab>
@@ -542,6 +558,9 @@ function LayersFlockDashboard(props){
                                   newVaccine={newVaccine}
                                   updatedVaccine={updatedVaccine}
                                   deletedVaccine={deletedVaccine}
+
+                                  batchFilterVaccination={batchFilterVaccination}
+                                  setBatchFilterVaccination={setBatchFilterVaccination}
                               />
                               )}
                       </Tab>
@@ -566,6 +585,10 @@ function LayersFlockDashboard(props){
                                     newVaccineProgram={newVaccineProgram}
                                     updatedVaccineProgram={updatedVaccineProgram}
                                     deletedVaccineProgram={deletedVaccineProgram}
+
+                                    batchFilterVaccination={batchFilterVaccination}
+                                    setBatchFilterVaccination={setBatchFilterVaccination}
+  
                                   />
                                   )}
                       </Tab>

@@ -41,7 +41,7 @@ function LayesExpensesDashboard(props) {
   const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
   const [dataLayersVendors, loadingLayersVendors, errorLayersVendors] = useFetchLayersVendors();
   const [dataLayersCostCategories, loadingLayersCostCategories, errorLayersCostCategories] = useFetchLayersCostCategories();
-  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+  const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses] = useFetchLayersExpenses();
   const [dataLayersCreditExpenses, loadingLayersCreditExpenses, errorLayersCreditExpenses] = useFetchLayersCreditExpenses();
   const [dataFeedTypes, loadingFeedTypes, errorFeedTypes] = useFetchFeedTypes();
 
@@ -387,7 +387,10 @@ function LayesExpensesDashboard(props) {
                           newExpense={newExpense}
                           updatedExpense={updatedExpense}
                           deletedExpense={deletedExpense}
-                        />
+
+                          batchFilterExpenses ={batchFilterExpenses}
+                          setBatchFilterExpenses={setBatchFilterExpenses}
+                          />
                         )}
               </Tab>
 
@@ -412,6 +415,9 @@ function LayesExpensesDashboard(props) {
                           newCreditExpense={newCreditExpense}
                           updatedCreditExpense={updatedCreditExpense}
                           deletedCrditExpense={deletedCrditExpense}
+
+                          batchFilterExpenses ={batchFilterExpenses}
+                          setBatchFilterExpenses={setBatchFilterExpenses}
                         />
                         )}
               </Tab>

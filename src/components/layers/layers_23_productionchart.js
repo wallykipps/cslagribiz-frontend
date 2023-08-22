@@ -45,13 +45,14 @@ function ProductionCharts(props) {
   }
 
 
-  const birds_ = props.birds_ && props.birds_
-  let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  const birds = props.birds_ && props.birds_
+  // let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
   // console.log(birds)
 
   // egg production
   const eggsproduction_ = props.eggsproduction_ && props.eggsproduction_
-  let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, index_:parseInt([key+1])}))
+  // let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, index_:parseInt([key+1])}))
+  let eggsproduction =  eggsproduction_.map( (x,key) => ({...x, index_:parseInt([key+1])}))
   // console.log(eggsproduction)
 
 
@@ -99,7 +100,8 @@ function ProductionCharts(props) {
  
   //grouped_sales
   const sales_ = props.sales_ && props.sales_
-  let sales_1 =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
+  // let sales_1 =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
+  let sales_1 =  sales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
   let sales = sales_1.filter(c=>c.product!=3).map(d=>({...d}))
   // console.log(sales)
 
@@ -145,8 +147,8 @@ function ProductionCharts(props) {
 
 
   //eggs inventory
-  const eggsinventory_ = props.eggsinventory_ && props.eggsinventory_
-  let eggsinventory=  eggsinventory_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  const eggsinventory = props.eggsinventory_ && props.eggsinventory_
+  // let eggsinventory=  eggsinventory_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
   // console.log(eggsinventory)
 
   const grouped_eggsinventory_= [...eggsinventory.reduce((r, o) => {

@@ -59,11 +59,14 @@ function Weights(props){
     const batch_last = batches_0[batches_0.length - 1]
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
+    
+    let batchFilterWeights = props.batchFilterWeights
+    let setBatchFilterWeights = props.setBatchFilterWeights
+    let batch_filter = batches_1[batchFilterWeights-1]
 
 
-
-    const weights_1 = props.weights && props.weights
-    let weights =  weights_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    const weights = props.weights && props.weights
+    // let weights =  weights_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
 
 
 
@@ -145,10 +148,10 @@ function Weights(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batch_filter || ''}
+                                    onChange={evt => setBatchFilterWeights(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)

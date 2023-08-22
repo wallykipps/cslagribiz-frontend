@@ -49,14 +49,14 @@ function EggProductionDashboard(props){
     
     const [dataBatches, loadingBatches, errorBatches] = useFetchBatches();
     // const [dataStockMovement, loadingStockMovement, errorStockMovement] = useFetchStockMovement();
-    const [dataBirdStock, loadingBirdStock, errorBirdStock] = useFetchBirdStock();
-    const [dataEggProduction, loadingEggProduction, errorEggProduction] = useFetchEggProduction();
-    const [dataEggsInventory, loadingEggsInventory, errorEggsInventory] = useFetchEggsInventory();
-    const [dataLayersSales, loadingLayersSales, errorLayersSales] = useFetchLayersSales();
-    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses] = useFetchLayersExpenses();
+    const [dataBirdStock, loadingBirdStock, errorBirdStock, batchFilterBirds, setBatchFilterBirds,updateBatchFilterBirds] = useFetchBirdStock();
+    const [dataEggProduction, loadingEggProduction, errorEggProduction, batchFilterEggsProd, setBatchFilterEggsProd, updateBatchFilterEggsProd] = useFetchEggProduction();
+    const [dataEggsInventory, loadingEggsInventory, errorEggsInventory,batchFilterEggsStock, setBatchFilterEggsStock, updateBatchFilterEggsStock] = useFetchEggsInventory();
+    const [dataLayersSales, loadingLayersSales, errorLayersSales, batchFilterSales,setBatchFilterSales,updateBatchFilterSales] = useFetchLayersSales();
+    const [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses] = useFetchLayersExpenses();
     const [dataLayersCostCategories, loadingLayersCostCategories, errorLayersCostCategories] = useFetchLayersCostCategories();
     const [dataFeedTypes, loadingFeedTypes, errorFeedTypes] = useFetchFeedTypes();
-    const [dataFeedInventory, loadingFeedInventory, errorFeedInventory] = useFetchFeedInventory();
+    const [dataFeedInventory, loadingFeedInventory, errorFeedInventory, batchFilterFeeds, setBatchFilterFeeds, updateBatchFilterFeeds] = useFetchFeedInventory();
     const [dataFeedTargets, loadingFeedTargets, errorFeedTargets] = useFetchFeedTargets();
 
 
@@ -401,6 +401,11 @@ function EggProductionDashboard(props){
                             newEggProduction={newEggProduction}
                             createdEggProduction={createdEggProduction}
                             deletedEggProduction={deletedEggProduction}
+
+                            batchFilterEggsProd ={batchFilterEggsProd}
+                            setBatchFilterEggsProd={setBatchFilterEggsProd}
+
+
                           />
                           )}
                       
@@ -428,6 +433,15 @@ function EggProductionDashboard(props){
                               newEggsInventory={newEggsInventory}
                               updatedEggsInventory={updatedEggsInventory}
                               deletedEggsInventory={deletedEggsInventory}
+
+                              
+                              batchFilterEggsStock={batchFilterEggsStock}
+                              setBatchFilterEggsStock={setBatchFilterEggsStock}
+                              batchFilterEggsProd ={batchFilterEggsProd}
+                              setBatchFilterEggsProd={setBatchFilterEggsProd}
+                              batchFilterSales={batchFilterSales}
+                              setBatchFilterSales={setBatchFilterSales}
+
                             />
                           )}
 
@@ -479,6 +493,12 @@ function EggProductionDashboard(props){
                                   newFeedInventory={newFeedInventory}
                                   updatedFeedInventory={updatedFeedInventory}
                                   deletedFeedInventory={deletedFeedInventory}
+
+                                  batchFilterFeeds={batchFilterFeeds}
+                                  setBatchFilterFeeds={setBatchFilterFeeds}
+                                  batchFilterExpenses={batchFilterExpenses}
+                                  setBatchFilterExpenses={setBatchFilterExpenses}
+    
                                 />
                               )}
 
@@ -516,6 +536,14 @@ function EggProductionDashboard(props){
                                       newFeedTarget={newFeedTarget}
                                       updatedFeedTarget={updatedFeedTarget}
                                       deletedFeedTarget={deletedFeedTarget}
+
+                                      batchFilterFeeds={batchFilterFeeds}
+                                      setBatchFilterFeeds={setBatchFilterFeeds}
+                                      batchFilterExpenses={batchFilterExpenses}
+                                      setBatchFilterExpenses={setBatchFilterExpenses}
+                                      batchFilterBirds={batchFilterBirds}
+                                      setBatchFilterBirds={setBatchFilterBirds}
+    
                                     />
                                   )}
                       </Tab>

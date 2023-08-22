@@ -2,7 +2,7 @@ import React, { PureComponent,useState, useEffect } from 'react'
 import '../css/Layers.css';
 import '../../App.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Label, Legend, ResponsiveContainer, BarChart, Bar, Cell, ComposedChart, ReferenceLine, Scatter,PieChart,Pie, Area } from 'recharts';
-import {Card,Col,Row,Container, Alert,ListGroup, Badge, Table, Form, OverlayTrigger } from "react-bootstrap";
+import {Card,Col,Row,Container, Alert,ListGroup, Badge, Table, Form, OverlayTrigger} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Paginate from '../pagination';
 import Paginate_1 from '../pagination_1';
@@ -29,13 +29,13 @@ function CashflowCharts(props) {
   }
 
 
-  const birds_ = props.birds_ && props.birds_
-  let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  const birds = props.birds_ && props.birds_
+  // let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
   // console.log(birds)
 
 
-  const eggsproduction_ = props.eggsproduction_ && props.eggsproduction_
-  let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  const eggsproduction = props.eggsproduction_ && props.eggsproduction_
+  // let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
   // console.log(eggsproduction)
 
   const grouped_eggsproduction= [...eggsproduction.reduce((r, o) => {
@@ -62,7 +62,8 @@ function CashflowCharts(props) {
 
   //sales
   const sales_ = props.sales_ && props.sales_
-  let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  // let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  let sales =  sales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
   // console.log(sales)
 
   //grouped_sales per month
@@ -86,8 +87,8 @@ function CashflowCharts(props) {
   // console.log(grouped_sales);
 
   //expenses
-  const expenses_ = props.expenses_ && props.expenses_
-  let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  const expenses = props.expenses_ && props.expenses_
+  // let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
  
   //grouped expenses per month
   const grouped_expenses_= [...expenses.reduce((r, o) => {
@@ -108,9 +109,9 @@ function CashflowCharts(props) {
   // console.log(grouped_expenses);
 
   //deposits/revenue
-  const bankdeposits_ = props.bankdeposits_ && props.bankdeposits_
+  const bankdeposits = props.bankdeposits_ && props.bankdeposits_
   // console.log(bankdeposits_)
-  let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  // let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
 
   //grouped deposits per month
   const grouped_deposits_= [...bankdeposits.reduce((r, o) => {
@@ -252,7 +253,8 @@ function CashflowCharts(props) {
 
   //credit sales
   const creditsales_ = props.creditsales && props.creditsales
-  let creditsales =  creditsales_ .filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  // let creditsales =  creditsales_ .filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  let creditsales =  creditsales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
 
 
   let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
@@ -269,13 +271,13 @@ function CashflowCharts(props) {
 
   
   //credit expenses
-  const creditexpenses_ = props.creditexpenses && props.creditexpenses
-  let creditexpenses =  creditexpenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  const creditexpenses = props.creditexpenses && props.creditexpenses
+  // let creditexpenses =  creditexpenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
 
   // console.log(creditexpenses_)
   // console.log(creditexpenses)
 
-  let credit_expenses =  expenses.filter(b => (b.payment_mode ==='Credit') ).map( x => ({...x, total_cost: parseFloat(x.quantity)*parseFloat(x.unitprice)}))
+  let credit_expenses =  expenses.filter(b => (b.payment_mode ==='Credit')).map( x => ({...x, total_cost: parseFloat(x.quantity)*parseFloat(x.unitprice)}))
 
   let credit_expenses_due = credit_expenses.reduce(add_credit_expenses_due, 0); // with initial value to avoid when the array is empty
   function add_credit_expenses_due(accumulator, a) {

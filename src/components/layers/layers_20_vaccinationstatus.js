@@ -26,6 +26,7 @@ function VaccinationStatus(props){
 
     var ms_per_day = 86400000//miliseconds in a day
     var today = Date.parse(new Date())
+    // console.log(today)
 
     
     const vaccineprogram = props.vaccineprogram && props.vaccineprogram
@@ -37,15 +38,27 @@ function VaccinationStatus(props){
     const batches_0=batches.map(y=>y.id)
     const batch_last = batches_0[batches_0.length - 1]
     const batches_1=batches.map(y=>y.batch)
+    const batches_2=batches.map(y=>y.delivery_date)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterVaccination = props.batchFilterVaccination
+    let setBatchFilterVaccination = props.setBatchFilterVaccination
+    let batch_filter = batches_1[batchFilterVaccination-1]
+    let delivery_date_2=batches_2[batchFilterVaccination-1]
 
-    const vaccines_0 = props.vaccines && props.vaccines
-    let vaccines=  vaccines_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
+
+
+    const vaccines_ = props.vaccines && props.vaccines
+    let vaccines=  vaccines_.map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date_2)+((x.vaccination_day)*86400000)).toLocaleDateString}))
+    // console.log(vaccines)
+
+    // let vaccines=  vaccines_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
 
     const batch_vaccine_status_0 = vaccineprogram.map(a => ({
         ...a,
-        batch_check: vaccines.find(b=>(batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch))),
+        batch_number_: batch_filter,
+        delivery_date_2: delivery_date_2,
+        batch_check: vaccines.find(b=>(batch===undefined||batch==='')? (b.batch ===batch_filter ) : (b.batch ===parseInt(batch))),
         vaccination_status: vaccines.find(b => b.vaccination=== a.id)?true:false,
         vaccine_regimen_check:vaccines.find(b => b.vaccine_regimen=== a.vaccine_regimen),
         vaccine_type: vaccines.find(b => b.vaccination=== a.id)
@@ -53,7 +66,7 @@ function VaccinationStatus(props){
     }));
 
     const batch_vaccine_status_1 = batch_vaccine_status_0.map(b=>({id_:b.id, vaccination_day_1:b.vaccination_day,vaccine_type_1:b.vaccine, ...b, ...b.batch_check, ...b.vaccine_type}))
-    const batch_vaccine_status = batch_vaccine_status_1.filter(a=>a.vaccine_regimen_check!=undefined).map(b=>({...b, expected_vaccination_date_1: new Date(Date.parse(b.delivery_date)+((b.vaccination_day_1)*86400000))}))
+    const batch_vaccine_status = batch_vaccine_status_1.filter(a=>a.vaccine_regimen_check!=undefined).map(b=>({...b, expected_vaccination_date_1: new Date (Date.parse(b.delivery_date_2)+((b.vaccination_day)*86400000)).toLocaleDateString(), expected_vaccination_date_2: Date.parse(b.delivery_date_2)+((b.vaccination_day)*86400000)}))
 
     return(
 
@@ -71,10 +84,10 @@ function VaccinationStatus(props){
                                 <InputGroup.Text >Batch</InputGroup.Text>
                                     <Form.Select
                                         size="sm"
-                                        value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        value={batch_filter || ''}
+                                        onChange={evt => setBatchFilterVaccination(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter}</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -129,14 +142,15 @@ function VaccinationStatus(props){
                             {batch_vaccine_status.map(program=>{
                                 return (
                                     <tr key={program.id_}>
-                                        <td>{program.batch_number}</td>
-                                        <td>{program.delivery_date}</td>
+                                        <td>{program.batch_number_}</td>
+                                        <td>{program.delivery_date_2}</td>
                                         <td>{program.vaccine_regimen}</td>
                                         <td>{program.week}</td>
                                         <td>{program.vaccination_day_1}</td>
                                         <td>{program.vaccine_type_1}</td>
                                         <td>{program.application_mode}</td>
-                                        <td>{program.expected_vaccination_date_1.toLocaleDateString("en-US", { day: 'numeric' }) + "-"+ program.expected_vaccination_date.toLocaleDateString("en-US", { month: 'short' }) + "-" + program.expected_vaccination_date.toLocaleDateString("en-US", { year: 'numeric' })}</td>
+                                        <td>{program.expected_vaccination_date_1}</td>
+                                        {/* <td>{program.expected_vaccination_date_1.toLocaleDateString("en-US", { day: 'numeric' }) + "-"+ program.expected_vaccination_date.toLocaleDateString("en-US", { month: 'short' }) + "-" + program.expected_vaccination_date.toLocaleDateString("en-US", { year: 'numeric' })}</td> */}
                                         <td>
                                             {program.vaccination_status===true? 
                                             <MUIcons.CheckCircleOutline  style={{ color: '#28a745', fontSize: '18px'}}  />:
@@ -153,8 +167,11 @@ function VaccinationStatus(props){
                                             }
                                         </td>
                                         <td>{program.vaccination_status===true? <MUIcons.HorizontalRuleOutlined style={{ color: '#28a745', fontSize: '18px'}} />:
-                                            parseInt((today-Date.parse(program.expected_vaccination_date_1))/ms_per_day)<=0?'-':
-                                            parseInt((today-Date.parse(program.expected_vaccination_date_1))/ms_per_day)
+                                            // parseInt((today-Date.parse(program.expected_vaccination_date_1))/ms_per_day)<=0?'-':
+                                            // parseInt((today-Date.parse(program.expected_vaccination_date_1))/ms_per_day)
+                                            parseInt((today-program.expected_vaccination_date_2)/ms_per_day)<=0?'-':
+                                            parseInt((today-program.expected_vaccination_date_2)/ms_per_day)
+
                                             }
                                         </td>
 

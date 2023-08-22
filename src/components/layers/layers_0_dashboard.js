@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import '../css/Layers.css';
+import '../css/Nav.css'
 import { LinkContainer } from "react-router-bootstrap";
 import {Card,Col,Row, CardGroup, Container, Nav, Table, Button,InputGroup, OverlayTrigger, Tooltip, Form, ProgressBar,Alert, ToggleButton,ButtonGroup } from "react-bootstrap";
 import * as MUIcons from '@mui/icons-material';
@@ -12,6 +13,16 @@ import CashflowCharts from './layers_24_cashflowchart'
 
   function Dashboard(props) {
     const [token, setToken, deleteToken]= useCookies(['mr-token']);
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 10000);
+    }, []);
+
 
     const [batch, setBatch]=useState();
     const [batch_, setBatch_]=useState();
@@ -42,20 +53,50 @@ import CashflowCharts from './layers_24_cashflowchart'
     const batch_last = batches_0[batches_0.length - 1]
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
+    
+
+    let batchFilterBirds = props.batchFilterBirds
+    let setBatchFilterBirds = props.setBatchFilterBirds
+    let batchFilterEggsProd = props.batchFilterEggsProd
+    let setBatchFilterEggsProd = props.setBatchFilterEggsProd
+    let batchFilterEggsStock = props.batchFilterEggsStock
+    let setBatchFilterEggsStock = props.setBatchFilterEggsStock
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batchFilterDeposits=props.batchFilterDeposits
+    let setBatchFilterDeposits=props.setBatchFilterDeposits
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batchFilterFeeds = props.batchFilterFeeds
+    let setBatchFilterFeeds = props.setBatchFilterFeeds
+    let batchFilterWeights = props.batchFilterWeights
+    let setBatchFilterWeights = props.setBatchFilterWeights
+    let batchFilterVaccination = props.batchFilterVaccination
+    let setBatchFilterVaccination = props.setBatchFilterVaccination
+    let batch_filter = batches_1[batchFilterSales-1]
+    // setBatchFilterSales(batch_default)
+    // setBatchFilterExpenses(batch_default)
+
+    // console.log(batchFilterSales)
+    // console.log(batch_filter)
 
     
     
     let batches_all = batches_.length
     let batches_active = batches.length
-    let current_batch =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.batch)
+    // let current_batch =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last) : (b.id ===parseInt(batch)) ).map( x => x.batch)
+    let current_batch=batch_filter
+    // console.log(current_batch)
     
     //birds
     const birds_ = props.birds && props.birds
-    let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+    // let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+    let delivered_birds_ =  batches_.map( x => x.delivered_birds)
     let delivered_birds = parseInt(delivered_birds_)
     // console.log(delivered_birds)
 
-    let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    // let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let birds =  birds_.map( x => ({...x}))
     let birds_delivered_net = birds.reduce(add_birds_net, 0); // with initial value to avoid when the array is empty
     function add_birds_net(accumulator, a) {
         return accumulator + parseInt(a.birds);
@@ -69,7 +110,8 @@ import CashflowCharts from './layers_24_cashflowchart'
 
     //egg production
     const eggsproduction_ = props.eggsproduction && props.eggsproduction
-    let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggsproduction =eggsproduction_
+    // let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let eggsproduction_length = eggsproduction.length
 
     let eggs_gross= eggsproduction.reduce(add_eggs_gross, 0); // with initial value to avoid when the array is empty
@@ -103,8 +145,8 @@ import CashflowCharts from './layers_24_cashflowchart'
  
     //sales
     const sales_ = props.sales && props.sales
-    let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
-
+    // let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
+    let sales = sales_.map(x => ({...x, "crates_sold": x.unit != "Crates"? parseFloat(x.quantity)/30:parseFloat(x.quantity)}))
     let sales_total= sales .reduce(add_sales, 0); // with initial value to avoid when the array is empty
     function add_sales(accumulator, a) {
         return accumulator + parseFloat(a.quantity*a.unitprice);
@@ -120,7 +162,8 @@ import CashflowCharts from './layers_24_cashflowchart'
 
     //eggs inventory
     const eggsinventory_ = props.eggsinventory && props.eggsinventory
-    let eggsinventory=  eggsinventory_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggsinventory=eggsinventory_
+    // let eggsinventory=  eggsinventory_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     // console.log(eggsinventory)
 
     let eggs_postharvest_losses = eggsinventory.reduce(add_eggs_losses, 0); // with initial value to avoid when the array is empty
@@ -134,15 +177,18 @@ import CashflowCharts from './layers_24_cashflowchart'
     function add_crates(accumulator, a) {
         return accumulator + a.crates_sold;
     }
+    // console.log(sales)
+    // console.log(eggs_sales_crates)
 
     let eggs_stock = eggs_nett/30-eggs_sales_crates-eggs_postharvest_losses
     let eggs_losses_total = eggs_defects/30+eggs_postharvest_losses
+    // console.log(eggs_stock)
     
 
     //expenses
     const expenses_ = props.expenses && props.expenses
-    let expenses=  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-
+    // let expenses=  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let expenses = expenses_
     let expenses_total= expenses.reduce(add_expenses, 0); // with initial value to avoid when the array is empty
     function add_expenses(accumulator, a) {
         return accumulator + parseFloat(a.quantity*a.unitprice);
@@ -153,7 +199,8 @@ import CashflowCharts from './layers_24_cashflowchart'
 
     //cash deposits
     const bankdeposits_ = props.deposits && props.deposits
-    let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let bankdeposits=  bankdeposits_
+    // let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     // console.log(bankdeposits_)
 
     let deposits_total= bankdeposits.reduce(add_deposits, 0); // with initial value to avoid when the array is empty
@@ -205,6 +252,11 @@ import CashflowCharts from './layers_24_cashflowchart'
 
   return (
     <div>
+        {loading ? (
+        <div className="loader-container">
+      	  <div className="spinner"></div>
+        </div>
+      ) :(
         <Container fluid>
         <Row className='dashboardTitle' >
             <Col sm={12} md={12} lg={6}>
@@ -234,10 +286,14 @@ import CashflowCharts from './layers_24_cashflowchart'
                     <InputGroup.Text >Batch</InputGroup.Text>
                         <Form.Select
                             size="sm"
-                            value={batch || ''}
-                            onChange={evt => setBatch(evt.target.value)}
+                            value={batch_filter || ''}
+                            onChange={evt => setBatchFilterSales(evt.target.value) || setBatchFilterExpenses(evt.target.value)||
+                            setBatchFilterBirds(evt.target.value)||setBatchFilterDeposits(evt.target.value) || 
+                            setBatchFilterEggsProd(evt.target.value)||setBatchFilterEggsStock(evt.target.value)|| 
+                            setBatchFilterFeeds(evt.target.value)|| setBatchFilterVaccination(evt.target.value)|| 
+                            setBatchFilterWeights(evt.target.value) }
                         >
-                            <option value=''>{batch_default}</option>
+                            <option value=''>{batch_filter}</option>
                                 {
                                     batches.map(btch =>{
                                         return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -563,10 +619,14 @@ import CashflowCharts from './layers_24_cashflowchart'
                     <InputGroup.Text >Batch</InputGroup.Text>
                         <Form.Select
                             size="sm"
-                            value={batch || ''}
-                            onChange={evt => setBatch(evt.target.value)}
+                            value={batch_filter || ''}
+                            onChange={evt => setBatchFilterSales(evt.target.value) || setBatchFilterExpenses(evt.target.value)||
+                            setBatchFilterBirds(evt.target.value)||setBatchFilterDeposits(evt.target.value) || 
+                            setBatchFilterEggsProd(evt.target.value)||setBatchFilterEggsStock(evt.target.value)|| 
+                            setBatchFilterFeeds(evt.target.value)|| setBatchFilterVaccination(evt.target.value)|| 
+                            setBatchFilterWeights(evt.target.value) }
                         >
-                            <option value=''>{batch_default}</option>
+                            <option value=''>{batch_filter}</option>
                                 {/* { 
                                     batches.map(btch =>{
                                         return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -650,6 +710,7 @@ import CashflowCharts from './layers_24_cashflowchart'
         </Row>
            
         </Container>
+        )}
     </div>
   )
 }

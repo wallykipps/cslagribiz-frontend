@@ -77,9 +77,20 @@ function DepositsBalances(props){
     const batch_last = batches_0[batches_0.length - 1]
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
+    
+
+    let batchFilterDeposits=props.batchFilterDeposits
+    let setBatchFilterDeposits=props.setBatchFilterDeposits
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batch_filter = batches_1[batchFilterDeposits-1]
+
 
     //Sum total of deposits
-    let deposits_0 = deposits_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_))).map( f => ({
+    // let deposits_0 = deposits_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_))).map( f => ({
+    let deposits_0 = deposits_.map( f => ({
         ...f, 
         deposit_amount_chk:f.debit_ac_details===bank_type?true:false,
         deposit_amount:f.debit_ac_details===bank_type? f.deposit_amount: f.deposit_amount<0?f.deposit_amount:-f.deposit_amount,
@@ -89,17 +100,19 @@ function DepositsBalances(props){
         credit_ac_:f.credit_ac_details, 
         id_:'cash_deposits'
     }))
-    
+
+    // console.log(deposits_0)
+
     let deposits=deposits_0.filter(a => (bank_type===undefined||bank_type==='')? a.debit_ac===bank_type_default : a.debit_ac===parseInt(bank_type)).map( b => ({...b}))
   
     //Sales
-    let sales_0= sales_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_)) ).map( f => ({...f}))
-    let sales_1 = sales_0.filter(c=>c.payment_mode!=2).map(c=>({...c}))//filter credit sales only
-    let cash_sales = sales_0.filter(c=>c.payment_mode===1).map(c=>({...c}))//filter cash sales only
+    // let sales_0= sales_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_)) ).map( f => ({...f}))
+    let sales_1 = sales_.filter(c=>c.payment_mode!=2).map(c=>({...c}))//filter credit sales only
+    let cash_sales = sales_.filter(c=>c.payment_mode===1).map(c=>({...c}))//filter cash sales only
     // console.log(cash_sales)
-    let mpesa_sales = sales_0.filter(c=>c.payment_mode===3).map(c=>({...c}))//filter mpesa sales only
+    let mpesa_sales = sales_.filter(c=>c.payment_mode===3).map(c=>({...c}))//filter mpesa sales only
     
-    let cash_sales_0 = sales_0.map(x=>({
+    let cash_sales_0 = sales_.map(x=>({
         batch: x.batch, 
         batch_number: x.batch_number,
         deposit_date: x.date,
@@ -120,9 +133,9 @@ function DepositsBalances(props){
 
 
     //Credit Sales
-    let credit_sales= credit_sales_.filter(e => (batch_===undefined||batch_==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch_)) ).map( f => ({...f}))
+    // let credit_sales= credit_sales_.filter(e => (batch_===undefined||batch_==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch_)) ).map( f => ({...f}))
     // console.log(credit_sales_)
-    let credit_sales_deposits = credit_sales.map(x=>({
+    let credit_sales_deposits = credit_sales_.filter(y=>(parseInt(y.batch)===parseInt(batch_filter))).map(x=>({
         batch: x.batch_id, 
         batch_number: x.batch,
         deposit_date: x.instalment_date,
@@ -139,16 +152,21 @@ function DepositsBalances(props){
 
     }))
 
+    // console.log(batch_default)
+    // console.log(parseInt(batch_filter))
+    // console.log(credit_sales_)
+    // console.log(credit_sales_deposits)
+    // let credit_sales_deposits = credit_sales_deposits_.filter(e=> parseInt(batch_number)===batch_filter).map(x=>({...x}))
     // console.log(credit_sales_deposits)
   
     //Expenses
-    let expenses_0= expenses_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_)) ).map( f => ({...f}))
-    let cash_expenses = expenses_0.filter(c=>c.payment_mode===1).map(c=>({...c}))//filter credit sales only
-    let mpesa_expenses = expenses_0.filter(c=>c.payment_mode===3).map(c=>({...c}))//filter credit sales only
+    // let expenses_0= expenses_.filter(e => (batch_===undefined||batch_==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch_)) ).map( f => ({...f}))
+    let cash_expenses = expenses_.filter(c=>c.payment_mode===1).map(c=>({...c}))//filter credit sales only
+    let mpesa_expenses = expenses_.filter(c=>c.payment_mode===3).map(c=>({...c}))//filter credit sales only
     
     
     // console.log(expenses_0)
-    let expenses_withdrawals= expenses_0.filter(d=>d.payment_type!=2).map(x=>({
+    let expenses_withdrawals= expenses_.filter(d=>d.payment_type!=2).map(x=>({
         batch: x.paymentsource, 
         batch_number: x.payment_source,
         deposit_date: x.purchase_date,
@@ -169,8 +187,8 @@ function DepositsBalances(props){
 
 
     //Credit Expenses
-    let credit_expenses= credit_expenses_.filter(e => (batch_===undefined||batch_==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch_)) ).map( f => ({...f}))
-    let credit_expenses_withdrawals = credit_expenses.map(x=>({
+    // let credit_expenses= credit_expenses_.filter(e => (batch_===undefined||batch_==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch_)) ).map( f => ({...f}))
+    let credit_expenses_withdrawals = credit_expenses_.filter(y=>(parseInt(y.batch)===parseInt(batch_filter))).map(x=>({
         batch: x.payment_source, 
         batch_number: x.paymentsource,
         deposit_date: x.instalment_date,
@@ -193,10 +211,11 @@ function DepositsBalances(props){
 
     const deposits_net_=deposits_0.concat(cash_sales_0,credit_sales_deposits,expenses_withdrawals,credit_expenses_withdrawals)
     // const deposits_net_=deposits_0.concat(cash_sales_0,expenses_withdrawals, credit_sales_deposits,credit_expenses_withdrawals)
-    let deposits_net_1 = deposits_net_.sort((a, b) => new Date(a.deposit_date) - new Date(b.deposit_date))
-    const deposits_net=deposits_net_1.filter(x=>(bank_type===undefined||bank_type==='')? x.credit_ac_===bank_type_default||x.debit_ac_===bank_type_default: x.credit_ac_===bank_type||x.debit_ac_===bank_type).map(y=>({...y }))
+    // let deposits_net_1= deposits_net_.filter(e => (batch_===undefined||batch_==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch_)) ).map( f => ({...f}))
+    let deposits_net_0 = deposits_net_.sort((a, b) => new Date(a.deposit_date) - new Date(b.deposit_date))
+    const deposits_net=deposits_net_0.filter(x=>(bank_type===undefined||bank_type==='')? x.credit_ac_===bank_type_default||x.debit_ac_===bank_type_default: x.credit_ac_===bank_type||x.debit_ac_===bank_type).map(y=>({...y }))
+    // console.log(deposits_net_)
     // console.log(deposits_net_0)
-    // console.log(deposits_net)
     // y.credit_ac_.split("-")[0]!='Bank'
     // deposit_amount:y.credit_ac_.split("-")[0]==='Bank'?-y.deposit_amount:y.deposit_amount
 
@@ -340,6 +359,7 @@ function DepositsBalances(props){
              setActive(currentPage - 1)
     }
 
+
     
     return(
 
@@ -373,10 +393,10 @@ function DepositsBalances(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch_ || ''}
-                                    onChange={evt => setBatch_(evt.target.value)}
+                                    value={batch_filter || ''}
+                                    onChange={evt => setBatchFilterDeposits(evt.target.value)||setBatchFilterSales(evt.target.value)||setBatchFilterExpenses(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -425,8 +445,10 @@ function DepositsBalances(props){
                         <th> Deposit  Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
                                 }
                             </OverlayTrigger>
                         </th>
@@ -510,6 +532,7 @@ function DepositsBalances(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
                     />
                     </Col>
                 </Row>

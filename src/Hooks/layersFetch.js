@@ -4,7 +4,7 @@ import LAYERS_SALES_EXPENSES_API from '../apis/layers_sales_expenses_api';
 import {useCookies} from 'react-cookie';
 import { Row, Col, Table, Button, Container, Modal, Form, InputGroup, OverlayTrigger,Tooltip} from "react-bootstrap";
 import useDebounce from './use-debounce';
-import { Sales } from '../components/layers/layers_7_sales';
+// import { Sales } from '../components/layers/layers_7_sales';
 
 
 
@@ -72,11 +72,17 @@ function useFetchBirdStock(){
     const[errorBirdStock, setErrorBirdStock] = useState();
     const [token]= useCookies(['mr-token']);
 
+    const [batchFilterBirds,setBatchFilterBirds]=useState(3)
+    const updateBatchFilterBirds = (newBatch) => {
+        setBatchFilterBirds(newBatch);
+      }
+    const debounce = useDebounce(batchFilterBirds,500)
+
     useEffect(()=>{
         async function fetchData(){
             setLoadingBirdStock(true);
             setErrorBirdStock();
-            const dataBirdStock = await  LAYERS_PRODUCTION_API.getBirdStock(token['mr-token'])
+            const dataBirdStock = await  LAYERS_PRODUCTION_API.getBirdStock(token['mr-token'],batchFilterBirds)
                                   .catch(err => setErrorBirdStock(errorBirdStock))
             setDataBirdStock(dataBirdStock)
             setLoadingBirdStock(false);
@@ -84,9 +90,9 @@ function useFetchBirdStock(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return[dataBirdStock, loadingBirdStock, errorBirdStock]
+    return[dataBirdStock, loadingBirdStock, errorBirdStock, batchFilterBirds, setBatchFilterBirds,updateBatchFilterBirds]
 
 }
 
@@ -99,21 +105,29 @@ function useFetchEggProduction(){
     const[errorEggProduction, setErrorEggProduction] = useState();
     const [token]= useCookies(['mr-token']);
 
+    const [batchFilterEggsProd,setBatchFilterEggsProd]=useState(3)
+    const updateBatchFilterEggsProd= (newBatch) => {
+        setBatchFilterEggsProd(newBatch);
+      }
+    const debounce = useDebounce(batchFilterEggsProd,500)
+
     useEffect(()=>{
         async function fetchData(){
             setLoadingEggProduction(true);
             setErrorEggProduction();
-            const dataEggProduction = await  LAYERS_PRODUCTION_API.getEggProduction(token['mr-token'])
+            const dataEggProduction = await  LAYERS_PRODUCTION_API.getEggProduction(token['mr-token'],batchFilterEggsProd)
                                   .catch(err => setErrorEggProduction(errorEggProduction))
             setDataEggProduction(dataEggProduction)
             setLoadingEggProduction(false);
+            // console.log(dataEggProduction)
+
         }
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataEggProduction, loadingEggProduction, errorEggProduction]
+    return [dataEggProduction, loadingEggProduction, errorEggProduction, batchFilterEggsProd, setBatchFilterEggsProd, updateBatchFilterEggsProd]
 
 }
 
@@ -125,11 +139,17 @@ function useFetchEggsInventory(){
     const[errorEggsInventory, setErrorEggsInventory] = useState();
     const [token]= useCookies(['mr-token']);
 
+    const [batchFilterEggsStock,setBatchFilterEggsStock]=useState(3)
+    const updateBatchFilterEggsStock= (newBatch) => {
+        setBatchFilterEggsStock(newBatch);
+      }
+    const debounce = useDebounce(batchFilterEggsStock,500)
+
     useEffect(()=>{
         async function fetchData(){
             setLoadingEggsInventory(true);
             setErrorEggsInventory();
-            const dataEggsInventory = await  LAYERS_PRODUCTION_API.getEggsInventory(token['mr-token'])
+            const dataEggsInventory = await  LAYERS_PRODUCTION_API.getEggsInventory(token['mr-token'], batchFilterEggsStock)
                                   .catch(err => setErrorEggsInventory(errorEggsInventory))
             setDataEggsInventory(dataEggsInventory)
             setLoadingEggsInventory(false);
@@ -137,9 +157,9 @@ function useFetchEggsInventory(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataEggsInventory, loadingEggsInventory, errorEggsInventory]
+    return [dataEggsInventory, loadingEggsInventory, errorEggsInventory, batchFilterEggsStock, setBatchFilterEggsStock, updateBatchFilterEggsStock]
 
 }
 
@@ -224,20 +244,20 @@ function useFetchLayersSales(){
     const[loadingLayersSales, setLoadingLayersSales] = useState(true);
     const[errorLayersSales, setErrorLayersSales] = useState();
     const [token]= useCookies(['mr-token']);
-    const [batchFilter,setBatchFilter]=useState(3)
-    console.log(batchFilter)
+    const [batchFilterSales,setBatchFilterSales]=useState(3)
+    // console.log(batchFilter)
 
-    const updateBatchFilter = (newBatch) => {
+    const updateBatchFilterSales = (newBatch) => {
         // console.log(newBatch)
-        setBatchFilter(newBatch);
+        setBatchFilterSales(newBatch);
       }
 
-    const debounce = useDebounce(batchFilter,500)
+    const debounce = useDebounce(batchFilterSales,500)
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersSales(true);
             setErrorLayersSales();
-            const dataLayersSales = await  LAYERS_SALES_EXPENSES_API.getLayersSales(token['mr-token'],batchFilter)
+            const dataLayersSales = await  LAYERS_SALES_EXPENSES_API.getLayersSales(token['mr-token'],batchFilterSales)
                                   .catch(err => setErrorLayersSales(errorLayersSales))
             setDataLayersSales(dataLayersSales)
             setLoadingLayersSales(false);
@@ -248,7 +268,7 @@ function useFetchLayersSales(){
 
     },[debounce])
 
-    return [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilter,setBatchFilter,updateBatchFilter]
+    return [dataLayersSales, loadingLayersSales, errorLayersSales,batchFilterSales,setBatchFilterSales,updateBatchFilterSales]
 }
 
 export {useFetchLayersSales};
@@ -296,6 +316,7 @@ function useFetchLayersCreditSales(){
     const[loadingLayersCreditSales, setLoadingLayersCreditSales] = useState(true);
     const[errorLayersCreditSales, setErrorLayersCreditSales] = useState();
     const [token]= useCookies(['mr-token']);
+
 
     useEffect(()=>{
         async function fetchData(){
@@ -378,12 +399,17 @@ function useFetchLayersExpenses(){
     const[loadingLayersExpenses, setLoadingLayersExpenses] = useState(true);
     const[errorLayersExpenses, setErrorLayersExpenses] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilterExpenses,setBatchFilterExpenses]=useState(3)
+    const updateBatchFilterExpenses = (newBatch) => {
+        setBatchFilterExpenses(newBatch);
+      }
+    const debounce = useDebounce(batchFilterExpenses,500)
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersExpenses(true);
             setErrorLayersExpenses();
-            const dataLayersExpenses = await  LAYERS_SALES_EXPENSES_API.getLayersExpenses(token['mr-token'])
+            const dataLayersExpenses = await  LAYERS_SALES_EXPENSES_API.getLayersExpenses(token['mr-token'],batchFilterExpenses)
                                   .catch(err => setErrorLayersExpenses(errorLayersExpenses))
             setDataLayersExpenses(dataLayersExpenses)
             setLoadingLayersExpenses(false);
@@ -391,9 +417,9 @@ function useFetchLayersExpenses(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses]
+    return [dataLayersExpenses, loadingLayersExpenses, errorLayersExpenses, batchFilterExpenses, setBatchFilterExpenses, updateBatchFilterExpenses]
 
 }
 
@@ -405,6 +431,7 @@ function useFetchLayersCreditExpenses(){
     const[loadingLayersCreditExpenses, setLoadingLayersCreditExpenses] = useState(true);
     const[errorLayersCreditExpenses, setErrorLayersCreditExpenses] = useState();
     const [token]= useCookies(['mr-token']);
+
 
     useEffect(()=>{
         async function fetchData(){
@@ -432,12 +459,18 @@ function useFetchLayersBankDeposits(){
     const[loadingLayersBankDeposits, setLoadingLayersBankDeposits] = useState(true);
     const[errorLayersBankDeposits, setErrorLayersBankDeposits] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilterDeposits,setBatchFilterDeposits]=useState(3)
+    const updateBatchFilterDeposits = (newBatch) => {
+        setBatchFilterDeposits(newBatch);
+      }
+    const debounce = useDebounce(batchFilterDeposits,500)
+
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingLayersBankDeposits(true);
             setErrorLayersBankDeposits();
-            const dataLayersBankDeposits = await  LAYERS_SALES_EXPENSES_API.getLayersBankDeposits(token['mr-token'])
+            const dataLayersBankDeposits = await  LAYERS_SALES_EXPENSES_API.getLayersBankDeposits(token['mr-token'], batchFilterDeposits)
                                   .catch(err => setErrorLayersBankDeposits(errorLayersBankDeposits))
             setDataLayersBankDeposits(dataLayersBankDeposits)
             setLoadingLayersBankDeposits(false);
@@ -445,9 +478,9 @@ function useFetchLayersBankDeposits(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits]
+    return [dataLayersBankDeposits, loadingLayersBankDeposits, errorLayersBankDeposits, batchFilterDeposits, setBatchFilterDeposits, setDataLayersBankDeposits]
 
 }
 
@@ -458,6 +491,7 @@ function useFetchFeedTypes(){
     const[loadingFeedTypes, setLoadingFeedTypes] = useState(true);
     const[errorFeedTypes, setErrorFeedTypes] = useState();
     const [token]= useCookies(['mr-token']);
+
 
     useEffect(()=>{
         async function fetchData(){
@@ -485,12 +519,18 @@ function useFetchFeedInventory(){
     const[loadingFeedInventory, setLoadingFeedInventory] = useState(true);
     const[errorFeedInventory, setErrorFeedInventory] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilterFeeds,setBatchFilterFeeds]=useState(3)
+    const updateBatchFilterFeeds = (newBatch) => {
+        setBatchFilterFeeds(newBatch);
+      }
+    const debounce = useDebounce(batchFilterFeeds,500)
+
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingFeedInventory(true);
             setErrorFeedInventory();
-            const dataFeedInventory = await  LAYERS_PRODUCTION_API.getFeedInventory(token['mr-token'])
+            const dataFeedInventory = await  LAYERS_PRODUCTION_API.getFeedInventory(token['mr-token'], batchFilterFeeds)
                                   .catch(err => setErrorFeedInventory(errorFeedInventory))
             setDataFeedInventory(dataFeedInventory)
             setLoadingFeedInventory(false);
@@ -498,9 +538,9 @@ function useFetchFeedInventory(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataFeedInventory, loadingFeedInventory, errorFeedInventory]
+    return [dataFeedInventory, loadingFeedInventory, errorFeedInventory, batchFilterFeeds, setBatchFilterFeeds, updateBatchFilterFeeds]
 
 }
 
@@ -539,12 +579,18 @@ function useFetchVaccination(){
     const[loadingVaccination, setLoadingVaccination] = useState(true);
     const[errorVaccination, setErrorVaccination] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilterVaccination,setBatchFilterVaccination]=useState(3)
+    const updateBatchFilterVaccination = (newBatch) => {
+        setBatchFilterVaccination(newBatch);
+      }
+    const debounce = useDebounce(batchFilterVaccination,500)
+
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingVaccination(true);
             setErrorVaccination();
-            const dataVaccination = await  LAYERS_PRODUCTION_API.getVaccination(token['mr-token'])
+            const dataVaccination = await  LAYERS_PRODUCTION_API.getVaccination(token['mr-token'],batchFilterVaccination)
                                   .catch(err => setErrorVaccination(errorVaccination))
             setDataVaccination(dataVaccination)
             setLoadingVaccination(false);
@@ -552,9 +598,9 @@ function useFetchVaccination(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataVaccination, loadingVaccination, errorVaccination]
+    return [dataVaccination, loadingVaccination, errorVaccination, batchFilterVaccination, setBatchFilterVaccination,updateBatchFilterVaccination]
 
 }
 
@@ -593,12 +639,18 @@ function useFetchWeightMonitoring(){
     const[loadingWeightMonitoring, setLoadingWeightMonitoring] = useState(true);
     const[errorWeightMonitoring, setErrorWeightMonitoring] = useState();
     const [token]= useCookies(['mr-token']);
+    const [batchFilterWeights,setBatchFilterWeights]=useState(3)
+    const updateBatchFilterWeights = (newBatch) => {
+        setBatchFilterWeights(newBatch);
+      }
+    const debounce = useDebounce(batchFilterWeights,500)
+
 
     useEffect(()=>{
         async function fetchData(){
             setLoadingWeightMonitoring(true);
             setErrorWeightMonitoring();
-            const dataWeightMonitoring = await  LAYERS_PRODUCTION_API.getWeightMonitoring(token['mr-token'])
+            const dataWeightMonitoring = await  LAYERS_PRODUCTION_API.getWeightMonitoring(token['mr-token'], batchFilterWeights)
                                   .catch(err => setErrorWeightMonitoring(errorWeightMonitoring))
             setDataWeightMonitoring(dataWeightMonitoring)
             setLoadingWeightMonitoring(false);
@@ -606,9 +658,9 @@ function useFetchWeightMonitoring(){
 
         fetchData();
 
-    },[])
+    },[debounce])
 
-    return [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring]
+    return [dataWeightMonitoring, loadingWeightMonitoring, errorWeightMonitoring, batchFilterWeights, setBatchFilterWeights, updateBatchFilterWeights]
 
 }
 
@@ -641,5 +693,3 @@ function useFetchFeedTargets(){
 }
 
 export {useFetchFeedTargets};
-
-

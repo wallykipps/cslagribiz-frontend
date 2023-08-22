@@ -10,6 +10,7 @@ import {useCookies} from 'react-cookie';
 import Paginate from '../pagination'
 import * as MUIcons from '@mui/icons-material';
 import { CSVLink, CSVDownload } from "react-csv";
+import useDebounce from "../../Hooks/use-debounce";
 
 
 
@@ -82,6 +83,12 @@ function Expenses(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batch_filter = batches_1[batchFilterExpenses-1]
+
+
+
     //Sort tables
     const [sortTable, setsortTable]= useState(true)
     const sortByDate= () => {
@@ -99,8 +106,8 @@ function Expenses(props){
 
 
     let expenses_filtered_1= expenses_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.purchase_date>=start_date && a.purchase_date<=end_date ).map(y=>({...y}))
-    let expenses_filtered_2= expenses_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let expenses_filtered_3 = expenses_filtered_2.filter(c => (vendor_===undefined||vendor_==='')? c : c.supplier === vendor_).map( w => ({...w}))
+    // let expenses_filtered_2= expenses_filtered_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let expenses_filtered_3 = expenses_filtered_1.filter(c => (vendor_===undefined||vendor_==='')? c : c.supplier === vendor_).map( w => ({...w}))
     let expenses_ = expenses_filtered_3.filter(d => (paymentstatus===undefined||paymentstatus==='')? d : d.payment_mode === paymentstatus).map( z => ({...z}))
     let expenses = expenses_.sort((a, b) => sortTable===true? new Date(b.purchase_date) - new Date(a.purchase_date):new Date(a.purchase_date) - new Date(b.purchase_date))
 
@@ -215,6 +222,7 @@ function Expenses(props){
     }
 
     
+    
     return(
 
         <div>
@@ -237,10 +245,12 @@ function Expenses(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batch_filter}
+                                    onChange={evt => setBatchFilterExpenses(evt.target.value)}
+                                    // value={batch || ''}
+                                    // onChange={evt => setBatch(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -333,8 +343,10 @@ function Expenses(props){
                         <th> Purchase Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
                                 }
                             </OverlayTrigger>
                         </th>
@@ -399,7 +411,7 @@ function Expenses(props){
                             className="form-select form-select-sm"
                             aria-label=".form-select-sm example"
                             value={recordsPerPage || ''}
-                            onChange={evt => setRecordsPerPage(evt.target.value)}
+                            onChange={evt => setRecordsPerPage(evt.target.value)&&setCurrentPage(1)}
                             style={{fontSize:12}}
                         >
                             <option value='10'>10</option>

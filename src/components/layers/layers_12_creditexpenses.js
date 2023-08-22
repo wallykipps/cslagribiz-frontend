@@ -69,10 +69,15 @@ function CreditExpenses(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batch_filter = batches_1[batchFilterExpenses-1]
+
+
 
     //Filtering the sales table concurrently with credit sales table
-    let expenses_0= expenses_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch)) ).map( f => ({...f}))
-    let expenses_1= expenses_0.filter(a => (vendor===undefined||vendor==='')? a : a.vendor===parseInt(vendor)).map( b => ({...b}))
+    // let expenses_0= expenses_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch ===batch_last) : (e.batch ===parseInt(batch)) ).map( f => ({...f}))
+    let expenses_1= expenses_unfiltered.filter(a => (vendor===undefined||vendor==='')? a : a.vendor===parseInt(vendor)).map( b => ({...b}))
     let expenses_2 = expenses_1.filter(c=>c.payment_type===2).map(c=>({...c}))//filter credit sales only
     let expenses = expenses_2.filter(g => (expense===undefined|| expense==='')? g  : (g.id ===parseInt(expense)) ).map( h => ({...h}))
     // console.log(expenses)
@@ -85,8 +90,8 @@ function CreditExpenses(props){
     }
 
     //Filtering credit sales table
-    let credit_expenses_filtered_1= credit_expenses_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
-    let credit_expenses_1 = credit_expenses_filtered_1.filter(g => (vendor===undefined||vendor==='')? g : (g.vendor_id ===parseInt(vendor)) ).map( h => ({...h}))
+    // let credit_expenses_filtered_1= credit_expenses_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
+    let credit_expenses_1 = credit_expenses_unfiltered.filter(g => (vendor===undefined||vendor==='')? g : (g.vendor_id ===parseInt(vendor)) ).map( h => ({...h}))
     let credit_expenses = credit_expenses_1.filter(g => (expense===undefined||expense==='')? g  : (g.cost_id ===parseInt(expense)) ).map( h => ({...h}))
 
 
@@ -252,6 +257,8 @@ function CreditExpenses(props){
             setCurrentPage(0)
     }
 
+ 
+
     
     return(
 
@@ -291,10 +298,10 @@ function CreditExpenses(props){
                             <InputGroup.Text >Batch</InputGroup.Text>
                                 <Form.Select
                                     size="sm"
-                                    value={batch || ''}
-                                    onChange={evt => setBatch(evt.target.value)}
+                                    value={batch_filter|| ''}
+                                    onChange={evt => setBatchFilterExpenses(evt.target.value)}
                                 >
-                                    <option value=''>{batch_default}</option>
+                                    <option value=''>{batch_filter}</option>
                                         {
                                             batches.map(btch =>{
                                                 return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -371,8 +378,10 @@ function CreditExpenses(props){
                         <th> Instalment Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+
                                 }
                             </OverlayTrigger>
                         </th>
@@ -455,6 +464,7 @@ function CreditExpenses(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
                     />
                     </Col>
                 </Row>

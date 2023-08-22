@@ -28,7 +28,7 @@ function FeedInventory(props){
     
     const [stock_date, setStockDate]=useState();
     const [batch, setBatch]=useState('');
-    const [feed_type, setFeedType]=useState();
+    const [feed_type, setFeedType]=useState('');
     const [stock_in, setStockIn]=useState('');
     const [bags_consumed, setBagsConsumed]=useState('');
     const [bags_balance, setBagsBalance]=useState('');
@@ -47,12 +47,12 @@ function FeedInventory(props){
 
     const [start_date, setStartDate] = useState()
     const [end_date, setEndDate] = useState()
-    const [feed_type_, setFeedType_]=useState();
+    const [feed_type_, setFeedType_]=useState('Chick Mash');
     const resetTable = () => {
         setStartDate('')
         setEndDate('')
         setBatch('')
-        setFeedType_('')
+        setFeedType_('Chick Mash')
         setFeedType('')
     }
 
@@ -68,6 +68,9 @@ function FeedInventory(props){
     // console.log(feed_types_choices)
 
     let costcategories =  costcategories_unfiltered.filter(d =>  (d.id === 1)||(d.id === 2)||(d.id === 3) ).map( y => ({...y}))
+    let feedtype_categories = costcategories_unfiltered.map(x=>x.cost_sub_category)
+    let feedtype_default =feedtype_categories[1]
+    // console.log(feedtype_default)
 
     
     let batches = batches_.filter(e=>e.status===true).map(w=>({...w}))
@@ -76,13 +79,23 @@ function FeedInventory(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+
+    let batchFilterFeeds = props.batchFilterFeeds
+    let setBatchFilterFeeds = props.setBatchFilterFeeds
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batch_filter = batches_1[batchFilterFeeds-1]
+    // console.log(batchFilterFeeds)
+    // console.log(batches_1)
+    // console.log(batches_)
+
     
     // const feed_default = "Chick Mash" 
 
     // console.log(expenses_unfiltered)
     let expenses_0= expenses_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.stock_date>=start_date && a.stock_date<=end_date ).map(y=>({...y}))
-    let expenses_1=  expenses_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let expenses_2 =  expenses_1.filter(d =>  (d.cost_category === 1)||(d.cost_category === 2)||(d.cost_category === 3) ).map( y => ({...y, "bags_purchased": parseInt(y.quantity)}))
+    // let expenses_1=  expenses_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let expenses_2 =  expenses_0.filter(d =>  (d.cost_category === 1)||(d.cost_category === 2)||(d.cost_category === 3) ).map( y => ({...y, "bags_purchased": parseInt(y.quantity)}))
     const feed_default_=expenses_2.map(y=>y.expense_sub_category)
     const feed_default =feed_default_[feed_default_.length - 1]
     // console.log(feed_default)
@@ -121,8 +134,8 @@ function FeedInventory(props){
 
     
     let feedinventory_0= feedinventory_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.stock_date>=start_date && a.stock_date<=end_date ).map(y=>({...y}))
-    let feedinventory_1= feedinventory_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let feedinventory_2 = feedinventory_1.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y,"bags_delivered": parseInt(y.stock_in)}))
+    // let feedinventory_1= feedinventory_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let feedinventory_2 = feedinventory_0.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y,"bags_delivered": parseInt(y.stock_in)}))
     // let feedinventory_2 = feedinventory_1.filter(c => (feed_type===undefined||feed_type==='')? c : (c.feed_type_1 ===feed_type) ).map( y => ({...y,"bags_delivered": parseInt(y.stock_in)}))
     // console.log(feedinventory_2)
 
@@ -155,14 +168,14 @@ function FeedInventory(props){
     const [sortTable, setsortTable]= useState(true)
 
     const sortByDate= () => {
-    if (sortTable===true) {
-        setsortTable(false)
+        if (sortTable===true) {
+            setsortTable(false)
 
-    }
-    else {
-        setsortTable(true) 
+        }
+        else {
+            setsortTable(true) 
 
-    }return
+        }return
     
     }
     
@@ -346,10 +359,10 @@ function FeedInventory(props){
                                 <InputGroup.Text >Batch</InputGroup.Text>
                                     <Form.Select
                                         size="sm"
-                                        value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        value={batch_filter || ''}
+                                        onChange={evt => setBatchFilterFeeds(evt.target.value)||setBatchFilterExpenses(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter}</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -527,6 +540,8 @@ function FeedInventory(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
+
                     />
                     </Col>
                 </Row>
@@ -557,6 +572,14 @@ function FeedInventory(props){
                                         />
                                 </Form.Group>
 
+                                {/* <Form.Group className="mb-2" controlId="batch">
+                                    <Form.Label>Batch:</Form.Label>
+                                    <Form.Control type="interger" placeholder="Enter Bags" 
+                                        value={batch_filter}
+                                    />
+                                </Form.Group> */}
+
+
                                 <Form.Group className="mb-2" controlId="batch">
                                     <Form.Label>Batch</Form.Label>
                                     <Form.Select
@@ -564,6 +587,7 @@ function FeedInventory(props){
                                         value={batch || ''}
                                         onChange={evt => setBatch(evt.target.value)}
                                         required
+
                                     >
                                         <option value=''>Select...</option>
                                         

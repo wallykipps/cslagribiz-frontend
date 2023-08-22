@@ -42,12 +42,12 @@ function FeedTargets(props){
 
     }, [feed_])
 
-    const [feed_type_, setFeedType_]=useState();
+    const [feed_type_, setFeedType_]=useState('Chick Mash');
     const [batch, setBatch]=useState();
     // console.log(feed_type_)
 
     const resetTable = () => {
-        setFeedType_('')
+        setFeedType_('Chick Mash')
         setBatch('')
     }
 
@@ -61,6 +61,14 @@ function FeedTargets(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterFeeds = props.batchFilterFeeds
+    let setBatchFilterFeeds = props.setBatchFilterFeeds
+    let batchFilterExpenses = props.batchFilterExpenses
+    let setBatchFilterExpenses = props.setBatchFilterExpenses
+    let batchFilterBirds = props.batchFilterBirds
+    let setBatchFilterBirds = props.setBatchFilterBirds
+    let batch_filter = batches_1[batchFilterFeeds-1]
+
     const birds_delivered=parseInt(batches.map(y=>y.delivered_birds))
 
 
@@ -70,7 +78,8 @@ function FeedTargets(props){
 
     const birds_stock_0 = props.birds && props.birds
     // let birds_stock_1= birds_stock_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let birds_stock_1=  birds_stock_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, 'birds_week': (Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week)===0? 1: Math.ceil((Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week))}))
+    // let birds_stock_1=  birds_stock_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, 'birds_week': (Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week)===0? 1: Math.ceil((Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week))}))
+    let birds_stock_1=  birds_stock_0.map( x => ({...x, 'birds_week': (Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week)===0? 1: Math.ceil((Date.parse(new Date(x.stock_date))-Date.parse(new Date(x.delivery_date)))/(ms_per_week))}))
 
     const birds_stock = [...birds_stock_1.reduce((r, o) => {
         const key = o.birds_week;
@@ -88,8 +97,8 @@ function FeedTargets(props){
 
     
     const feedinventory_0 = props.feedinventory && props.feedinventory
-    let feedinventory_1= feedinventory_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let feedinventory_2 = feedinventory_1.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y, "bags_delivered": parseInt(y.stock_in),'feeds_week': (Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week)===0?1: Math.ceil((Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week))}))
+    // let feedinventory_1= feedinventory_0.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let feedinventory_2 = feedinventory_0.filter(c => (feed_type_===undefined||feed_type_==='')? (c.feed_type_1 ===feed_default): (c.feed_type_1 ===feed_type_) ).map( y => ({...y, "bags_delivered": parseInt(y.stock_in),'feeds_week': (Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week)===0?1: Math.ceil((Date.parse(new Date(y.stock_date))-Date.parse(new Date(y.delivery_date)))/(ms_per_week))}))
     // console.log(feedinventory_2)
 
     // let bags_delivered_acc = 0
@@ -268,9 +277,9 @@ function FeedTargets(props){
                                     <Form.Select
                                         size="sm"
                                         value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        onChange={evt => setBatchFilterFeeds(evt.target.value)||setBatchFilterExpenses(evt.target.value)||setBatchFilterBirds(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter}</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)

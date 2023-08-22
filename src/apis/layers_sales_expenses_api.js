@@ -98,8 +98,8 @@ export default class LAYERS_SALES_EXPENSES_API {
     }
 
 
-  static getLayersSales(token,batchFilter ){      
-      return fetch(`https://backend.cslagri.biz/layers/sales?batch=${batchFilter}`, {
+  static getLayersSales(token,batchFilterSales){      
+      return fetch(`https://backend.cslagri.biz/layers/sales?batch=${batchFilterSales}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export default class LAYERS_SALES_EXPENSES_API {
 
 
   static getLayersCreditSales(token){
-    return fetch("https://backend.cslagri.biz/layers/creditsales/", {
+    return fetch(`https://backend.cslagri.biz/layers/creditsales/`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -295,8 +295,8 @@ return fetch(`https://backend.cslagri.biz/layers/costcategories/${cost_id}/`, {
 
 
 
-static getLayersExpenses(token){
-return fetch("https://backend.cslagri.biz/layers/expenses/", {
+static getLayersExpenses(token,batchFilterExpenses){
+return fetch(`https://backend.cslagri.biz/layers/expenses?batch=${batchFilterExpenses}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -345,7 +345,7 @@ return fetch(`https://backend.cslagri.biz/layers/expenses/${cost_id}/`, {
 
 
 static getLayersCreditExpenses(token){
-return fetch("https://backend.cslagri.biz/layers/creditexpenses/", {
+return fetch(`https://backend.cslagri.biz/layers/creditexpenses/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -393,8 +393,8 @@ return fetch(`https://backend.cslagri.biz/layers/creditexpenses/${creditcost_id}
 }
 
 
-static getLayersBankDeposits(token){
-return fetch("https://backend.cslagri.biz/layers/cashbalance/", {
+static getLayersBankDeposits(token,batchFilterDeposits){
+return fetch(`https://backend.cslagri.biz/layers/cashbalance?batch=${batchFilterDeposits}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

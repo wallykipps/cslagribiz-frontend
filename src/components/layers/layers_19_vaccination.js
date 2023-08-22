@@ -64,10 +64,18 @@ function Vaccination(props){
     const batches_1=batches.map(y=>y.batch)
     const batch_default = batches_1[batches_0.length - 1]
 
+    let batchFilterVaccination = props.batchFilterVaccination
+    let setBatchFilterVaccination = props.setBatchFilterVaccination
+    let batch_filter = batches_1[batchFilterVaccination-1]
 
 
-    const vaccines_1 = props.vaccines && props.vaccines
-    let vaccines=  vaccines_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
+
+
+    const vaccines_ = props.vaccines && props.vaccines
+    // let vaccines = vaccines_.map( x => ({...x, expected_vaccination_date: new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
+    let vaccines = vaccines_.map( x => ({...x, expected_vaccination_date: new Date (Date.parse(x.delivery_date)+((x.vaccination_day)*86400000)).toLocaleDateString()}))
+
+    // let vaccines=  vaccines_1.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
 
     //Vaccine Notifications
     const [vaccine_notificattion, setVacccineNotification]=useState();
@@ -150,10 +158,10 @@ function Vaccination(props){
                                 <InputGroup.Text >Batch</InputGroup.Text>
                                     <Form.Select
                                         size="sm"
-                                        value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        value={batch_filter || ''}
+                                        onChange={evt => setBatchFilterVaccination(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter}</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -211,7 +219,8 @@ function Vaccination(props){
                                     <td>{vaccine.vaccine_regimen}</td>
                                     <td>{vaccine.vaccine}</td>
                                     <td>{vaccine.vaccination_day}</td>
-                                    <td>{(vaccine.expected_vaccination_date).toLocaleDateString()}</td>
+                                    <td>{vaccine.expected_vaccination_date}</td>
+                                    {/* <td>{(vaccine.expected_vaccination_date).toLocaleDateString()}</td> */}
                                     {/* <td>{(vaccine.expected_vaccination_date).toLocaleDateString('en-us', { day: "numeric",month:"short",year:"numeric"})}</td> */}
                                     <td>{vaccine.vet_agrovet}</td>
                                     <td>{vaccine.comments}</td>

@@ -28,11 +28,13 @@ function FlockCharts(props) {
 
  //birds
   const birds_ = props.birds_ && props.birds_
-  let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  // let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  let birds =  birds_.map( x => ({...x}))
   // console.log(birds_)
 
  
-  let birds_delivered =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+  // let birds_delivered =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+  let birds_delivered =  batches_.map( x => x.delivered_birds)
   // console.log(birds_delivered)
 
   let birds_actual = birds.reduce(add_birds_net, 0); // with initial value to avoid when the array is empty
@@ -43,8 +45,10 @@ function FlockCharts(props) {
   // console.log(birds_actual)
 
   const sales_ = props.sales_ && props.sales_
-  let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  // let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+  let sales =  sales_.map( x => ({...x}))
   let sales_xlayers =  sales.filter(b => (b.product===3) ).map( x => ({...x}))
+  // console.log(sales)
   
   let xlayers_sales = sales_xlayers.reduce(add_xlayers, 0); // with initial value to avoid when the array is empty
   function add_xlayers(accumulator, a) {
@@ -61,13 +65,15 @@ function FlockCharts(props) {
 
   
   let birds_acc = 0;
-  let birds_net= birds.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x,index:[key+1], birds_total: birds_acc+=x.birds}))
+  // let birds_net= birds.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x,index:[key+1], birds_total: birds_acc+=x.birds}))
+  let birds_net= birds.map( (x,key) => ({...x,index:[key+1], birds_total: birds_acc+=x.birds}))
   // console.log(birds_net)
 
 
   //weights
   const weights_ = props.weights && props.weights
-  let weights= weights_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, actual_average_weight:parseInt(x.actual_average_weight),percentage_weight:(parseInt(x.actual_average_weight)/x.average_weight_target)*100}))
+  // let weights= weights_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, actual_average_weight:parseInt(x.actual_average_weight),percentage_weight:(parseInt(x.actual_average_weight)/x.average_weight_target)*100}))
+  let weights= weights_.map( (x,key) => ({...x, actual_average_weight:parseInt(x.actual_average_weight),percentage_weight:(parseInt(x.actual_average_weight)/x.average_weight_target)*100}))
   // console.log(weights)
   
 
@@ -77,8 +83,9 @@ function FlockCharts(props) {
   
   const vaccineprogram = props.vaccineprogram && props.vaccineprogram
   const vaccines_ = props.vaccines && props.vaccines
-  let vaccines=  vaccines_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
-
+  // let vaccines=  vaccines_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
+  let vaccines=  vaccines_.map( x => ({...x,"vaccination":x.vaccination, "expected_vaccination_date": new Date(Date.parse(x.delivery_date)+((x.vaccination_day)*86400000))}))
+  
   const batch_vaccine_status_0 = vaccineprogram.map(a => ({
       ...a,
       batch_check: vaccines.find(b=>(batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch))),
@@ -101,7 +108,8 @@ function FlockCharts(props) {
 
 
   const eggsproduction_ = props.eggsproduction_ && props.eggsproduction_
-  let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, index:[key+1]}))
+  // let eggsproduction =  eggsproduction_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( (x,key) => ({...x, index:[key+1]}))
+  let eggsproduction =  eggsproduction_.map( (x,key) => ({...x, index:[key+1]}))
   // console.log(eggsproduction)
 
   const grouped_eggsproduction= [...eggsproduction.reduce((r, o) => {

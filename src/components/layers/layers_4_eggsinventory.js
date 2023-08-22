@@ -68,18 +68,30 @@ function EggsInventory(props){
     const batch_default = batches_1[batches_0.length - 1]
 
 
-    let eggsinventory_0 = eggsinventory_unfiltered.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    let eggsinventory_1 = eggsinventory_0 .filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.inventory_date>=start_date && a.inventory_date<=end_date ).map(y=>({...y}))
+    let batchFilterEggsStock = props.batchFilterEggsStock
+    let setBatchFilterEggsStock = props.setBatchFilterEggsStock
+    let batchFilterEggsProd = props.batchFilterEggsProd
+    let setBatchFilterEggsProd = props.setBatchFilterEggsProd
+    let batchFilterSales = props.batchFilterSales
+    let setBatchFilterSales = props.setBatchFilterSales
+    let batch_filter = batches_1[batchFilterEggsStock-1]
+
+
+
+    // let eggsinventory_0 = eggsinventory_unfiltered.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    let eggsinventory_0 = eggsinventory_unfiltered
+    let eggsinventory_1 = eggsinventory_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.inventory_date>=start_date && a.inventory_date<=end_date ).map(y=>({...y}))
     let eggsinventory_2 = eggsinventory_1.map(c=>({...c, "total_losses": c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted,"total_losses_crates": (c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted)/30, "total_stock": c.eggs_stock_actual_crates+c.eggs_stock_actual_pieces/30}))
     // let eggsinventory_2 = eggsinventory_1.filter(b => (batch===undefined||batch==='')? b.batch===2 : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    const eggsinventory_7 = eggsinventory_0.filter(k=>k.inventory_date===inventory_date)
+    const eggsinventory_7 = eggsinventory_unfiltered.filter(k=>k.inventory_date===inventory_date)
     const eggsinventory_length = eggsinventory_7.length
     // console.log(eggsinventory_length)
+    // console.log(eggsinventory_2)
    
 
     const sales_ = sales_unfiltered.map(d=>({...d, "total_quantity_sold": d.product_==='Eggs'? d.unit != "Crates"? parseFloat(d.quantity)/30:parseFloat(d.quantity):parseFloat(d.quantity)}))
-    let sales_0  = sales_.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
-    const sales_6 = sales_unfiltered.filter(k=>k.date===inventory_date)
+    // let sales_0 = sales_unfiltered.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
+    const sales_6 = sales_.filter(k=>k.date===inventory_date)
     // console.log(sales_6)
     const sales_length = sales_6.length
     // console.log(sales_length)
@@ -90,7 +102,7 @@ function EggsInventory(props){
 
 
    //Group by and sum
-    const sales_1 = [...sales_0.reduce((r, o) => {
+    const sales_1 = [...sales_.reduce((r, o) => {
         const key = o.date;
         
         const item = r.get(key) || Object.assign({}, o, {
@@ -120,12 +132,11 @@ function EggsInventory(props){
     // console.log(sales_8)
     
     let sales_2 = sales_1.filter(c=>c.product_==='Eggs').map(d=>({...d}))
-    let sales_3 = sales_2.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({"date": x.date,"total_quantity_sold": x.total_quantity_sold}))
-    let sales = sales_3.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
+    // let sales_3 = sales_2.filter(b => (batch===undefined||batch==='')? b.batch===batch_last : (b.batch ===parseInt(batch)) ).map( x => ({"date": x.date,"total_quantity_sold": x.total_quantity_sold}))
+    let sales = sales_2.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
     // let sales_5 = sales_4.sort((a, b) => Date.parse(a.date) - Date.parse(a.date));
     // sales.reverse()
     // console.log(sales_3)
-    // console.log(sales)
 
     //Sum total of credit sales
     const sales_total = sales.reduce(add_sales, 0); // with initial value to avoid when the array is empty
@@ -140,8 +151,8 @@ function EggsInventory(props){
     const eggproduction_length = eggproduction_2.length
     // console.log(eggproduction_length)
     
-    let eggproduction_0 = eggsproduction_unfiltered.filter(b => (batch===undefined||batch==='')? b.batch===batch_last: (b.batch ===parseInt(batch)) ).map( x => ({"date": x.prod_date,"net_production": x.net_crates}))
-    let eggproduction = eggproduction_0.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
+    // let eggproduction_0 = eggsproduction_unfiltered.filter(b => (batch===undefined||batch==='')? b.batch===batch_last: (b.batch ===parseInt(batch)) ).map( x => ({"date": x.prod_date,"net_production": x.net_crates}))
+    let eggproduction = eggsproduction_unfiltered.filter(a=> ((start_date===undefined||end_date===undefined)||(start_date===''||end_date===''))? a: a.date>=start_date && a.date<=end_date ).map(y=>({...y}))
     // eggproduction.sort((a, b) => b.date - a.date);
     // eggproduction.reverse()
     // console.log(eggproduction)
@@ -160,7 +171,7 @@ function EggsInventory(props){
 
     const eggsstock_calc_0 = eggproduction.map(a => ({
         ...a,
-        sales_check: sales.find(b => b.date=== a.date)
+        sales_check: sales.find(b => b.date=== a. date)
 
     }));
 
@@ -184,6 +195,7 @@ function EggsInventory(props){
     // console.log(eggsinventory_3)
 
     let eggsinventory_4 = eggsinventory_3.map(b=>({...b, ...b.inventory_check}))
+
     // console.log(eggsinventory_2)
     // console.log(eggsinventory_4)
 
@@ -196,26 +208,133 @@ function EggsInventory(props){
 
     // let eggsinventory_3_ = mergeByDate(eggsinventory_2, eggsstock_calc)
     // console.log(eggsinventory_3);
-    
+
     //Sort tables
     const [sortTable, setsortTable]= useState(true)
+
     const sortByDate= () => {
-        if (sortTable===true) {
-            setsortTable(false)
+    if (sortTable===true) {
+        setsortTable(false)
+
+    }
+    else {
+        setsortTable(true) 
+
+    }return
     
-        }
-        else {
-            setsortTable(true) 
+    }
     
-        }return
-        
-        }
-        
     let eggbalance_acc =0
     let eggsinventory_5 = eggsinventory_4.map(x=>({...x, "egg_balance":eggbalance_acc+=(x.net_production - x.total_quantity_sold- x.total_losses_crates)}))
     let eggsinventory_6 = eggsinventory_5.map((x,key)=>({...x, id_:key+1, "variance": (x.egg_balance- x.total_stock)}))
     let eggsinventory = eggsinventory_6.sort((a, b) => sortTable===true? new Date(b.inventory_date) - new Date(a.inventory_date):new Date(a.inventory_date) - new Date(b.inventory_date))
+
     // console.log(eggsinventory);
+
+    
+    let eggs_inventory = eggsinventory_unfiltered.map( (x,key) => ({
+        ...x,
+        eggs_stock_id:parseInt([key+1]),
+        eggs_stock_date:x.inventory_date, eggs_stock_date_1: x.inventory_date_1,
+        batch: x.batch, batch_number:x.batch_number, 
+        eggs_sales: 0 ,
+        eggs_produced: 0,
+        eggs_losses: (x.egg_loss_defects+x.egg_loss_breakages+x.egg_loss_transport+x.egg_loss_unaccounted)/30,
+        eggs_actual_stock: x.eggs_stock_actual_crates+x.eggs_stock_actual_pieces/30,
+
+        // "total_losses": c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted,
+        // "total_losses_crates": (c.egg_loss_defects+c.egg_loss_breakages+c.egg_loss_transport+c.egg_loss_unaccounted)/30,
+        // "total_stock": c.eggs_stock_actual_crates+c.eggs_stock_actual_pieces/30
+
+    }))
+    
+    // console.log(eggs_inventory)
+    
+    
+    
+    let eggs_sales =  sales_.filter(c=>c.product_==='Eggs').map( (x,key) => ({
+        // ...x,
+        eggs_stock_id:parseInt([key+1]),
+        eggs_stock_date:x.date, eggs_stock_date_1: x.date_1,
+        batch: x.batch, batch_number:x.batch_number, 
+        eggs_sales: x.total_quantity_sold,
+        eggs_produced: 0, eggs_losses: 0,
+        eggs_actual_stock:0
+
+    }))
+
+    // console.log(eggs_sales)
+    
+    let eggs_produced = eggsproduction_unfiltered.map( (x,key) => ({
+        // ...x,
+        eggs_stock_id:parseInt([key+1]),
+        eggs_stock_date:x.prod_date, eggs_stock_date_1: x.prod_date_1,
+        batch: x.batch, batch_number:x.batch_number, 
+        eggs_sales: 0 ,
+        eggs_produced: x.net_crates,
+        eggs_losses: 0,
+        eggs_actual_stock:0
+
+    }))
+
+    // console.log(eggs_produced)
+
+
+    const eggs_stock_all=eggs_inventory.concat(eggs_produced,eggs_sales)
+    // console.log(eggs_stock_all)
+
+    const eggs_stock_all_grouped = [...eggs_stock_all.reduce((r, o) => {
+        const key = o.eggs_stock_date;
+        
+        const item = r.get(key) || Object.assign({}, o, {
+            eggs_daily_sold: 0,
+            eggs_daily_produced: 0,
+            eggs_daily_losses: 0,
+
+        });
+        
+        item.eggs_daily_sold+= o.eggs_sales;
+        item.eggs_daily_produced+= o.eggs_produced;
+        item.eggs_daily_losses+= o.eggs_losses;
+       
+      
+        return r.set(key, item);
+      }, new Map).values()];
+
+    //   console.log(eggs_stock_all_grouped)
+
+    let eggs_sold_acc=0
+    let eggs_produced_acc=0
+    let eggs_losses_acc=0
+    let eggs_stock_acc=0
+
+    let eggs_inventory_final_ = eggs_stock_all_grouped.map( (x,key) => ({
+        ...x,
+        eggs_inventory_id:parseInt([key+1]),
+        eggs_daily_stock: x.eggs_daily_produced -x.eggs_daily_sold-x.eggs_daily_losses,
+        eggs_total_sold: eggs_sold_acc+=x.eggs_daily_sold,
+        eggs_total_produced: eggs_produced_acc+=x.eggs_daily_produced,
+        eggs_total_losses: eggs_losses_acc+=x.eggs_daily_losses,
+      
+
+    }))
+
+
+    let eggs_inventory_final = eggs_inventory_final_.map( (x,key) => ({
+        ...x,
+        eggs_total_stock: x.eggs_total_produced-x. eggs_total_sold-x.eggs_total_losses,
+        variance: x.eggs_actual_stock-(x.eggs_total_produced-x. eggs_total_sold-x.eggs_total_losses)
+        
+       
+
+    }))
+
+    // console.log(eggs_inventory_final)
+
+
+
+
+
 
     const resetTable = () => {
         setStartDate('')
@@ -281,14 +400,16 @@ function EggsInventory(props){
     const handleShow = () => setShow(true);
 
     //Pagination
+    
     const [recordsPerPage, setRecordsPerPage]= useState(10)
     const [currentPage, setCurrentPage]= useState(1)
     const [active, setActive] = useState(1)
 
     const indexLastRecord = currentPage * recordsPerPage 
     const indexFirstRecord = indexLastRecord - recordsPerPage
-    const eggsinventory_paginated = eggsinventory.slice(indexFirstRecord,indexLastRecord )
-    const pages=Math.ceil(eggsinventory.length/recordsPerPage)
+    const eggsinventory_paginated = eggs_inventory_final.slice(indexFirstRecord,indexLastRecord )
+    const pages=Math.ceil(eggs_inventory_final.length/recordsPerPage)
+    // console.log(eggsinventory_paginated)
 
     const firstPage = () => {
         if (pages===0)
@@ -318,6 +439,7 @@ function EggsInventory(props){
              setCurrentPage(currentPage - 1)
              setActive(currentPage + 1)
     }
+     
 
     
     return(
@@ -341,10 +463,10 @@ function EggsInventory(props){
                                 <InputGroup.Text >Batch</InputGroup.Text>
                                     <Form.Select
                                         size="sm"
-                                        value={batch || ''}
-                                        onChange={evt => setBatch(evt.target.value)}
+                                        value={batch_filter || ''}
+                                        onChange={evt => setBatchFilterEggsStock(evt.target.value)||setBatchFilterEggsProd(evt.target.value)||setBatchFilterSales(evt.target.value)}
                                     >
-                                        <option value=''>{batch_default}</option>
+                                        <option value=''>{batch_filter}</option>
                                             {
                                                 batches.map(btch =>{
                                                     return (<option key={btch.id} value={btch.id}>{btch.batch}</option>)
@@ -405,15 +527,16 @@ function EggsInventory(props){
                         <th>Date
                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                 {sortTable===true?
+
                                     <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
                                 }
                             </OverlayTrigger>
                         </th>
                         <th>Batch</th>
-                        <th>Total Losses (Pcs)</th>
+                        {/* <th>Total Losses (Pcs)</th>
                         <th>Actual Stock (crates)</th>
-                        <th>Actual Stock (Pcs)</th>
+                        <th>Actual Stock (Pcs)</th> */}
                         <th>Net Production (Crates)</th>
                         <th>Sales (Crates)</th>
                         <th>Post Production Losses (Crates)</th>
@@ -429,17 +552,17 @@ function EggsInventory(props){
                     <tbody>
                     {eggsinventory_paginated.map(record =>{
                         return (
-                            <tr key={record.id_}>
+                            <tr key={record.eggs_inventory_id}>
                                 <td>{record.inventory_date_1}</td>
                                 <td>{record.batch_number}</td>
-                                <td>{record.total_losses}</td>
+                                {/* <td>{record.total_losses}</td>
                                 <td>{record.eggs_stock_actual_crates}</td>
-                                <td>{record.eggs_stock_actual_pieces}</td>
-                                <td>{parseFloat(record.net_production).toFixed(2)}</td>
-                                <td>{parseFloat(record.total_quantity_sold).toFixed(2)}</td>
-                                <td>{parseFloat(record.total_losses_crates).toFixed(2)}</td>
-                                <td>{parseFloat(record.egg_balance).toFixed(2)}</td>
-                                <td>{parseFloat(record.total_stock).toFixed(2)}</td>
+                                <td>{record.eggs_stock_actual_pieces}</td> */}
+                                <td>{parseFloat(record.eggs_daily_produced).toFixed(2)}</td>
+                                <td>{parseFloat(record.eggs_daily_sold).toFixed(2)}</td>
+                                <td>{parseFloat(record.eggs_losses).toFixed(2)}</td>
+                                <td>{parseFloat(record.eggs_total_stock).toFixed(2)}</td>
+                                <td>{parseFloat(record.eggs_actual_stock).toFixed(2)}</td>
                                 <td className={record.variance===0 ? "text-dark table-success":"text-danger table-danger"} >{parseFloat(record.variance).toFixed(2)}</td>
                                 <td>{record.staff_}</td>
 
@@ -483,7 +606,7 @@ function EggsInventory(props){
                     <Col sm={10} md={11} lg={11} style={{fontSize:10}}>
                     <Paginate 
                         recordsPerPage={recordsPerPage} 
-                        totalRecords={eggsinventory.length}
+                        totalRecords={eggs_inventory_final.length}
                         nextPage={nextPage}
                         prevPage={prevPage}
                         activePage={activePage}
@@ -492,6 +615,7 @@ function EggsInventory(props){
                         currentPage={currentPage}
                         firstPage={firstPage}
                         lastPage={lastPage}
+
                     />
                     </Col>
                 </Row>
