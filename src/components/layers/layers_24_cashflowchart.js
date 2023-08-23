@@ -63,7 +63,7 @@ function CashflowCharts(props) {
   //sales
   const sales_ = props.sales_ && props.sales_
   // let sales =  sales_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
-  let sales =  sales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+  let sales =  sales_.map( x => ({...x, crates_sold: x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity), sales_total: x.total_sales, expenses_total: 0, deposits_total: x.payment_mode===3? x.total_sales:0}))
   // console.log(sales)
 
   //grouped_sales per month
@@ -87,7 +87,9 @@ function CashflowCharts(props) {
   // console.log(grouped_sales);
 
   //expenses
-  const expenses = props.expenses_ && props.expenses_
+  const expenses_ = props.expenses_ && props.expenses_
+  const expenses = expenses_.map(x=>({...x, date: x.purchase_date, expenses_total:parseInt(x.quantity)*parseInt(x.unitprice) , deposits_total:0, total_sales: 0, sales_total:0}))
+  // console.log(expenses)
   // let expenses =  expenses_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
  
   //grouped expenses per month
@@ -100,7 +102,8 @@ function CashflowCharts(props) {
       month:o.purchase_date.split(('-'))[1]
     });
     
-    item.expenses_total+= parseInt(o.quantity)*parseInt(o.unitprice);
+    // item.expenses_total+= parseInt(o.quantity)*parseInt(o.unitprice);
+    item.expenses_total+= o.expenses_total;
   
     return r.set(key, item);
   }, new Map).values()];
@@ -109,8 +112,9 @@ function CashflowCharts(props) {
   // console.log(grouped_expenses);
 
   //deposits/revenue
-  const bankdeposits = props.bankdeposits_ && props.bankdeposits_
-  // console.log(bankdeposits_)
+  const bankdeposits_ = props.bankdeposits_ && props.bankdeposits_
+  const bankdeposits =  bankdeposits_.map(x=>({...x, date: x.deposit_date, expenses_total:0, total_sales: 0, sales_total:0, deposits_total:parseInt(x.deposit_amount)}))
+  // console.log(bankdeposits)
   // let bankdeposits=  bankdeposits_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
 
   //grouped deposits per month
@@ -123,7 +127,7 @@ function CashflowCharts(props) {
       month:o.deposit_date.split(('-'))[1]
     });
     
-    item.deposits_total+= parseInt(o.deposit_amount);
+    item.deposits_total+= o.deposits_total;
   
     return r.set(key, item);
   }, new Map).values()];
@@ -151,6 +155,8 @@ function CashflowCharts(props) {
   }, new Map).values()];
   
   const grouped_mpesa_bank_deposits = grouped_mpesa_bank_deposits_.map(b=>({...b}));
+  // console.log(mpesa_bank_sales)
+  // console.log(grouped_mpesa_bank_deposits)
 
   
   
@@ -166,9 +172,13 @@ function CashflowCharts(props) {
 
 
   const grouped_deposits_0 = grouped_deposits.concat(grouped_mpesa_bank_deposits)
+  // const grouped_deposits_1 =  grouped_deposits_0.map(x=>({...x, date: x.deposit_date}))
+  const grouped_deposits_2 =  grouped_deposits_0.map((x,key)=>({id:parseInt([key+1]), month: x.month, year: x.year, deposits_total: x.deposits_total}))
 
   const grouped_deposits_all_= [...grouped_deposits_0.reduce((r, o) => {
-    const key = o.month;
+    // const key = o.month;
+    // const key = [o.month, o.year];
+    const key = o.date.split(('-'))[0]+ '-' + o.date.split(('-'))[1];
     
     const item = r.get(key) || Object.assign({}, o, {
       deposits_total: 0,
@@ -180,6 +190,9 @@ function CashflowCharts(props) {
   }, new Map).values()];
   
   const grouped_deposits_all = grouped_deposits_all_.map(b=>({...b}));
+  // console.log(grouped_deposits_0)
+  // console.log(grouped_deposits_1)
+  // console.log(grouped_deposits_all)
 
 
    
@@ -188,12 +201,43 @@ function CashflowCharts(props) {
     deposit_check: grouped_deposits_all.find(b => b.month=== a.month & b.year=== a.year)
   }));
 
-  let net_cashflow_acc=0
+  let net_cashflow_acc_=0
   const grouped_cashflow_0 = grouped_cashflow_.map(b=>({...b, ...b.deposit_check}))
   const grouped_cashflow_1 = grouped_cashflow_0.map(b=>({...b, deposits_total: b.deposit_check===undefined? 0: b.deposits_total}))
-  const grouped_cashflow = grouped_cashflow_1.map((b,key)=>({...b, index_:parseInt([key+1]), costs_total: -(b.expenses_total), net_cashflow:net_cashflow_acc+=(b.sales_total-b.expenses_total)}))
+  const grouped_cashflow_all = grouped_cashflow_1.map((b,key)=>({...b, index_:parseInt([key+1]), costs_total: -(b.expenses_total), net_cashflow:net_cashflow_acc_+=(b.sales_total-b.expenses_total)}))
   // console.log(grouped_cashflow_1)
   // console.log(grouped_cashflow)
+
+
+  //Working cashflow
+  const sales_expenses_deposits = expenses.concat(sales, bankdeposits)
+  // console.log(expenses)
+  // console.log(sales)
+  // console.log(bankdeposits)
+  // console.log(sales_expenses_deposits)
+
+  const grouped_sales_expenses_deposits = [...sales_expenses_deposits .reduce((r, o) => {
+    // const key = o.month;
+    // const key = [o.month, o.year];
+    const key = o.date.split(('-'))[0]+ '-' + o.date.split(('-'))[1];
+    
+    const item = r.get(key) || Object.assign({}, o, {
+      sales_total: 0,
+      expenses_total:0,
+      deposits_total:0,
+      year:o.date.split(('-'))[0],
+      month:o.date.split(('-'))[1]
+    });
+    
+    item.sales_total+=o.sales_total
+    item.expenses_total+=o.expenses_total
+    item.deposits_total+= o.deposits_total;
+  
+    return r.set(key, item);
+  }, new Map).values()];
+
+  let net_cashflow_acc=0
+  const grouped_cashflow = grouped_sales_expenses_deposits.map((b, key)=>({...b, id_:parseInt([key+1]),costs_total: -(b.expenses_total), net_cashflow:net_cashflow_acc+=(b.sales_total-b.expenses_total)}));
 
 
   //grouped_sales per type
@@ -211,7 +255,7 @@ function CashflowCharts(props) {
     return r.set(key, item);
   }, new Map).values()];
   
-  // console.log(grouped_sales_type_);
+  // console.log(grouped_sales_type_);s
 
   const grouped_sales_type = grouped_sales_type_.map((b,key)=>({...b, index:parseInt([key+1])}));
   // console.log(grouped_sales_type);
@@ -294,8 +338,8 @@ function CashflowCharts(props) {
   // console.log(credit_expenses_paid)
   
 
-  
-  
+
+ 
   
   //Pie Chart colors
   const COLORS = ['#a3cfbb', '#9ec5fe','#f1aeb5'];
@@ -631,8 +675,8 @@ function CashflowCharts(props) {
             <tbody>
             {grouped_cashflow_paginated.map(a =>{
                 return (
-                    <tr key={a.id}>
-                      <td>{a.index_}</td>
+                    <tr key={a.id_}>
+                      <td>{a.id_}</td>
                       <td className="justify-content-center text-center">{a.batch_number}</td>
                       <td className="justify-content-center text-center">{a.expenses_total.toLocaleString()}</td>
                       <td className="justify-content-center text-center">{a.sales_total.toLocaleString()}</td>
@@ -740,7 +784,13 @@ function CashflowCharts(props) {
 
       </Row>
 
+
+
+
+
+
     </Container>
+
   
   )
 }
