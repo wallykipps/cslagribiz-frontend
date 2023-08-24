@@ -535,7 +535,7 @@ function CashflowCharts(props) {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="index_" label={{ value: 'Month', position: 'insideBottom', dy: 5, fontSize:12}} style={{fontSize:12}}/>
+              <XAxis dataKey="id_" label={{ value: 'Month', position: 'insideBottom', dy: 5, fontSize:12}} style={{fontSize:12}}/>
               <YAxis label={{ value: 'Amount (KES)',angle: -90, fontSize:12, dx: -0}} style={{fontSize:12}}/>
               <Tooltip wrapperStyle={{fontSize: "12px"}} />
               <Legend wrapperStyle={{fontSize: "12px"}}/>
