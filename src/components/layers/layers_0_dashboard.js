@@ -74,6 +74,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     let batchFilterVaccination = props.batchFilterVaccination
     let setBatchFilterVaccination = props.setBatchFilterVaccination
     let batch_filter = batches_1[batchFilterSales-1]
+    let batch_filter_=parseInt(batch_filter)
     // setBatchFilterSales(batch_default)
     // setBatchFilterExpenses(batch_default)
 
@@ -91,7 +92,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     //birds
     const birds_ = props.birds && props.birds
     // let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
-    let delivered_birds_ =  batches_.map( x => x.delivered_birds)
+    let delivered_birds_ =  batches_.filter(b=>parseInt(b.batch) ===batch_filter_).map( x => x.delivered_birds)
     let delivered_birds = parseInt(delivered_birds_)
     // console.log(delivered_birds)
 
