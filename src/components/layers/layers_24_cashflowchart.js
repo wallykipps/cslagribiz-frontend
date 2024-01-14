@@ -19,7 +19,7 @@ function CashflowCharts(props) {
   const batches_ = props.batches_ && props.batches_
   // const batches_0=batches_.map(y=>y.id)
   // const batch_last = batches_0[batches_0.length - 1]
-  const batch_last = props.batch_last
+  //const batch_last = props.batch_last
 
   const batches = batches_.map(a=>({batch:a.batch,birds:a.delivered_birds}))
 
@@ -27,6 +27,17 @@ function CashflowCharts(props) {
   for (var i = 0; i < 2; i++) {
     bacthes_latest.push(batches[i]);
   }
+
+  let batches_0_0 = batches_.filter(e=>e.status===true).map(w=>({...w}))
+  const batches_0=batches_0_0.map(y=>y.id)
+  const batch_last = batches_0[batches_0.length - 1]
+  const batches_1=batches.map(y=>y.batch)
+
+  let batchFilterSales = props.batchFilterSales
+  let setBatchFilterSales = props.setBatchFilterSales
+  let batchFilterDeposits=props.batchFilterDeposits
+  let setBatchFilterDeposits=props.setBatchFilterDeposits
+  let batch_filter = batches_1[batchFilterSales-1]
 
 
   const birds = props.birds_ && props.birds_
@@ -308,7 +319,8 @@ function CashflowCharts(props) {
       return accumulator + parseFloat(a.total_sales);
   }
 
-  let credit_sales_paid = creditsales.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
+  let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
+  let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
   function add_credit_sales(accumulator, a) {
       return accumulator + parseFloat(a.instalment_amount);
   }
@@ -331,11 +343,11 @@ function CashflowCharts(props) {
   // console.log(credit_expenses_due)
 
 
-  let credit_expenses_paid = creditexpenses.reduce(add_credit_expenses, 0); // with initial value to avoid when the array is empty
+  let credit_expenses_ =  creditexpenses.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
+  let credit_expenses_paid = credit_expenses_.reduce(add_credit_expenses, 0); // with initial value to avoid when the array is empty
   function add_credit_expenses(accumulator, a) {
       return accumulator + parseInt(a.instalment_amount);
   }
-  // console.log(credit_expenses_paid)
   
 
 

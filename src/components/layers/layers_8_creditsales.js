@@ -99,7 +99,8 @@ function CreditSales(props){
 
     //Filtering credit sales table
     // let credit_sales_filtered_1= credit_sales_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
-    let credit_sales_1 = credit_sales_unfiltered.filter(g => (customer===undefined||customer==='')? g : (g.customer_id ===parseInt(customer)) ).map( h => ({...h}))
+    let credit_sales_filtered_0 = credit_sales_unfiltered.filter(e=>(e.batch_id === parseInt(batchFilterSales))).map( f => ({...f}))
+    let credit_sales_1 = credit_sales_filtered_0.filter(g => (customer===undefined||customer==='')? g : (g.customer_id ===parseInt(customer)) ).map( h => ({...h}))
     let credit_sales = credit_sales_1.filter(g => (sale===undefined||sale==='')? g  : (g.sale_id ===parseInt(sale)) ).map( h => ({...h}))
 
 

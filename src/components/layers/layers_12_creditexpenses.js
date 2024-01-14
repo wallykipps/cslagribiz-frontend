@@ -91,7 +91,8 @@ function CreditExpenses(props){
 
     //Filtering credit sales table
     // let credit_expenses_filtered_1= credit_expenses_unfiltered.filter(e => (batch===undefined||batch==='')? (e.batch_id ===batch_last) : (e.batch_id ===parseInt(batch)) ).map( f => ({...f}))
-    let credit_expenses_1 = credit_expenses_unfiltered.filter(g => (vendor===undefined||vendor==='')? g : (g.vendor_id ===parseInt(vendor)) ).map( h => ({...h}))
+    let credit_expenses_0 = credit_expenses_unfiltered.filter(e=>(e.batch_id === parseInt(batchFilterExpenses))).map( f => ({...f}))
+    let credit_expenses_1 = credit_expenses_0.filter(g => (vendor===undefined||vendor==='')? g : (g.vendor_id ===parseInt(vendor)) ).map( h => ({...h}))
     let credit_expenses = credit_expenses_1.filter(g => (expense===undefined||expense==='')? g  : (g.cost_id ===parseInt(expense)) ).map( h => ({...h}))
 
 

@@ -243,11 +243,22 @@ import CashflowCharts from './layers_24_cashflowchart'
     //credit sales
     const creditsales = props.creditsales && props.creditsales
 
-
+    //credit  sales receipts
+    let credit_sales_installments=  creditsales.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
+    let credit_sales_receipts= credit_sales_installments.reduce(add_credit_receipts, 0); // with initial value to avoid when the array is empty
+    function add_credit_receipts(accumulator, a) {
+        return accumulator + parseFloat(a.instalment_amount);
+    }
+    
     //credit expenses
     const creditexpenses = props.creditexpenses && props.creditexpenses
 
-
+    //credit  expenses receipts
+    let credit_expenses_installments=  creditexpenses.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
+    let credit_expenses_settled= credit_expenses_installments.reduce(add_credit_expenses, 0); // with initial value to avoid when the array is empty
+    function add_credit_expenses(accumulator, a) {
+        return accumulator + parseFloat(a.instalment_amount);
+    }
 
    
 
@@ -542,11 +553,11 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
                         <small>Due (KES):</small>
                         <Card.Title>
-                            {(sales_total-deposits_total-mpesa_bank_deposits-(cash_sales-cash_deposits)).toLocaleString(undefined, {minimumFractionDigits: 2})}
+                            {(sales_total-deposits_total-mpesa_bank_deposits-(cash_sales-cash_deposits)-credit_sales_receipts).toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </Card.Title>
 
                         <Card.Text>
-                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
+                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)+credit_sales_receipts-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
                         </Card.Text>
                     </Row>
                     </Card.Body>
@@ -702,6 +713,9 @@ import CashflowCharts from './layers_24_cashflowchart'
                     bankdeposits_={bankdeposits_}
                     creditsales={creditsales}
                     creditexpenses={creditexpenses}
+
+                    batchFilterSales={batchFilterSales}
+                    setBatchFilterSales={setBatchFilterSales}
         
                 />
 
