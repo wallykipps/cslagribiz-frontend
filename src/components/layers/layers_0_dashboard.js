@@ -241,7 +241,7 @@ import CashflowCharts from './layers_24_cashflowchart'
   
 
     //credit sales
-    // const creditsales = props.creditsales && props.creditsales
+    const creditsales = props.creditsales && props.creditsales
 
     //credit  sales receipts
     let credit_sales_installments=  creditsales.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
@@ -259,8 +259,6 @@ import CashflowCharts from './layers_24_cashflowchart'
     function add_credit_expenses(accumulator, a) {
         return accumulator + parseFloat(a.instalment_amount);
     }
-
-    let creditsales =  creditsales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
 
 
     let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
