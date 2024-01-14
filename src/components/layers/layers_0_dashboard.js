@@ -261,20 +261,20 @@ import CashflowCharts from './layers_24_cashflowchart'
     }
 
 
-    // total credit sales
-    let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
+    // // total credit sales
+    // let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
   
-    let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
-    function add_credit_sales_due(accumulator, a) {
-        return accumulator + parseFloat(a.total_sales);
-    }
+    // let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
+    // function add_credit_sales_due(accumulator, a) {
+    //     return accumulator + parseFloat(a.total_sales);
+    // }
   
-    // settled credit sales
-    let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
-    let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
-    function add_credit_sales(accumulator, a) {
-        return accumulator + parseFloat(a.instalment_amount);
-    }
+    // // settled credit sales
+    // let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
+    // let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
+    // function add_credit_sales(accumulator, a) {
+    //     return accumulator + parseFloat(a.instalment_amount);
+    // }
   
 
   return (
@@ -568,7 +568,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
                         <small>Due (KES):</small>
                         <Card.Title>
-                            {(credit_sales_due-credit_sales_paid).toLocaleString(undefined, {minimumFractionDigits: 2})}
+                            {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)).toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </Card.Title>
 
                         <Card.Text>
