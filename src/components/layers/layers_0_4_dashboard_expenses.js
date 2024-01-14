@@ -396,7 +396,11 @@ function LayesExpensesDashboard(props) {
 
               <Tab eventKey="layers-credit-expenses" title="Credit Expenses">
                 {/* Credit Expenses */}
-                {loadingLayersCreditExpenses?(
+                {loadingLayersExpenses ?(
+                    <div className="loader-container">
+                    <div className="spinner"></div>
+                    </div>
+                      ):loadingLayersCreditExpenses?(
                     <div className="loader-container">
                     <div className="spinner"></div>
                     </div>

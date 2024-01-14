@@ -566,7 +566,11 @@ function LayersSalesDashboard(props) {
               <Tab eventKey="layers-credit-sales" title="Credit Sales">
                 {/* Credit Sales */}
 
-                {loadingLayersCreditSales ? (
+                {loadingLayersSales ? (
+                  <div className="loader-container">
+                  <div className="spinner"></div>
+                  </div>
+                  ):loadingLayersCreditSales ? (
                   <div className="loader-container">
                   <div className="spinner"></div>
                   </div>
