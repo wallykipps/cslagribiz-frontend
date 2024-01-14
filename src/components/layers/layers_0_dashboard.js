@@ -241,7 +241,7 @@ import CashflowCharts from './layers_24_cashflowchart'
   
 
     //credit sales
-    const creditsales = props.creditsales && props.creditsales
+    // const creditsales = props.creditsales && props.creditsales
 
     //credit  sales receipts
     let credit_sales_installments=  creditsales.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
@@ -251,7 +251,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     }
     
     //credit expenses
-    const creditexpenses = props.creditexpenses && props.creditexpenses
+    // const creditexpenses = props.creditexpenses && props.creditexpenses
 
     //credit  expenses receipts
     let credit_expenses_installments=  creditexpenses.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
@@ -260,7 +260,23 @@ import CashflowCharts from './layers_24_cashflowchart'
         return accumulator + parseFloat(a.instalment_amount);
     }
 
-   
+    let creditsales =  creditsales_.map( x => ({...x, "crates_sold": x.unit != "Crates"? parseInt(x.quantity)/30:parseInt(x.quantity)}))
+
+
+    let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
+  
+    let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
+    function add_credit_sales_due(accumulator, a) {
+        return accumulator + parseFloat(a.total_sales);
+    }
+  
+    let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
+    let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
+    function add_credit_sales(accumulator, a) {
+        return accumulator + parseFloat(a.instalment_amount);
+    }
+  
+    
 
   return (
     <div>
@@ -553,11 +569,11 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
                         <small>Due (KES):</small>
                         <Card.Title>
-                            {(sales_total-deposits_total-mpesa_bank_deposits-(cash_sales-cash_deposits)-credit_sales_receipts).toLocaleString(undefined, {minimumFractionDigits: 2})}
+                            {(credit_sales_due-credit_sales_paid).toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </Card.Title>
 
                         <Card.Text>
-                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)+credit_sales_receipts-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
+                            <small className={deposits_total<expenses_total? "text-danger":"text-muted"}> Cashflow (Net): {<br/>}  KES {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)-expenses_total).toLocaleString(undefined, {minimumFractionDigits: 2})} </small>
                         </Card.Text>
                     </Row>
                     </Card.Body>
