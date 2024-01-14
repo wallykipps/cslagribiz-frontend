@@ -261,6 +261,7 @@ import CashflowCharts from './layers_24_cashflowchart'
     }
 
 
+    // total credit sales
     let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
   
     let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
@@ -268,13 +269,13 @@ import CashflowCharts from './layers_24_cashflowchart'
         return accumulator + parseFloat(a.total_sales);
     }
   
+    // settled credit sales
     let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
     let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
     function add_credit_sales(accumulator, a) {
         return accumulator + parseFloat(a.instalment_amount);
     }
   
-    
 
   return (
     <div>
