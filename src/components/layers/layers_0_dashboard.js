@@ -74,12 +74,15 @@ import CashflowCharts from './layers_24_cashflowchart'
     let batchFilterVaccination = props.batchFilterVaccination
     let setBatchFilterVaccination = props.setBatchFilterVaccination
     let batch_filter = batches_1[batchFilterSales-1]
-    let batch_filter_=parseInt(batch_filter)
     // setBatchFilterSales(batch_default)
     // setBatchFilterExpenses(batch_default)
 
+    let batch_filter_=parseInt(batch_filter)
+    
+
     // console.log(batchFilterSales)
-    // console.log(batch_filter)
+    // console.log(batch_filter_)
+
 
     
     
@@ -92,9 +95,11 @@ import CashflowCharts from './layers_24_cashflowchart'
     //birds
     const birds_ = props.birds && props.birds
     // let delivered_birds_ =  batches_.filter(b => (batch===undefined||batch==='')? (b.id ===batch_last ) : (b.id ===parseInt(batch)) ).map( x => x.delivered_birds)
+    // let delivered_birds_ =  batches_.filter(b => ((parseInt(b.batch) === parseInt(batch_filter)) ).map( x => x.delivered_birds))
     let delivered_birds_ =  batches_.filter(b=>parseInt(b.batch) ===batch_filter_).map( x => x.delivered_birds)
     let delivered_birds = parseInt(delivered_birds_)
     // console.log(delivered_birds)
+    // console.log(batches_)
 
     // let birds =  birds_.filter(b => (batch===undefined||batch==='')? (b.batch ===batch_last ) : (b.batch ===parseInt(batch)) ).map( x => ({...x}))
     let birds =  birds_.map( x => ({...x}))
@@ -242,6 +247,7 @@ import CashflowCharts from './layers_24_cashflowchart'
 
     //credit sales
     const creditsales = props.creditsales && props.creditsales
+    // console.log(creditsales)
 
     //credit  sales receipts
     let credit_sales_installments=  creditsales.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
@@ -249,9 +255,13 @@ import CashflowCharts from './layers_24_cashflowchart'
     function add_credit_receipts(accumulator, a) {
         return accumulator + parseFloat(a.instalment_amount);
     }
-    
+
+    // console.log(credit_sales_receipts)
+
+
     //credit expenses
-    // const creditexpenses = props.creditexpenses && props.creditexpenses
+    const creditexpenses = props.creditexpenses && props.creditexpenses
+    // console.log(creditexpenses)
 
     //credit  expenses receipts
     let credit_expenses_installments=  creditexpenses.filter(b => (b.payment_mode!=1&&b.payment_mode!=2) ).map( x => ({...x}))
@@ -260,22 +270,29 @@ import CashflowCharts from './layers_24_cashflowchart'
         return accumulator + parseFloat(a.instalment_amount);
     }
 
+    // console.log(credit_expenses_settled)
 
-    // // total credit sales
-    // let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
+
+
+    let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
+    console.log(credit_sales)
   
-    // let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
-    // function add_credit_sales_due(accumulator, a) {
-    //     return accumulator + parseFloat(a.total_sales);
-    // }
+    let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
+    function add_credit_sales_due(accumulator, a) {
+        return accumulator + parseFloat(a.total_sales);
+    }
   
-    // // settled credit sales
-    // let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
-    // let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
-    // function add_credit_sales(accumulator, a) {
-    //     return accumulator + parseFloat(a.instalment_amount);
-    // }
-  
+    let credit_sales_ =  creditsales.filter(b => (b.batch_id ===parseInt(batchFilterSales)) ).map( x => ({...x}))
+    let credit_sales_paid = credit_sales_.reduce(add_credit_sales, 0); // with initial value to avoid when the array is empty
+    function add_credit_sales(accumulator, a) {
+        return accumulator + parseFloat(a.instalment_amount);
+    }
+
+    console.log(credit_sales_)
+    console.log(credit_sales_paid)
+
+
+   
 
   return (
     <div>
@@ -568,7 +585,7 @@ import CashflowCharts from './layers_24_cashflowchart'
                         </Card.Title>
                         <small>Due (KES):</small>
                         <Card.Title>
-                            {(deposits_total+mpesa_bank_deposits+(cash_sales-cash_deposits)).toLocaleString(undefined, {minimumFractionDigits: 2})}
+                            {(credit_sales_due-credit_sales_paid).toLocaleString(undefined, {minimumFractionDigits: 2})}
                         </Card.Title>
 
                         <Card.Text>
