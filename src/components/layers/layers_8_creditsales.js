@@ -124,7 +124,7 @@ function CreditSales(props){
     let credit_sales_cumsum = credit_sales.map( x => ({...x,"instalment_total": credit_sales_acc+=parseFloat(x.instalment_amount)}))
     let credit_sales_cumsum_0 = credit_sales_cumsum.map( y => ({...y,"balance": credit_sales_total - y.instalment_total}))
     // let credit_sales_cumsum_1 = credit_sales_cumsum_0.sort((a, b) => sortTable===true? new Date(b.instalment_date) - new Date(a.instalment_date):new Date(a.instalment_date) - new Date(b.instalment_date))
-    let credit_sales_cumsum_1 = credit_sales_cumsum_0.sort((a, b) => new Date(b.instalment_date) - new Date(a.instalment_date))
+    let credit_sales_cumsum_1 = credit_sales_cumsum_0.sort((a, b) => new Date(a.instalment_date) - new Date(b.instalment_date))
     
     const credit_balance =  credit_sales_cumsum_1.slice(-1).map(x => x.balance)
     // console.log(credit_balance[0])
@@ -394,7 +394,7 @@ function CreditSales(props){
                                 
                                 } */}
 
-                                <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />
                             </OverlayTrigger>
                         </th>
                         <th>Instalment Payment Mode</th>

@@ -116,7 +116,7 @@ function CreditExpenses(props){
     let credit_expenses_cumsum = credit_expenses.map( x => ({...x,"instalment_total": credit_expenses_acc+=parseInt(x.instalment_amount)}))
     let credit_expenses_cumsum_ = credit_expenses_cumsum.map( y => ({...y,"balance": credit_expenses_total - y.instalment_total}))
     // let credit_expenses_cumsum_1 = credit_expenses_cumsum_.sort((a, b) => sortTable===true? new Date(b.instalment_date) - new Date(a.instalment_date):new Date(a.instalment_date) - new Date(b.instalment_date))
-    let credit_expenses_cumsum_1 = credit_expenses_cumsum_.sort((a, b) => new Date(b.instalment_date) - new Date(a.instalment_date))
+    let credit_expenses_cumsum_1 = credit_expenses_cumsum_.sort((a, b) => new Date(a.instalment_date) - new Date(b.instalment_date))
     
     const credit_balance =  credit_expenses_cumsum_1.slice(-1).map(x => x.balance)
     // console.log(credit_balance[0])
@@ -385,7 +385,7 @@ function CreditExpenses(props){
                                     <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
 
                                 } */}
-                                <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />
                             </OverlayTrigger>
                         </th>
                         <th>Instalment Payment Mode</th>
