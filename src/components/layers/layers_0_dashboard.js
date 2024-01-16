@@ -275,7 +275,7 @@ import CashflowCharts from './layers_24_cashflowchart'
 
 
     let credit_sales =  sales.filter(b => (b.payment_mode ===2) ).map( x => ({...x}))
-    console.log(credit_sales)
+    // console.log(credit_sales)
   
     let credit_sales_due = credit_sales.reduce(add_credit_sales_due, 0); // with initial value to avoid when the array is empty
     function add_credit_sales_due(accumulator, a) {
@@ -288,8 +288,8 @@ import CashflowCharts from './layers_24_cashflowchart'
         return accumulator + parseFloat(a.instalment_amount);
     }
 
-    console.log(credit_sales_)
-    console.log(credit_sales_paid)
+    //console.log(credit_sales_)
+    //console.log(credit_sales_paid)
 
 
    

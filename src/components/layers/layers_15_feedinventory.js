@@ -448,8 +448,8 @@ function FeedInventory(props){
                                         <th>Stock Date
                                             <OverlayTrigger overlay={<Tooltip variant="success">Sort</Tooltip>}>
                                                 {sortTable===true?
-                                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />: 
-                                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />
+                                                    <MUIcons.ArrowDropDownTwoTone fontSize="medium" onClick={sortByDate} />: 
+                                                    <MUIcons.ArrowDropUpTwoTone fontSize="medium" onClick={sortByDate} />
                                                 }
                                             </OverlayTrigger>
                                         </th>
